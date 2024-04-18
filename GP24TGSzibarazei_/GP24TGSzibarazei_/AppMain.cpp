@@ -1,6 +1,8 @@
 #include"DxLib.h"
 #include"Utility/InputControl.h"
 
+#define D_SCREEN_WIDTH (1280)
+#define D_SCREEN_HEIGHT (720)
 
 //ここからプログラムを開始する
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
@@ -8,6 +10,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 {
 	//ウィンドウモードで起動
 	ChangeWindowMode(TRUE);
+
+	//画面サイズの設定
+	SetGraphMode(D_SCREEN_WIDTH, D_SCREEN_HEIGHT, 32);
 
 	//DXライブラリの初期化
 	if (DxLib_Init() == -1)
