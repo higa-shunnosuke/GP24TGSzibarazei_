@@ -26,6 +26,19 @@ Vector2D& Vector2D::operator=(const Vector2D& location)
 	return *this;
 }
 
+//比較:演算子オーバーロード
+bool Vector2D::operator <= (const float scale) const
+{
+	bool result = false;
+
+	if (this->x <= scale || this->y <= scale)
+	{
+		result = true;
+	}
+
+	return result;
+}
+
 //加算:演算子オーバーロード
 const Vector2D Vector2D::operator+(const Vector2D& location) const
 {

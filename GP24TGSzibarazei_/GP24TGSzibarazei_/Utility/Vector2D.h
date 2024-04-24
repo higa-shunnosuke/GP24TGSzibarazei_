@@ -18,7 +18,10 @@ public:
 
 public:
 	//代入:演算子オーバーロード
-	Vector2D& operator=(const Vector2D& location);
+	Vector2D& operator = (const Vector2D& location);
+	
+	//比較:演算子オーバーロード
+	bool operator <= (const float scale) const;
 
 	//加算:演算子オーバーロード
 	const Vector2D operator + (const Vector2D& location) const;

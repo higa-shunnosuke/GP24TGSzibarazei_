@@ -23,12 +23,13 @@ public:
 
 	//当たり判定通知処理
 	virtual void OnHitCollision(GameObject* hit_object);
-
 	//位置情報取得処理
-	Vector2D GetLocation() const;
-
+	virtual Vector2D GetLocation() const;
+	//大きさ取得処理
+	virtual Vector2D Getscale() const;
 	//位置情報変更処理
-	void SetLocation(const Vector2D& location);
+	virtual void SetLocation(const Vector2D& location);
+
 
 };
 

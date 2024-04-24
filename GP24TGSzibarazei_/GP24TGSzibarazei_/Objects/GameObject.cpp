@@ -7,39 +7,27 @@ GameObject::GameObject() :
 	radian(0.0),
 	image(0),
 	sound(0)
-{
-
-}
+{}
 
 //デストラクタ
 GameObject::~GameObject()
-{
-
-}
+{}
 
 //初期化処理
 void GameObject::Initialize()
-{
-
-}
+{}
 
 //更新所理
 void GameObject::Update()
-{
-
-}
+{}
 
 //描画処理
 void GameObject::Draw() const
-{
-
-}
+{}
 
 //終了時処理
 void GameObject::Finalize()
-{
-
-}
+{}
 
 //当たり判定通知処理
 void GameObject::OnHitCollision(GameObject* hit_object)
@@ -51,6 +39,12 @@ void GameObject::OnHitCollision(GameObject* hit_object)
 Vector2D GameObject::GetLocation() const
 {
 	return this->location;
+}
+
+//大きさ取得処理
+Vector2D GameObject::Getscale() const
+{
+	return this->scale;
 }
 
 //位置情報設定処理

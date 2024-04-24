@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 #include "../Objects/Player/Player.h"
+#include "../Objects/Stage/Stage.h"
 
 //コンストラクタ
 Scene::Scene() :objects()
@@ -17,6 +18,7 @@ Scene::~Scene()
 void Scene::Initialize()
 {
 	//プレイヤーを生成する
+	CreateObject<Stage>(Vector2D(640.0f, 360.0f));
 	CreateObject<Player>(Vector2D(640.0f, 360.0f));
 }
 

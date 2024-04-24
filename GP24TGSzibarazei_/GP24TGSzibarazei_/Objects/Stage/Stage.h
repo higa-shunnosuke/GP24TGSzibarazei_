@@ -2,7 +2,7 @@
 
 #include"../GameObject.h"
 
-class Player :public GameObject
+class Stage :public GameObject
 {
 private:
 	int animation[2];			//アニメーション画像
@@ -10,8 +10,8 @@ private:
 	int filp_flag;				//反転フラグ
 
 public:
-	Player();
-	~Player();
+	Stage();
+	~Stage();
 
 	virtual void Initialize() override;	//初期化処理
 	virtual void Update() override;		//更新処理
@@ -31,7 +31,7 @@ private:
 	//移動処理
 	void Movement();
 	//アニメーション制御
-	void AnimeControl();
+	//void AnimeControl();
 
 };
 

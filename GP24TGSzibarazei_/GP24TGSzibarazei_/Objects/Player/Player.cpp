@@ -17,19 +17,20 @@ Player::~Player()
 void Player::Initialize()
 {
 	//画像の読み込み
-	animation[0] = LoadGraph("Resource/Images/player.png");
+	animation[0] = LoadGraph("resource/images/tri-pilot1.png");
+	animation[1] = LoadGraph("resource/images/tri-pilot2.png");
 
 	//エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
 	{
-		throw ("プレイヤーの画像がありません\n");
+		throw ("トリパイロットの画像がありません\n");
 	}
 
 	//向きの設定
 	radian = 0.0;
 
 	//大きさの設定
-	scale = 64.0;
+	scale = 50.0;
 
 	//初期画像の設定
 	image = animation[0];
@@ -40,28 +41,28 @@ void Player::Update()
 {
 	//移動処理
 	Movement();
-	////アニメーション制御
-	//AnimeControl();
+	//アニメーション制御
+	AnimeControl();
 }
 
 //描画処理
 void Player::Draw() const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 0.2, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, location.y, 0.4, radian, image, TRUE, filp_flag);
 
 	//デバック用
-//#if _DEBUG
-////当たり判定の可視化
-//	Vector2D box_collision_upper_left = location - (Vector2D(1.0f) *
-//		(float)scale / 2.0f);
-//	Vector2D box_collision_upper_right = location + (Vector2D(1.0f) *
-//		(float)scale / 2.0f);
-//
-//	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
-//		box_collision_upper_right.x, box_collision_upper_right.y,
-//		GetColor(255, 0, 0), FALSE);
-//#endif
+#if _DEBUG
+//当たり判定の可視化
+	Vector2D box_collision_upper_left = location - (Vector2D(1.0f) *
+		(float)scale / 2.0f);
+	Vector2D box_collision_upper_right = location + (Vector2D(1.0f) *
+		(float)scale / 2.0f);
+
+	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
+		box_collision_upper_right.x, box_collision_upper_right.y,
+		GetColor(255, 0, 0), FALSE);
+#endif
 }
 
 //終了時処理
@@ -69,12 +70,31 @@ void Player::Finalize()
 {
 	//使用した画像を開放する
 	DeleteGraph(animation[0]);
+	DeleteGraph(animation[1]);
 }
 
 //当たり判定通知処理
 void Player::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時の処理
+}
+
+//位置情報取得処理
+Vector2D Player::GetLocation() const
+{
+	return this->location;
+}
+
+//大きさ取得処理
+Vector2D Player::Getscale() const
+{
+	return this->scale;
+}
+
+//位置情報設定処理
+void Player::SetLocation(const Vector2D& location)
+{
+	this->location = location;
 }
 
 //移動処理
@@ -84,35 +104,33 @@ void Player::Movement()
 	Vector2D velocity = 0.0f;
 
 	//左右移動
-	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
+	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
-		velocity.x += -1.0f;
+		//velocity.x += -5.0f;
 		filp_flag = TRUE;
 	}
-	else if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
+	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
-		velocity.x += 1.0f;
+		//velocity.x += 5.0f;
 		filp_flag = FALSE;
 	}
 	else
 	{
 		velocity.x += 0.0f;
 	}
-	
+
 	//上下移動
-	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
+	if (InputControl::GetKey(KEY_INPUT_UP))
 	{
-		velocity.y += -1.0f;
-		filp_flag = TRUE;
+		//velocity.y += -5.0f;
 	}
-	else if (InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
+	else if (InputControl::GetKey(KEY_INPUT_DOWN))
 	{
-		velocity.y += 1.0f;
-		filp_flag = FALSE;
+		//velocity.y += 5.0f;
 	}
 	else
 	{
-		velocity.x += 0.0f;
+		velocity.y += 0.0f;
 	}
 
 	//現在の位置座標に速さを加算する

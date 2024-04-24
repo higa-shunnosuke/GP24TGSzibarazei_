@@ -1,7 +1,6 @@
 #include"DxLib.h"
 #include"Utility/InputControl.h"
 #include"Scenes/Scene.h"
-#include"Stage/Stage.h"
 
 #define D_SCREEN_WIDTH (1280)
 #define D_SCREEN_HEIGHT (720)
@@ -23,7 +22,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	}
 
 	//ローカル変数定義
-	Stage* stage = new Stage();
 	Scene* scene = new Scene();		//シーン情報
 
 
@@ -31,24 +29,22 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	//初期化
-	stage->Initialize();
 	scene->Initialize();
 
 	//ゲームメインループ（ESCキーorBACKボタンを押すと終了）
-	while (ProcessMessage() != -1 && InputControl::GetExitButton() != TRUE)
+	while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
 	{
+	
 		//入力機能：更新処理
 		InputControl::Update();
 
 		//更新処理
-		stage->Update();
 		scene->Update();
 
 		//画面初期化処理
 		ClearDrawScreen();
 
 		//描画処理
-		stage->Draw();
 		scene->Draw();
 
 		//裏画面の内容を表画面に反映する
@@ -56,12 +52,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	}
 
 	//情報を削除する
-	if (stage != nullptr)
-	{
-		stage->Finalize();
-		delete stage;
-		stage = nullptr;
-	}
 	if (scene != nullptr)
 	{
 		scene->Finalize();
