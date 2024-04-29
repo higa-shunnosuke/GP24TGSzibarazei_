@@ -55,9 +55,9 @@ void Player::Draw() const
 #if _DEBUG
 //“–‚½‚è”»’è‚Ì‰ÂŽ‹‰»
 	Vector2D box_collision_upper_left = location - (Vector2D(1.0f) *
-		(float)scale / 2.0f);
+		(float)scale.x / 2.0f);
 	Vector2D box_collision_upper_right = location + (Vector2D(1.0f) *
-		(float)scale / 2.0f);
+		(float)scale.y / 2.0f);
 
 	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
 		box_collision_upper_right.x, box_collision_upper_right.y,

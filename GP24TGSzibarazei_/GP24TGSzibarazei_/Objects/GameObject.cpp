@@ -29,6 +29,40 @@ void GameObject::Draw() const
 void GameObject::Finalize()
 {}
 
+
+bool GameObject::HitCheck(const GameObject* gameobject) const
+{
+	bool ret = false; //•Ô‚è’l
+
+	//Ž©•ª‚Ì“–‚½‚è”»’è‚Ì”ÍˆÍ
+	float my_x[2];
+	float my_y[2];
+
+	//‘ŠŽè‚Ì“–‚½‚è”»’è‚Ì”ÍˆÍ
+	float sub_x[2];
+	float sub_y[2];
+
+	//Ž©•ª‚Ì“–‚½‚è”»’è‚Ì”ÍˆÍ‚ÌŒvŽZ
+	my_x[0] = location.x - (scale / 2);
+	my_y[0] = location.y - (scale / 2);
+	my_x[1] = my_x[0] + scale;
+	my_y[1] = my_y[0] + scale;
+
+	//‘ŠŽè‚Ì“–‚½‚è”»’è‚Ì”ÍˆÍ‚ÌŒvŽZ
+	sub_x[0] = gameobject->GetLocation().x - (gameobject->Getscale().x / 2);
+	sub_y[0] = gameobject->GetLocation().y - (gameobject->Getscale().y / 2);
+	sub_x[1] = sub_x[0] + gameobject->Getscale().x;
+	sub_y[1] = sub_y[0] + gameobject->Getscale().y;
+
+	if ((my_x[0] <= sub_x[1]) && (sub_x[0] <= my_x[1])
+		&& (my_y[0] <= sub_y[1]) && (sub_y[0] <= my_y[1])) //“–‚½‚è”»’è
+	{
+		ret = true;
+	}
+
+	return ret;
+}
+
 //“–‚½‚è”»’è’Ê’mˆ—
 void GameObject::OnHitCollision(GameObject* hit_object)
 {
