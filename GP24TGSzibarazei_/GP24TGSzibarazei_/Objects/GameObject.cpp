@@ -68,19 +68,19 @@ void GameObject::OnHitCollision(GameObject* hit_object)
 }
 
 //ˆÊ’uî•ñŽæ“¾ˆ—
-Location GameObject::GetLocation() const
+Vector2D GameObject::GetLocation() const
 {
 	return this->location;
 }
 
 //‘å‚«‚³Žæ“¾ˆ—
-Scale GameObject::Getscale() const
+Vector2D GameObject::Getscale() const
 {
 	return this->scale;
 }
 
 //ˆÊ’uî•ñÝ’èˆ—
-void GameObject::SetLocation(const Location& location)
+void GameObject::SetLocation(const Vector2D& location)
 {
 	this->location = location;
 }
