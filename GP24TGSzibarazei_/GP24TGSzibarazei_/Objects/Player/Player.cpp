@@ -30,7 +30,7 @@ void Player::Initialize()
 	radian = 0.0;
 
 	//‘å‚«‚³‚Ìİ’è
-	scale = 50.0;
+	scale = 50.0f;
 
 	//‰Šú‰æ‘œ‚Ìİ’è
 	image = animation[0];

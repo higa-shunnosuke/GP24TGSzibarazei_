@@ -62,9 +62,9 @@ void Stage::Draw() const
 #if _DEBUG
 //ìñÇΩÇËîªíËÇÃâ¬éãâª
 	Vector2D box_collision_upper_left = location - (Vector2D(1.0f) *
-		(float)scale / 2.0f);
+		(float)scale.x / 2.0f);
 	Vector2D box_collision_upper_right = location + (Vector2D(1.0f) *
-		(float)scale / 2.0f);
+		(float)scale.y / 2.0f);
 
 	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
 		box_collision_upper_right.x, box_collision_upper_right.y,
@@ -139,25 +139,25 @@ void Stage::Movement()
 	}
 
 	//ï«ÇÃèàóù
-	if (location.x < (scale / 2))
+	if (location.x < (scale.x / 2))
 	{	//ç∂ÇÃï«
 		velocity.x += 0.0f;
-		location.x = scale / 2.0f;
+		location.x = scale.x / 2.0f;
 	}
-	else if (location.x > (1280.0f - scale / 2.0f))
+	else if (location.x > (1280.0f - scale.x / 2.0f))
 	{	//âEÇÃï«
 		velocity.x = 0.0f;
-		location.x = 1280.0f - scale / 2.0f;
+		location.x = 1280.0f - scale.x / 2.0f;
 	}
-	if (location.y < (scale / 2.0f))
+	if (location.y < (scale.y / 2.0f))
 	{	//è„ÇÃï«
 		velocity.y = 0.0f;
-		location.y = scale / 2.0f;
+		location.y = scale.y / 2.0f;
 	}
-	else if (location.y > (720.0f - scale / 2.0f))
+	else if (location.y > (720.0f - scale.y / 2.0f))
 	{	//â∫ÇÃï«
 		velocity.y = 0.0f;
-		location.y = 720.0f - scale / 2.0f;
+		location.y = 720.0f - scale.y / 2.0f;
 	}
 
 	//åªç›ÇÃà íuç¿ïWÇ…ë¨Ç≥Çâ¡éZÇ∑ÇÈ
