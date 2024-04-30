@@ -21,6 +21,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		return -1;	//エラー発生
 	}
 
+	// 背景色を透過させる
+	SetTransColor(255, 255, 255);
+
 	//ローカル変数定義
 	Scene* scene = new Scene();		//シーン情報
 

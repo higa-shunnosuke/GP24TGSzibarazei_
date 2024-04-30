@@ -3,7 +3,7 @@
 #include"DxLib.h"
 
 //コンストラクタ
-Player::Player() :animation_count(0), filp_flag(FALSE)
+Player::Player() :animation_count(0), flip_flag(FALSE)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
@@ -17,8 +17,8 @@ Player::~Player()
 void Player::Initialize()
 {
 	//画像の読み込み
-	animation[0] = LoadGraph("resource/images/tri-pilot1.png");
-	animation[1] = LoadGraph("resource/images/tri-pilot2.png");
+	animation[0] = LoadGraph("Resource/images/Player/samurai/samurai_front_1.png");
+	animation[1] = LoadGraph("Resource/images/Player/samurai/samurai_front_2.png");
 
 	//エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
@@ -49,7 +49,7 @@ void Player::Update()
 void Player::Draw() const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 0.4, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, location.y, 0.025, radian, image, TRUE, flip_flag);
 
 	//デバック用
 #if _DEBUG
@@ -107,12 +107,12 @@ void Player::Movement()
 	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
 		//velocity.x += -5.0f;
-		filp_flag = TRUE;
+		flip_flag = TRUE;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
 		//velocity.x += 5.0f;
-		filp_flag = FALSE;
+		flip_flag = FALSE;
 	}
 	else
 	{
