@@ -137,7 +137,6 @@
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Objects\Stage\Stage.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
-    <ClCompile Include="Utility\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\GameObject.h" />
@@ -145,7 +144,6 @@
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Objects\Stage\Stage.h" />
     <ClInclude Include="Utility\InputControl.h" />
-    <ClInclude Include="Utility\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

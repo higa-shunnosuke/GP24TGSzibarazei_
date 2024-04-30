@@ -2,8 +2,6 @@
 
 //コンストラクタ
 GameObject::GameObject() :
-	location(0.0f),
-	scale(0.0),
 	radian(0.0),
 	image(0),
 	sound(0)
@@ -43,10 +41,10 @@ bool GameObject::HitCheck(const GameObject* gameobject) const
 	float sub_y[2];
 
 	//自分の当たり判定の範囲の計算
-	my_x[0] = location.x - (scale / 2);
-	my_y[0] = location.y - (scale / 2);
-	my_x[1] = my_x[0] + scale;
-	my_y[1] = my_y[0] + scale;
+	my_x[0] = location.x - (scale.x / 2);
+	my_y[0] = location.y - (scale.y / 2);
+	my_x[1] = my_x[0] + scale.x;
+	my_y[1] = my_y[0] + scale.y;
 
 	//相手の当たり判定の範囲の計算
 	sub_x[0] = gameobject->GetLocation().x - (gameobject->Getscale().x / 2);
@@ -70,19 +68,19 @@ void GameObject::OnHitCollision(GameObject* hit_object)
 }
 
 //位置情報取得処理
-Vector2D GameObject::GetLocation() const
+Location GameObject::GetLocation() const
 {
 	return this->location;
 }
 
 //大きさ取得処理
-Vector2D GameObject::Getscale() const
+Scale GameObject::Getscale() const
 {
 	return this->scale;
 }
 
 //位置情報設定処理
-void GameObject::SetLocation(const Vector2D& location)
+void GameObject::SetLocation(const Location& location)
 {
 	this->location = location;
 }
