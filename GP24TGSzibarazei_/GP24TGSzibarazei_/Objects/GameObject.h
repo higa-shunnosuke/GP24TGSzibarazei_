@@ -1,25 +1,13 @@
 #pragma once
 
-//オブジェクトの座標
-struct Location
-{
-	float x;
-	float y;
-};
-
-//オブジェクトのサイズ
-struct Scale
-{
-	float x;
-	float y;
-};
+#include"../Utility/Vector2D.h"
 
 //ゲームオブジェクト基底クラス
 class GameObject
 {
 protected:
-	Location location;	//位置情報
-	Scale scale;		//大きさ
+	Vector2D location;	//位置情報
+	Vector2D scale;		//大きさ
 	double radian;		//向き
 	int image;			//描画する画像
 	int sound;			//再生する音源
@@ -39,12 +27,10 @@ public:
 	//当たり判定通知処理
 	virtual void OnHitCollision(GameObject* hit_object);
 	//位置情報取得処理
-	virtual Location GetLocation() const;
+	virtual Vector2D GetLocation() const;
 	//大きさ取得処理
-	virtual Scale Getscale() const;
+	virtual Vector2D Getscale() const;
 	//位置情報変更処理
-	virtual void SetLocation(const Location& location);
-
-
+	virtual void SetLocation(const Vector2D& location);
 };
 
