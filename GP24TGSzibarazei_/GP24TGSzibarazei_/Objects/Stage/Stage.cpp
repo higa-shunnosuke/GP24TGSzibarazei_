@@ -31,7 +31,7 @@ void Stage::Initialize()
 	radian = 0.0;
 
 	//大きさの設定
-	scale = 500.0;
+	scale = 1000.0;
 
 	//初期画像の設定
 	image = animation[0];
@@ -113,11 +113,11 @@ void Stage::Movement()
 	//左右移動
 	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
-		velocity.x += +5.0f;
+		velocity.x += +1.0f;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
-		velocity.x += -5.0f;
+		velocity.x += -1.0f;
 	}
 	else
 	{
@@ -127,11 +127,11 @@ void Stage::Movement()
 	//上下移動
 	if (InputControl::GetKey(KEY_INPUT_UP))
 	{
-		velocity.y += +5.0f;
+		velocity.y += +1.0f;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_DOWN))
 	{
-		velocity.y += -5.0f;
+		velocity.y += -1.0f;
 	}
 	else
 	{
@@ -139,25 +139,25 @@ void Stage::Movement()
 	}
 
 	//壁の処理
-	if (location.x < (scale.x / 2))
+	if (location.x < (640.0f - scale.x + 25.0f + scale.x / 2))
 	{	//左の壁
 		velocity.x += 0.0f;
-		location.x = scale.x / 2.0f;
+		location.x = 640 - scale.x + 25 + scale.x / 2.0f;
 	}
-	else if (location.x > (1280.0f - scale.x / 2.0f))
+	else if (location.x > (640.0f + scale.x - 25.0f - scale.x / 2.0f))
 	{	//右の壁
 		velocity.x = 0.0f;
-		location.x = 1280.0f - scale.x / 2.0f;
+		location.x = 640.0f + scale.x - 25.0f - scale.x / 2.0f;
 	}
-	if (location.y < (scale.y / 2.0f))
+	if (location.y < (360.0f - scale.y + 25.0f + scale.y / 2.0f))
 	{	//上の壁
 		velocity.y = 0.0f;
-		location.y = scale.y / 2.0f;
+		location.y = 360.0f - scale.y + 25.0f + scale.y / 2.0f;
 	}
-	else if (location.y > (720.0f - scale.y / 2.0f))
+	else if (location.y > (360.0f + scale.y - 25.0f - scale.y / 2.0f))
 	{	//下の壁
 		velocity.y = 0.0f;
-		location.y = 720.0f - scale.y / 2.0f;
+		location.y = 360.0f + scale.y - 25.0f - scale.y / 2.0f;
 	}
 
 	//現在の位置座標に速さを加算する
