@@ -4,18 +4,22 @@
 #include"string"
 #include"../Objects/GameObject.h"
 
-class Scene
+class Main
 {
 private:
 	std::vector<GameObject*> objects;
 
 public:
-	Scene();
-	~Scene();
+	Main();
+	~Main();
 
+	//‰Šú‰»ˆ—
 	void Initialize();
+	//XVˆ—
 	void Update();
+	//•`‰æˆ—
 	void Draw() const;
+	//I—¹ˆ—
 	void Finalize();
 
 private:
