@@ -24,7 +24,7 @@ void Enemy::Initialize()
 	{
 		if (animation[i] == -1)
 		{
-			throw("エネミー画像[%2d]に不備があります\n", i);
+			throw("エネミー画像に不備があります\n");
 		}
 	}
 
@@ -34,9 +34,43 @@ void Enemy::Initialize()
 	image = animation[0];
 }
 
+void Enemy::Update()
+{
+}
+
 void Enemy::Draw() const
 {
 	DrawRotaGraphF(location.x, location.y, 0.4, radian, image, TRUE, TRUE);
 
 
+}
+
+void Enemy::Finalize()
+{
+}
+
+void Enemy::OnHitCollision(GameObject* hit_object)
+{
+}
+
+Vector2D Enemy::GetLocation() const
+{
+	return Vector2D();
+}
+
+Vector2D Enemy::Getscale() const
+{
+	return Vector2D();
+}
+
+void Enemy::SetLocation(const Vector2D& location)
+{
+}
+
+void Enemy::Movement()
+{
+}
+
+void Enemy::AnimeControl()
+{
 }
