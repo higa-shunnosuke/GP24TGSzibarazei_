@@ -1,6 +1,6 @@
 #include"DxLib.h"
 #include"Utility/InputControl.h"
-#include"Scenes/Scene.h"
+#include"Scenes/Main.h"
 
 #define D_SCREEN_WIDTH (1280)
 #define D_SCREEN_HEIGHT (720)
@@ -25,7 +25,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	SetTransColor(255, 255, 255);
 
 	//ローカル変数定義
-	Scene* scene = new Scene();		//シーン情報
+	Main* scene = new Main();		//シーン情報
 
 
 	//描画先を裏画面に指定

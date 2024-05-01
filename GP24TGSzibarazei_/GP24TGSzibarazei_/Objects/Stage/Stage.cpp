@@ -31,7 +31,7 @@ void Stage::Initialize()
 	radian = 0.0;
 
 	//‘å‚«‚³‚Ìİ’è
-	scale = 1000.0;
+	scale = 500.0;
 
 	//‰Šú‰æ‘œ‚Ìİ’è
 	image = animation[0];
@@ -113,11 +113,11 @@ void Stage::Movement()
 	//¶‰EˆÚ“®
 	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
-		velocity.x += +1.0f;
+		velocity.x += +4.0f;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
-		velocity.x += -1.0f;
+		velocity.x += -5.0f;
 	}
 	else
 	{
@@ -127,11 +127,11 @@ void Stage::Movement()
 	//ã‰ºˆÚ“®
 	if (InputControl::GetKey(KEY_INPUT_UP))
 	{
-		velocity.y += +1.0f;
+		velocity.y += +5.0f;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_DOWN))
 	{
-		velocity.y += -1.0f;
+		velocity.y += -5.0f;
 	}
 	else
 	{
