@@ -113,7 +113,7 @@ void Stage::Movement()
 	//¶‰EˆÚ“®
 	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
-		velocity.x += +5.0f;
+		velocity.x += +6.0f;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
