@@ -58,6 +58,11 @@ void Stage::Draw() const
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
 		GetColor(255,255,255),TRUE);
 
+	if (InputControl::GetButton(XINPUT_BUTTON_A) == true)
+	{
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "A", InputControl::GetButton(XINPUT_BUTTON_A));
+	}
+
 	//デバック用
 #if _DEBUG
 //当たり判定の可視化
@@ -111,11 +116,11 @@ void Stage::Movement()
 	Vector2D velocity = 0.0f;
 
 	//左右移動
-	if (InputControl::GetKey(KEY_INPUT_LEFT))
+	if (InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		velocity.x += +6.0f;
 	}
-	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
+	else if (InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		velocity.x += -5.0f;
 	}
@@ -125,11 +130,11 @@ void Stage::Movement()
 	}
 
 	//上下移動
-	if (InputControl::GetKey(KEY_INPUT_UP))
+	if (InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
 		velocity.y += +5.0f;
 	}
-	else if (InputControl::GetKey(KEY_INPUT_DOWN))
+	else if (InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
 		velocity.y += -5.0f;
 	}
