@@ -35,7 +35,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	scene->Initialize();
 
 	//ゲームメインループ（ESCキーorBACKボタンを押すと終了）
-	while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
+	while (ProcessMessage() != -1 
+		&& CheckHitKey(KEY_INPUT_ESCAPE) != TRUE 
+		&& InputControl::GetButton(XINPUT_BUTTON_BACK) != TRUE)
 	{
 	
 		//入力機能：更新処理
