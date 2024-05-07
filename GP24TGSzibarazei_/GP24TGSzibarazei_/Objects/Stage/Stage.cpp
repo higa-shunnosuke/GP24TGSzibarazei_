@@ -50,18 +50,13 @@ void Stage::Update()
 //描画処理
 void Stage::Draw() const
 {
-	//プレイヤー画像の描画
+	//画像の描画
 	//DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, filp_flag);
 	Vector2D upper_left = location - (scale / 2.0f);
 	Vector2D lower_right = location + (scale / 2.0f);
 
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
 		GetColor(255,255,255),TRUE);
-
-	if (InputControl::GetButton(XINPUT_BUTTON_A) == true)
-	{
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "A", InputControl::GetButton(XINPUT_BUTTON_A));
-	}
 
 	//デバック用
 #if _DEBUG

@@ -1,11 +1,18 @@
 #include "Main.h"
-
 #include "../Objects/Player/Player.h"
 #include "../Objects/Stage/Stage.h"
 
+#define STAGE_WIDTH		(30)
+#define STAGE_HEIGHT	(20)
+
+Stage* stage[STAGE_HEIGHT][STAGE_WIDTH];//ステージの[縦][横]
+
+
 //コンストラクタ
 Main::Main() :objects()
-{}
+{
+
+}
 
 //デストラクタ
 Main::~Main()
@@ -17,19 +24,37 @@ Main::~Main()
 //初期化処理
 void Main::Initialize()
 {
-	//プレイヤーを生成する
+	FILE* fp;
+
+	//オブジェクトを生成する
+	
+	//読込ファイルを開く
+	fopen_s(&fp, "../Resource/datas/stage.csv", "r");
+
+	/*for (int i = 0; i < STAGE_HEIGHT; i++)
+	{
+		for (int j = 0; j < STAGE_WIDTH; j++)
+		{
+			fscanf(fp, "%d,%[^,],%d", &stage[i][j]);
+		}
+	}
+	fclose(fp);*/
+	
 	CreateObject<Stage>(Vector2D(640.0f, 360.0f));
 	CreateObject<Player>(Vector2D(640.0f, 360.0f));
 }
 
 //更新処理
-void Main::Update()
+eSceneType Main::Update()
 {
 	//シーンに存在するオブジェクトの更新処理
 	for (GameObject* obj : objects)
 	{
 		obj->Update();
 	}
+
+	return GetNowScene();
+
 }
 
 //描画処理
@@ -62,3 +87,8 @@ void Main::Finalize()
 	objects.clear();
 }
 
+//現在のシーン情報を取得
+eSceneType Main::GetNowScene()const
+{
+	return eSceneType::E_MAIN;
+}

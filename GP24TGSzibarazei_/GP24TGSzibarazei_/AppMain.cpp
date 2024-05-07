@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include"Utility/InputControl.h"
-#include"Scenes/Main.h"
+#include "Scenes/SceneManager.h"
+#include "Scenes/Main.h"
 
 #define D_SCREEN_WIDTH (1280)
 #define D_SCREEN_HEIGHT (720)
@@ -69,4 +70,31 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	//終了状態を通知
 	return 0;
+
+	////例外処理（異常が発生したら、catch分に飛びます）
+	//try
+	//{
+	//	//シーンマネージャー機能の生成
+	//	SceneManager manager;
+
+	//	//シーンマネージャー機能の更新処理
+	//	manager.Initialize();
+
+	//	//シーンマネージャー機能の更新処理
+	//	manager.Update();
+
+	//	//シーンマネージャー機能の終了時処理
+	//	manager.Finalize();
+	//}
+	//catch (const char* err_log)
+	//{
+	//	//エラー発生内容の出力
+	//	OutputDebugString(err_log);
+
+	//	//エラー終了を通知
+	//	return -1;
+	//}
+
+	////正常終了を通知
+	//return 0;
 }

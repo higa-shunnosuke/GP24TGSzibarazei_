@@ -147,6 +147,7 @@
     <ClCompile Include="Utility\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\SceneBase.h" />
     <ClInclude Include="Scenes\CharacterSelect.h" />
     <ClInclude Include="Scenes\Clear.h" />
     <ClInclude Include="Scenes\Help.h" />

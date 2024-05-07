@@ -1,10 +1,11 @@
 #pragma once
 
+#include "SceneBase.h"
 #include"vector"
 #include"string"
 #include"../Objects/GameObject.h"
 
-class Main
+class Main:public SceneBase
 {
 private:
 	std::vector<GameObject*> objects;
@@ -14,13 +15,15 @@ public:
 	~Main();
 
 	//初期化処理
-	void Initialize();
+	virtual void Initialize() override;
 	//更新処理
-	void Update();
+	virtual eSceneType Update() override;
 	//描画処理
-	void Draw() const;
+	virtual void Draw() const override;
 	//終了時処理
-	void Finalize();
+	virtual void Finalize() override;
+	//現在のシーンをか取得
+	virtual eSceneType GetNowScene() const override;
 
 private:
 	//オブジェクト生成処理
