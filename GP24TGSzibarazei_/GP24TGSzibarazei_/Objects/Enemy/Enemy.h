@@ -5,7 +5,7 @@
 class Enemy :public GameObject
 {
 private:
-	int animation[4];			//アニメーション画像
+	int animation[8];			//アニメーション画像
 	int animation_count;		//アニメーション時間(恐らくアイドリング用)
 	int HP;						//HitPoint(体力)
 	float AS;					//AtackSpeed(攻撃速度)

@@ -1,26 +1,28 @@
 #include"Enemy.h"
 #include"DxLib.h"
 
-Enemy::Enemy() :animation_count(0)
+Enemy::Enemy() :animation_count(0),ATK (0),Speed(0),AS(0.0),HP(0)
 {
 	int i;
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < 8; i++) {
 		animation[i]=NULL;
 	}
 }
 
 Enemy::~Enemy()
-{}
+{
+}
 
 void Enemy::Initialize()
 {
-	animation[0] = LoadGraph("resource/images/enemy/~~~~~");
-	animation[0] = LoadGraph("resource/images/enemy/~~~~~");
-	animation[0] = LoadGraph("resource/images/enemy/~~~~~");
-	animation[0] = LoadGraph("resource/images/enemy/~~~~~");
+	//後々イラストをもらい次第実装確認
+	//animation[0] = LoadGraph("resource/images/enemy/~~~~~");
+	//animation[0] = LoadGraph("resource/images/enemy/~~~~~");
+	//animation[0] = LoadGraph("resource/images/enemy/~~~~~");
+	//animation[0] = LoadGraph("resource/images/enemy/~~~~~");
 	
 	//エラーチェック
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		if (animation[i] == -1)
 		{
@@ -36,6 +38,9 @@ void Enemy::Initialize()
 
 void Enemy::Update()
 {
+
+
+
 }
 
 void Enemy::Draw() const
@@ -47,21 +52,17 @@ void Enemy::Draw() const
 
 void Enemy::Finalize()
 {
+	//使用した画像を開放する
+	for (int i = 0; i < 8; i++)
+	{
+	DeleteGraph(animation[i]);
+	}
 }
 
 void Enemy::OnHitCollision(GameObject* hit_object)
 {
 }
 
-Vector2D Enemy::GetLocation() const
-{
-	return Vector2D();
-}
-
-Vector2D Enemy::Getscale() const
-{
-	return Vector2D();
-}
 
 void Enemy::SetLocation(const Vector2D& location)
 {
@@ -69,8 +70,19 @@ void Enemy::SetLocation(const Vector2D& location)
 
 void Enemy::Movement()
 {
+	
 }
 
 void Enemy::AnimeControl()
 {
+}
+
+Vector2D Enemy::GetLocation() const
+{
+	return location;
+}
+
+Vector2D Enemy::Getscale() const
+{
+	return scale;
 }
