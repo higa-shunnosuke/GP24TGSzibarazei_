@@ -1,6 +1,7 @@
 #include"DxLib.h"
 #include"Utility/InputControl.h"
-#include"Scenes/Scene.h"
+#include "Scenes/SceneManager.h"
+#include "Scenes/Main.h"
 
 #define D_SCREEN_WIDTH (1280)
 #define D_SCREEN_HEIGHT (720)
@@ -21,8 +22,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		return -1;	//エラー発生
 	}
 
+	// 背景色を透過させる
+	SetTransColor(255, 255, 255);
+
 	//ローカル変数定義
-	Scene* scene = new Scene();		//シーン情報
+	Main* scene = new Main();		//シーン情報
 
 
 	//描画先を裏画面に指定
@@ -32,7 +36,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	scene->Initialize();
 
 	//ゲームメインループ（ESCキーorBACKボタンを押すと終了）
-	while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
+	while (ProcessMessage() != -1 
+		&& CheckHitKey(KEY_INPUT_ESCAPE) != TRUE 
+		&& InputControl::GetButton(XINPUT_BUTTON_BACK) != TRUE)
 	{
 	
 		//入力機能：更新処理
@@ -64,4 +70,32 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	//終了状態を通知
 	return 0;
+
+	////例外処理（異常が発生したら、catch分に飛びます）
+	//try
+	//{
+	//	//シーンマネージャー機能の生成
+
+	//	SceneManager manager;
+
+	//	//シーンマネージャー機能の更新処理
+	//	manager.Initialize();
+
+	//	//シーンマネージャー機能の更新処理
+	//	manager.Update();
+
+	//	//シーンマネージャー機能の終了時処理
+	//	manager.Finalize();
+	//}
+	//catch (const char* err_log)
+	//{
+	//	//エラー発生内容の出力
+	//	OutputDebugString(err_log);
+
+	//	//エラー終了を通知
+	//	return -1;
+	//}
+
+	////正常終了を通知
+	//return 0;
 }

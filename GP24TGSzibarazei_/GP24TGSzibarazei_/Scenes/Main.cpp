@@ -1,39 +1,64 @@
-#include "Scene.h"
-
+#include "Main.h"
 #include "../Objects/Player/Player.h"
 #include "../Objects/Stage/Stage.h"
 
+#define STAGE_WIDTH		(30)
+#define STAGE_HEIGHT	(20)
+
+Stage* stage[STAGE_HEIGHT][STAGE_WIDTH];//ステージの[縦][横]
+
+
 //コンストラクタ
-Scene::Scene() :objects()
-{}
+Main::Main() :objects()
+{
+
+}
 
 //デストラクタ
-Scene::~Scene()
+Main::~Main()
 {
 	//忘れ防止
 	Finalize();
 }
 
 //初期化処理
-void Scene::Initialize()
+void Main::Initialize()
 {
-	//プレイヤーを生成する
+	FILE* fp;
+
+	//オブジェクトを生成する
+	
+	////読込ファイルを開く
+	//fopen_s(&fp, "../Resource/datas/stage.csv", "r");
+
+	//for (int i = 0; i < STAGE_HEIGHT; i++)
+	//{
+	//	for (int j = 0; j < STAGE_WIDTH; j++)
+	//	{
+	//		fscanf(fp, "%d,%[^,],%d", &stage[i][j]);
+	//	}
+	//}
+	//fclose(fp);
+	
 	CreateObject<Stage>(Vector2D(640.0f, 360.0f));
 	CreateObject<Player>(Vector2D(640.0f, 360.0f));
 }
 
 //更新処理
-void Scene::Update()
+eSceneType Main::Update()
 {
 	//シーンに存在するオブジェクトの更新処理
 	for (GameObject* obj : objects)
 	{
 		obj->Update();
 	}
+
+	return GetNowScene();
+
 }
 
 //描画処理
-void Scene::Draw() const
+void Main::Draw() const
 {
 	//シーンに存在するオブジェクトの描画処理
 	for (GameObject* obj : objects)
@@ -43,7 +68,7 @@ void Scene::Draw() const
 }
 
 //終了時処理
-void Scene::Finalize()
+void Main::Finalize()
 {
 	//動的配列が空なら処理を終了する
 	if (objects.empty())
@@ -62,3 +87,8 @@ void Scene::Finalize()
 	objects.clear();
 }
 
+//現在のシーン情報を取得
+eSceneType Main::GetNowScene()const
+{
+	return eSceneType::E_MAIN;
+}

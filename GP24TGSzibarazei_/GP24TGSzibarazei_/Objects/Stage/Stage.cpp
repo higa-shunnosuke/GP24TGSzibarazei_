@@ -31,7 +31,7 @@ void Stage::Initialize()
 	radian = 0.0;
 
 	//大きさの設定
-	scale = 1000.0;
+	scale = 500.0;
 
 	//初期画像の設定
 	image = animation[0];
@@ -50,7 +50,7 @@ void Stage::Update()
 //描画処理
 void Stage::Draw() const
 {
-	//プレイヤー画像の描画
+	//画像の描画
 	//DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, filp_flag);
 	Vector2D upper_left = location - (scale / 2.0f);
 	Vector2D lower_right = location + (scale / 2.0f);
@@ -111,13 +111,13 @@ void Stage::Movement()
 	Vector2D velocity = 0.0f;
 
 	//左右移動
-	if (InputControl::GetKey(KEY_INPUT_LEFT))
+	if (InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
-		velocity.x += +1.0f;
+		velocity.x += +6.0f;
 	}
-	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
+	else if (InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
-		velocity.x += -1.0f;
+		velocity.x += -5.0f;
 	}
 	else
 	{
@@ -125,13 +125,13 @@ void Stage::Movement()
 	}
 
 	//上下移動
-	if (InputControl::GetKey(KEY_INPUT_UP))
+	if (InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
-		velocity.y += +1.0f;
+		velocity.y += +5.0f;
 	}
-	else if (InputControl::GetKey(KEY_INPUT_DOWN))
+	else if (InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
-		velocity.y += -1.0f;
+		velocity.y += -5.0f;
 	}
 	else
 	{
