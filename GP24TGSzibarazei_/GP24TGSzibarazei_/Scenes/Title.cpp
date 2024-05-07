@@ -17,24 +17,24 @@ Title::~Title()
 //初期化処理
 void Title::Initialize()
 {
-	//画像の読み込み
-	background_image = LoadGraph("../Resource/images/");
-	menu_image = LoadGraph("../Resource/images/");
-	cursor_image = LoadGraph("../Resource/images/");
+	////画像の読み込み
+	//background_image = LoadGraph("../Resource/images/");
+	//menu_image = LoadGraph("../Resource/images/");
+	//cursor_image = LoadGraph("../Resource/images/");
 
-	//エラーチェック
-	if (background_image == -1)
-	{
-		throw("../Resource/images/がありません\n");
-	}
-	if (menu_image == -1)
-	{
-		throw("../Resource/images/がありません\n");
-	}
-	if (cursor_image == -1)
-	{
-		throw("../Resource/images/がありません\n");
-	}
+	////エラーチェック
+	//if (background_image == -1)
+	//{
+	//	throw("../Resource/images/がありません\n");
+	//}
+	//if (menu_image == -1)
+	//{
+	//	throw("../Resource/images/がありません\n");
+	//}
+	//if (cursor_image == -1)
+	//{
+	//	throw("../Resource/images/がありません\n");
+	//}
 }
 
 

@@ -28,17 +28,17 @@ void Main::Initialize()
 
 	//オブジェクトを生成する
 	
-	//読込ファイルを開く
-	fopen_s(&fp, "../Resource/datas/stage.csv", "r");
+	////読込ファイルを開く
+	//fopen_s(&fp, "../Resource/datas/stage.csv", "r");
 
-	/*for (int i = 0; i < STAGE_HEIGHT; i++)
-	{
-		for (int j = 0; j < STAGE_WIDTH; j++)
-		{
-			fscanf(fp, "%d,%[^,],%d", &stage[i][j]);
-		}
-	}
-	fclose(fp);*/
+	//for (int i = 0; i < STAGE_HEIGHT; i++)
+	//{
+	//	for (int j = 0; j < STAGE_WIDTH; j++)
+	//	{
+	//		fscanf(fp, "%d,%[^,],%d", &stage[i][j]);
+	//	}
+	//}
+	//fclose(fp);
 	
 	CreateObject<Stage>(Vector2D(640.0f, 360.0f));
 	CreateObject<Player>(Vector2D(640.0f, 360.0f));

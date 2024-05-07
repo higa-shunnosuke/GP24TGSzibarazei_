@@ -16,17 +16,17 @@ Result::~Result()
 //初期化処理
 void Result::Initialize()
 {
-	//画像の読み込み
-	back_ground = LoadGraph("../Resource/images/");
+	////画像の読み込み
+	//back_ground = LoadGraph("../Resource/images/");
 
-	//エラーチェック
-	if (back_ground == -1)
-	{
-		throw("../Resource/images/がありません\n");
-	}
-	
-	//ゲーム結果の読み込み
-	ReadResultData();
+	////エラーチェック
+	//if (back_ground == -1)
+	//{
+	//	throw("../Resource/images/がありません\n");
+	//}
+	//
+	////ゲーム結果の読み込み
+	//ReadResultData();
 }
 
 

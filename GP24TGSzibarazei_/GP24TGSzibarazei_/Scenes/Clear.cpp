@@ -16,14 +16,14 @@ Clear::~Clear()
 //初期化処理
 void Clear::Initialize()
 {
-	//画像の読み込み
-	background_image = LoadGraph("../Resource/images/");
+	////画像の読み込み
+	//background_image = LoadGraph("../Resource/images/");
 
-	//エラーチェック
-	if (background_image == -1)
-	{
-		throw("../Resource/images.がありません\n");
-	}
+	////エラーチェック
+	//if (background_image == -1)
+	//{
+	//	throw("../Resource/images.がありません\n");
+	//}
 }
 
 
