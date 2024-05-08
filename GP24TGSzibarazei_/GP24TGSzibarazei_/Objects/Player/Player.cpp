@@ -133,7 +133,7 @@ void Player::Movement()
 	Vector2D velocity = 0.0f;
 
 	//ç∂âEà⁄ìÆ
-	if (InputControl::GetKey(KEY_INPUT_LEFT))
+	if (InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		//velocity.x += -5.0f;
 		/*flip_flag = TRUE;*/
@@ -142,7 +142,7 @@ void Player::Movement()
 		move_image = 2;
 		image = animation[4];
 	}
-	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
+	else if (InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		//velocity.x += 5.0f;
 		/*flip_flag = FALSE;*/
@@ -157,7 +157,7 @@ void Player::Movement()
 	}
 
 	//è„â∫à⁄ìÆ
-	if (InputControl::GetKey(KEY_INPUT_UP))
+	if (InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
 		//velocity.y += -5.0f;
 
@@ -165,7 +165,7 @@ void Player::Movement()
 		move_image = 1;
 		image = animation[2];
 	}
-	else if (InputControl::GetKey(KEY_INPUT_DOWN))
+	else if (InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
 		//velocity.y += 5.0f;
 
