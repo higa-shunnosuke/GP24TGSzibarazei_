@@ -60,13 +60,12 @@ eSceneType CharacterSelect::Update()
 	}
 
 	//カーソル決定（操作するキャラを選択する）
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{
 		switch (menu_cursor)
 		{
 		case 0:
-
-			break;
+			return eSceneType::E_MAIN;
 
 		case 1:
 
@@ -96,6 +95,10 @@ void CharacterSelect::Draw()const
 
 	//カーソル画像の描画
 	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+
+	SetFontSize(30);
+	DrawString(20, 120, "キャラクターセレクト画面", 0xffffff, 0);
+	DrawString(150, 450, "Aボタンを押してスタート", 0xffffff, 0);
 }
 
 
