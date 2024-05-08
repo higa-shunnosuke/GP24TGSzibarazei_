@@ -5,8 +5,12 @@
 class Player :public GameObject
 {
 private:
-	int animation[2];			//アニメーション画像
+	int hp;               //体力
+	int mp;               //マジックパワー
+	int ult_active;       //アルティメット使用可能状態
+	int animation[8];			//アニメーション画像
 	int animation_count;		//アニメーション時間
+	int move_image;             //進行方向に対応する画像の読み込み
 	int flip_flag;				//反転フラグ
 
 public:
@@ -32,6 +36,8 @@ private:
 	void Movement();
 	//アニメーション制御
 	void AnimeControl();
+	//攻撃処理
+	void Atack();
 
 };
 
