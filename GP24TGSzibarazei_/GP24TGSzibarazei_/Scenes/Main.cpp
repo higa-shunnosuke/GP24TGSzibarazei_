@@ -7,7 +7,7 @@
 #define STAGE_HEIGHT	(21)
 #define STAGE_DATA		("Resource/datas/stage.csv")
 
-Stage* stage[STAGE_HEIGHT][STAGE_WIDTH];//ステージの[縦][横]
+Stage* stage[STAGE_HEIGHT][STAGE_WIDTH];
 
 //コンストラクタ
 Main::Main() :objects()
@@ -42,24 +42,25 @@ void Main::Initialize()
 	}
 	else
 	{
-		for (int i = 0; i < STAGE_HEIGHT; i++)
+		/*while (true)
 		{
-			for (int j = 0; j < STAGE_WIDTH; j++)
+			if (fgetc(fp) == EOF)
 			{
-				fscanf_s(fp, "%d", &block);
-
-				if (block==0)
-				{
-					stage[i][j] = CreateObject<Stage>(Vector2D(i*50.0f, j*50.0f));
-				}
+				break;
 			}
-		}
+
+			CreateObject<Stage>(Vector2D(50.0f, 50.0f));
+		}*/
+
+		fclose(fp);
 	}
-	fclose(fp);
+	
 
 
 	//プレイヤーを生成
+	CreateObject<Stage>(Vector2D(640.0f, 360.0f));
 	CreateObject<Player>(Vector2D(640.0f, 360.0f));
+
 }
 
 //更新処理

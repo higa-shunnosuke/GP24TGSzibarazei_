@@ -73,7 +73,7 @@ void Player::Update()
 void Player::Draw() const
 {
 	//ƒvƒŒƒCƒ„[‰æ‘œ‚Ì•`‰æ
-	DrawRotaGraphF(location.x, location.y, 0.025, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
 	DrawFormatString(10, 10, GetColor(0, 255, 0), "hp");
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
 
