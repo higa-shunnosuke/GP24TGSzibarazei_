@@ -65,7 +65,7 @@ eSceneType Title::Update()
 	}
 
 	//カーソル決定（決定した画面に遷移する）
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 	{
 		switch (menu_cursor)
 		{
@@ -88,8 +88,15 @@ eSceneType Title::Update()
 //描画処理
 void Title::Draw()const
 {
+	//タイトル画像の描画
+	DrawGraph(0, 0, background_image, FALSE);
+
 	//カーソル画像の描画
 	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+
+	SetFontSize(30);
+	DrawString(20, 120, "タイトル画面", 0xffffff, 0);
+	DrawString(150, 450, "Aボタンを押してスタート", 0xffffff, 0);
 }
 
 
