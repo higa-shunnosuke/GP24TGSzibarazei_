@@ -60,15 +60,6 @@ void Enemy::Draw() const
 #endif
 }
 
-void Enemy::Finalize()
-{
-	//Žg—p‚µ‚½‰æ‘œ‚ðŠJ•ú‚·‚é
-	for (int i = 0; i < 8; i++)
-	{
-	DeleteGraph(animation[i]);
-	}
-}
-
 void Enemy::OnHitCollision(GameObject* hit_object)
 {
 	HP--;
