@@ -65,8 +65,6 @@ void Main::Initialize()
 			{
 				CreateObject<Stage>(Vector2D(STAGE_WIDTH * 50.0f, STAGE_HEIGHT * 50.0f));
 			}
-			//DrawFormatString(50 * j, 50 * i, 0x0, "%d", block);
-
 		}	
 
 		fclose(fp);
@@ -99,7 +97,6 @@ void Main::Draw() const
 	{
 		obj->Draw();
 	}
-
 }
 
 //I—¹ˆ—
