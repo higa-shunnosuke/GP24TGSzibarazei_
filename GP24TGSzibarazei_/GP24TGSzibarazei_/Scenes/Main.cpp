@@ -3,11 +3,13 @@
 #include "../Objects/Stage/Stage.h"
 #include"DxLib.h"
 
-#define STAGE_WIDTH		(21)
-#define STAGE_HEIGHT	(21)
 #define STAGE_DATA		("Resource/datas/stage.csv")
 
-Stage* stage[STAGE_HEIGHT][STAGE_WIDTH];
+
+FILE* fp = NULL;
+int block = 0;
+int STAGE_WIDTH;
+int STAGE_HEIGHT;
 
 //コンストラクタ
 Main::Main() :objects()
@@ -25,40 +27,53 @@ Main::~Main()
 //初期化処理
 void Main::Initialize()
 {
-	FILE* fp = NULL;
-	 
-	int block = 0;
+	STAGE_WIDTH = 0;
+	STAGE_HEIGHT = 0;
 
 	/*********************オブジェクトを生成する********************/
-	
+
 	//読込ファイルを開く
-	OutputDebugString("ファイルを読み込みます");
 	fopen_s(&fp, STAGE_DATA, "r");
 
 	//エラーチェック
 	if (fp == NULL)
 	{
-		OutputDebugString("ファイルを読み込めません");
+
 	}
 	else
 	{
-		/*while (true)
+		while (true)
 		{
-			if (fgetc(fp) == EOF)
+			block = fgetc(fp);
+			STAGE_WIDTH++;
+			if (block == EOF)
 			{
 				break;
 			}
+			else if (block == ',')
+			{
+				STAGE_WIDTH--;
+				continue;
+			}
+			else if (block == '\n')
+			{
+				STAGE_HEIGHT++;
+				STAGE_WIDTH = 0;
+				continue;
+			}
+			else if (block > 48)
+			{
+				CreateObject<Stage>(Vector2D(STAGE_WIDTH * 50.0f, STAGE_HEIGHT * 50.0f));
+			}
+			//DrawFormatString(50 * j, 50 * i, 0x0, "%d", block);
 
-			CreateObject<Stage>(Vector2D(50.0f, 50.0f));
-		}*/
+		}	
 
 		fclose(fp);
 	}
+
 	
-
-
 	//プレイヤーを生成
-	CreateObject<Stage>(Vector2D(640.0f, 360.0f));
 	CreateObject<Player>(Vector2D(640.0f, 360.0f));
 
 }
@@ -84,6 +99,7 @@ void Main::Draw() const
 	{
 		obj->Draw();
 	}
+
 }
 
 //終了時処理
