@@ -186,6 +186,5 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 
 	default:
 		return nullptr;
-
 	}
 }

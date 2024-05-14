@@ -8,6 +8,8 @@ private:
 	int animation[2];			//アニメーション画像
 	int animation_count;		//アニメーション時間
 	int filp_flag;				//反転フラグ
+	unsigned int color;			//色
+	int type;					//ステージのタイプ
 
 public:
 	Stage();
@@ -26,6 +28,9 @@ public:
 	virtual Vector2D Getscale() const override;
 	//位置情報変更処理
 	virtual void SetLocation(const Vector2D& location) override;
+
+	static int GetStage(int i,int j);
+	static void SetStage();
 
 private:
 	//移動処理
