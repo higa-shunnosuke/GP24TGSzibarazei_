@@ -23,7 +23,6 @@ public:
 
 	//ヒットチェック
 	bool HitCheck(const class GameObject* GemeObject)const;
-
 	//当たり判定通知処理
 	virtual void OnHitCollision(GameObject* hit_object);
 	//位置情報取得処理

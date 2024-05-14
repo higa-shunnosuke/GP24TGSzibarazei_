@@ -5,8 +5,15 @@
 //コンストラクタ
 Player::Player() :animation_count(0), flip_flag(FALSE)
 {
-	animation[0] = NULL;
-	animation[1] = NULL;
+	hp = 5;
+	mp = 20;
+	ult_active = true;
+	move_image = 0;
+
+	for (int i = 0; i < 8; i++)
+	{
+		animation[i] = NULL;
+	}
 }
 
 //デストラクタ
@@ -16,15 +23,32 @@ Player::~Player()
 //初期化処理
 void Player::Initialize()
 {
-	//画像の読み込み
+	//前方向画像の読み込み
 	animation[0] = LoadGraph("Resource/images/Player/samurai/samurai_front_1.png");
 	animation[1] = LoadGraph("Resource/images/Player/samurai/samurai_front_2.png");
+	//後ろ方向画像の読み込み
+	animation[2] = LoadGraph("Resource/images/Player/samurai/samurai_back_1.png");
+	animation[3] = LoadGraph("Resource/images/Player/samurai/samurai_back_2.png");
+	//左方向画像の読み込み
+	animation[4] = LoadGraph("Resource/images/Player/samurai/samurai_left_1.png");
+	animation[5] = LoadGraph("Resource/images/Player/samurai/samurai_left_2.png");
+	//右方向画像の読み込み
+	animation[6] = LoadGraph("Resource/images/Player/samurai/samurai_right_1.png");
+	animation[7] = LoadGraph("Resource/images/Player/samurai/samurai_right_2.png");
+	
 
 	//エラーチェック
-	if (animation[0] == -1 || animation[1] == -1)
+	for (int i = 0; i < 8; i++)
 	{
-		throw ("トリパイロットの画像がありません\n");
+		if (animation[i] == -1)
+		{
+			throw("ナイトの画像がありません\n");
+		}
 	}
+	/*if (animation[0] == -1 || animation[1] == -1)
+	{
+		throw ("ナイトの画像がありません\n");
+	}*/
 
 	//向きの設定
 	radian = 0.0;
@@ -49,7 +73,9 @@ void Player::Update()
 void Player::Draw() const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 0.025, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
+	DrawFormatString(10, 10, GetColor(0, 255, 0), "hp");
+	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
 
 	//デバック用
 #if _DEBUG
@@ -69,14 +95,17 @@ void Player::Draw() const
 void Player::Finalize()
 {
 	//使用した画像を開放する
-	DeleteGraph(animation[0]);
-	DeleteGraph(animation[1]);
+	for (int i = 0; i < 8; i++)
+	{
+		DeleteGraph(animation[i]);
+	}
 }
 
 //当たり判定通知処理
 void Player::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時の処理
+
 }
 
 //位置情報取得処理
@@ -107,12 +136,20 @@ void Player::Movement()
 	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
 		//velocity.x += -5.0f;
-		flip_flag = TRUE;
+		/*flip_flag = TRUE;*/
+
+		//プレイヤー画像を左向きにする
+		move_image = 2;
+		image = animation[4];
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
 		//velocity.x += 5.0f;
-		flip_flag = FALSE;
+		/*flip_flag = FALSE;*/
+
+		//プレイヤー画像を右向きにする
+		move_image = 3;
+		image = animation[6];
 	}
 	else
 	{
@@ -123,10 +160,18 @@ void Player::Movement()
 	if (InputControl::GetKey(KEY_INPUT_UP))
 	{
 		//velocity.y += -5.0f;
+
+		//プレイヤー画像を後ろ向きにする
+		move_image = 1;
+		image = animation[2];
 	}
 	else if (InputControl::GetKey(KEY_INPUT_DOWN))
 	{
 		//velocity.y += 5.0f;
+
+		//プレイヤー画像を前向きにする
+		move_image = 0;
+		image = animation[0];
 	}
 	else
 	{
@@ -135,6 +180,14 @@ void Player::Movement()
 
 	//現在の位置座標に速さを加算する
 	location += velocity;
+}
+
+void Player::Atack()
+{
+	if (InputControl::GetKeyDown(KEY_INPUT_A))
+	{
+		
+	}
 }
 
 //アニメーション制御
@@ -149,14 +202,56 @@ void Player::AnimeControl()
 		//カウントのリセット
 		animation_count = 0;
 
-		//画像の切り替え
-		if (image == animation[0])
+		switch (move_image)
 		{
-			image = animation[1];
-		}
-		else
-		{
-			image = animation[0];
+		case 0:
+			//画像の切り替え
+			if (image == animation[0])
+			{
+				image = animation[1];
+			}
+			else
+			{
+				image = animation[0];
+			}
+			break;
+			
+		case 1:
+			//画像の切り替え
+			if (image == animation[2])
+			{
+				image = animation[3];
+			}
+			else
+			{
+				image = animation[2];
+			}
+			break;
+			
+		case 2:
+			//画像の切り替え
+			if (image == animation[4])
+			{
+				image = animation[5];
+			}
+			else
+			{
+				image = animation[4];
+			}
+			break;
+			
+		case 3:
+			//画像の切り替え
+			if (image == animation[6])
+			{
+				image = animation[7];
+			}
+			else
+			{
+				image = animation[6];
+			}
+			break;
+
 		}
 	}
 }
