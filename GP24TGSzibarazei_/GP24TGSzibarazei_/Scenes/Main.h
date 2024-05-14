@@ -5,6 +5,13 @@
 #include"string"
 #include"../Objects/GameObject.h"
 
+//ステージの大きさ
+typedef struct
+{
+	int STAGE_WIDTH;	//ステージの横幅
+	int STAGE_HEIGHT;	//ステージの縦幅
+}StageDat;
+
 class Main:public SceneBase
 {
 private:
@@ -22,10 +29,17 @@ public:
 	virtual void Draw() const override;
 	//終了時処理
 	virtual void Finalize() override;
-	//現在のシーンをか取得
+	//現在のシーンを取得
 	virtual eSceneType GetNowScene() const override;
+	//ステージの大きさを取得
+	static StageDat GetStageSiz();
+	//ステージのタイプを取得
+	static int GetStageType();
 
 private:
+	//当たり判定チェック処理
+	void HitCheckObject(GameObject* a, GameObject* b);
+
 	//オブジェクト生成処理
 	template <class T>
 	T* CreateObject(const Vector2D& location)

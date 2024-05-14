@@ -3,13 +3,14 @@
 #include "../Objects/Stage/Stage.h"
 #include"DxLib.h"
 
-#define STAGE_DATA		("Resource/datas/stage.csv")
+#define STAGE_DATA	("Resource/datas/stage.csv")
+#define D_PIBOT_CENTER
 
 
+StageDat stagedat;
 FILE* fp = NULL;
 int block = 0;
-int STAGE_WIDTH;
-int STAGE_HEIGHT;
+int type;
 
 //コンストラクタ
 Main::Main() :objects()
@@ -27,8 +28,7 @@ Main::~Main()
 //初期化処理
 void Main::Initialize()
 {
-	STAGE_WIDTH = 0;
-	STAGE_HEIGHT = 0;
+	stagedat = { 0,0 };
 
 	/*********************オブジェクトを生成する********************/
 
@@ -38,32 +38,35 @@ void Main::Initialize()
 	//エラーチェック
 	if (fp == NULL)
 	{
-
+		throw("ファイルが読み込めません\n");
 	}
 	else
 	{
 		while (true)
 		{
 			block = fgetc(fp);
-			STAGE_WIDTH++;
+			stagedat.STAGE_WIDTH++;
 			if (block == EOF)
 			{
 				break;
 			}
 			else if (block == ',')
 			{
-				STAGE_WIDTH--;
+				stagedat.STAGE_WIDTH--;
 				continue;
 			}
 			else if (block == '\n')
 			{
-				STAGE_HEIGHT++;
-				STAGE_WIDTH = 0;
+				stagedat.STAGE_HEIGHT++;
+				stagedat.STAGE_WIDTH = 0;
 				continue;
 			}
-			else if (block > 48)
+			else if (block - 48 <= 0)
 			{
-				CreateObject<Stage>(Vector2D(STAGE_WIDTH * 50.0f, STAGE_HEIGHT * 50.0f));
+				type = block;
+				CreateObject<Stage>(Vector2D(
+					stagedat.STAGE_WIDTH  * 50.0f - 435.f,
+					stagedat.STAGE_HEIGHT * 50.0f - 665.f));
 			}
 		}	
 
@@ -85,8 +88,14 @@ eSceneType Main::Update()
 		obj->Update();
 	}
 
-	return GetNowScene();
+	//プレイヤーがステージ外にいかない処理
+	for (int i = 0; i < objects.size(); i++)
+	{
+			//当たり判定チェック処理
+			HitCheckObject(objects[i], objects[objects.size() - 1]);
+	}
 
+	return GetNowScene();
 }
 
 //描画処理
@@ -96,6 +105,14 @@ void Main::Draw() const
 	for (GameObject* obj : objects)
 	{
 		obj->Draw();
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			DrawFormatString(j * 20+10, i * 20+50, 0xffff00, "%d", Stage::GetStage(i,j));
+		}
 	}
 }
 
@@ -124,3 +141,57 @@ eSceneType Main::GetNowScene()const
 {
 	return eSceneType::E_MAIN;
 }
+
+//ステージの大きさを取得
+StageDat Main::GetStageSiz()
+{
+	return stagedat;
+}
+
+//ステージのタイプを取得
+int Main::GetStageType()
+{
+	return type;
+}
+
+#ifdef D_PIBOT_CENTER
+
+//当たり判定チェック処理（矩形の中心で当たり判定をとる）
+void Main::HitCheckObject(GameObject* a, GameObject* b)
+{
+	//２つのオブジェクトの距離を取得
+	Vector2D diff = a->GetLocation() - b->GetLocation();
+
+	//２つのオブジェクトの当たり判定の大きさを取得
+	Vector2D box_size = (a->GetBoxSize() + b->GetBoxSize()) / 2.0f;
+
+	//距離より大きさが大きい場合、Hit判定とする
+	if ((fabsf(diff.x) < box_size.x) && (fabsf(diff.y) < box_size.y))
+	{
+		//当たったことをオブジェクトに通知する
+		a->OnHitCollision(b);
+		b->OnHitCollision(a);
+	}
+}
+
+#else
+//当たり判定チェック処理（左上頂点の座標から当たり判定計算を行う）
+void Main::HitCheckObject(GameObject* a, GameObject* b)
+{
+	//左右頂点座標を取得する
+	Vector2D a_lower_right = a->GetLocation() + a->GetBoxSize();
+	Vector2D b_lower_right = b->GetLocation() + b->GetBoxSize();
+
+	//矩形Aと矩形Bの位置関係を調べる
+	if ((a->GetLocation().x < b_lower_right.x) &&
+		(a->GetLocation().y < b_lower_right.y) &&
+		(a_lower_right.x > b->GetLocation().x) &&
+		(a_lower_right.y > b->GetLocation().y))
+	{
+		//当たったことをオブジェクトに通知する
+		a->OnHitCollision(b);
+		b->OnHitCollision(a);
+	}
+}
+
+#endif //D_PIVOT_CENTER
