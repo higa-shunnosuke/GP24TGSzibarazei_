@@ -1,27 +1,49 @@
 #include "GameObject.h"
+#include"DxLib.h"
 
 //コンストラクタ
 GameObject::GameObject() :
 	radian(0.0),
 	image(0),
 	sound(0)
-{}
+{
+
+}
 
 //デストラクタ
 GameObject::~GameObject()
-{}
+{
+
+}
 
 //初期化処理
 void GameObject::Initialize()
-{}
+{
+
+}
 
 //更新所理
 void GameObject::Update()
-{}
+{
+
+}
 
 //描画処理
 void GameObject::Draw() const
-{}
+{
+	//デバック用
+#if _DEBUG
+//当たり判定の可視化
+	Vector2D box_collision_upper_left = location - (Vector2D(1.0f) *
+		(float)scale.x / 2.0f);
+	Vector2D box_collision_upper_right = location + (Vector2D(1.0f) *
+		(float)scale.y / 2.0f);
+
+	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
+		box_collision_upper_right.x, box_collision_upper_right.y,
+		GetColor(255, 0, 0), FALSE);
+#endif
+}
 
 //終了時処理
 void GameObject::Finalize()
@@ -83,4 +105,10 @@ Vector2D GameObject::Getscale() const
 void GameObject::SetLocation(const Vector2D& location)
 {
 	this->location = location;
+}
+
+//当たり判定の大きさを取得する
+Vector2D GameObject::GetBoxSize() const
+{
+	return scale;
 }

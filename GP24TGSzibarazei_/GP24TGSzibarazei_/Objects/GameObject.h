@@ -31,5 +31,7 @@ public:
 	virtual Vector2D Getscale() const;
 	//ˆÊ’uî•ñ•ÏXˆ—
 	virtual void SetLocation(const Vector2D& location);
+	//“–‚½‚è”»’è‚Ì‘å‚«‚³‚ğæ“¾‚·‚é
+	Vector2D GetBoxSize() const;
 };
 
