@@ -36,8 +36,9 @@ public:
 	//ステージのタイプを取得
 	static int GetStageType();
 
+
 private:
-	//当たり判定チェック処理
+	//当たり判定チェック処理(ヒット時)
 	void HitCheckObject(GameObject* a, GameObject* b);
 
 	//オブジェクト生成処理

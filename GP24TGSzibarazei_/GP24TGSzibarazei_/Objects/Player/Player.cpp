@@ -108,6 +108,13 @@ void Player::OnHitCollision(GameObject* hit_object)
 
 }
 
+//“–‚½‚è”»’è’Ê’mˆ—
+void Player::NoHitCollision(GameObject* hit_object)
+{
+	//“–‚½‚Á‚Ä‚¢‚È‚¢‚Ìˆ—
+
+}
+
 //ˆÊ’uî•ñæ“¾ˆ—
 Vector2D Player::GetLocation() const
 {
