@@ -60,7 +60,7 @@ void Enemy::Draw() const
 #endif
 }
 
-void Enemy::OnHitCollision(GameObject* hit_object)
+void Enemy::OnHitCollision(GameObject* hit_object,int i)
 {
 	HP--;
 	if (HP == 0)

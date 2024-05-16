@@ -71,18 +71,10 @@ void Stage::Finalize()
 }
 
 //“–‚½‚è”»’è’Ê’mˆ—
-void Stage::OnHitCollision(GameObject* hit_object)
+void Stage::OnHitCollision(GameObject* hit_object,int i)
 {
 	//“–‚½‚Á‚½‚Ìˆ—
 	hit = 1;
-}
-
-//“–‚½‚è”»’è’Ê’mˆ—
-void Stage::NoHitCollision(GameObject* hit_object)
-{
-	//“–‚½‚Á‚Ä‚¢‚È‚¢‚Ìˆ—
-	hit = 0;
-
 }
 
 //ˆÊ’uî•ñæ“¾ˆ—

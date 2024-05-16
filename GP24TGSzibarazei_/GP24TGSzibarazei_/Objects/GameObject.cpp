@@ -86,15 +86,9 @@ bool GameObject::HitCheck(const GameObject* gameobject) const
 }
 
 //当たり判定通知処理
-void GameObject::OnHitCollision(GameObject* hit_object)
+void GameObject::OnHitCollision(GameObject* hit_object,int i)
 {
 	//当たった時に行う処理
-}
-
-//当たり判定通知処理
-void GameObject::NoHitCollision(GameObject* hit_object)
-{
-	//当たっいない時に行う処理
 }
 
 //位置情報取得処理

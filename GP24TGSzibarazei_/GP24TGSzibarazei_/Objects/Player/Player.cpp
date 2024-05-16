@@ -102,16 +102,9 @@ void Player::Finalize()
 }
 
 //“–‚½‚è”»’è’Ê’mˆ—
-void Player::OnHitCollision(GameObject* hit_object)
+void Player::OnHitCollision(GameObject* hit_object,int i)
 {
 	//“–‚½‚Á‚½‚Ìˆ—
-
-}
-
-//“–‚½‚è”»’è’Ê’mˆ—
-void Player::NoHitCollision(GameObject* hit_object)
-{
-	//“–‚½‚Á‚Ä‚¢‚È‚¢‚Ìˆ—
 
 }
 
