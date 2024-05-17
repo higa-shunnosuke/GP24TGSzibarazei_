@@ -35,7 +35,7 @@ void Stage::Initialize()
 	radian = 0.0;
 
 	//‘å‚«‚³‚Ìİ’è
-	scale = 500.0;
+	scale = 50.0;
 
 	//‰Šú‰æ‘œ‚Ìİ’è
 	image = NULL;
@@ -46,6 +46,7 @@ void Stage::Initialize()
 //XVˆ—
 void Stage::Update()
 {
+
 	//ˆÚ“®ˆ—
 	Movement();
 
