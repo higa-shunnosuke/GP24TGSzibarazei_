@@ -35,62 +35,62 @@ void Main::Initialize()
 	/*********************オブジェクトを生成する********************/
 
 	//読込ファイルを開く
-	//fopen_s(&fp, STAGE_DATA, "r");
+	fopen_s(&fp, STAGE_DATA, "r");
 
-	////エラーチェック
-	//if (fp == NULL)
-	//{
-	//	throw("ファイルが読み込めません\n");
-	//}
-	//else
-	//{
-	//	while (true)
-	//	{
-	//		block = fgetc(fp);
-	//		stagedat.STAGE_WIDTH++;
-	//		if (block == EOF)
-	//		{
-	//			break;
-	//		}
-	//		else if (block == ',')
-	//		{
-	//			stagedat.STAGE_WIDTH--;
-	//			continue;
-	//		}
-	//		else if (block == '\n')
-	//		{
-	//			stagedat.STAGE_HEIGHT++;
-	//			stagedat.STAGE_WIDTH = 0;
-	//			continue;
-	//		}
-	//		else if (block - '0' <= 0)
-	//		{
-	//			type = block;
-	//			CreateObject<Stage>(Vector2D(
-	//				stagedat.STAGE_WIDTH  * 50.0f - 435.f,
-	//				stagedat.STAGE_HEIGHT * 50.0f - 665.f));
-	//		}
-	//	}	
-	//	fclose(fp);
-	//}
+	//エラーチェック
+	if (fp == NULL)
+	{
+		throw("ファイルが読み込めません\n");
+	}
+	else
+	{
+		while (true)
+		{
+			block = fgetc(fp);
+			stagedat.STAGE_WIDTH++;
+			if (block == EOF)
+			{
+				break;
+			}
+			else if (block == ',')
+			{
+				stagedat.STAGE_WIDTH--;
+				continue;
+			}
+			else if (block == '\n')
+			{
+				stagedat.STAGE_HEIGHT++;
+				stagedat.STAGE_WIDTH = 0;
+				continue;
+			}
+			else if (block - '0' <= 0)
+			{
+				type = block;
+				CreateObject<Stage>(Vector2D(
+					stagedat.STAGE_WIDTH  * 50.0f - 435.f,
+					stagedat.STAGE_HEIGHT * 50.0f - 665.f));
+			}
+		}	
+		fclose(fp);
+	}
 	
 	//プレイヤーを生成
-	CreateObject<Stage>(Vector2D(640.0f, 360.0f));
-	CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	//CreateObject<Stage>(Vector2D(640.0f, 360.0f));
 	CreateObject<Enemy>(Vector2D(640.0f, 360.0f));
+	CreateObject<Player>(Vector2D(640.0f, 360.0f));
 }
 
 //更新処理
 eSceneType Main::Update()
 {
 	//プレイヤーがステージ外にいかない処理
-	/*for (int i = 0; i < objects.size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
-		
-	}*/
+		//当たり判定チェック処理
+		HitCheckObject(objects[i], objects[objects.size()-1]);
+	}
 
-	//当たり判定チェック処理
-	HitCheckObject(objects[0], objects[1]);
+	
 
 	//シーンに存在するオブジェクトの更新処理
 	for (GameObject* obj : objects)
@@ -173,14 +173,10 @@ void Main::HitCheckObject(GameObject* a, GameObject* b)
 	if ((fabsf(diff.x) < box_size.x) && (fabsf(diff.y) < box_size.y))
 	{
 		//当たったことをオブジェクトに通知する
-		a->OnHitCollision(b,0);
-		b->OnHitCollision(a,0);
+		a->OnHitCollision(b,1);
+		b->OnHitCollision(a,1);
 	}
-	else
-	{
-		a->OnHitCollision(b, 1);
-		b->OnHitCollision(a, 1);
-	}
+	
 }
 
 #else
