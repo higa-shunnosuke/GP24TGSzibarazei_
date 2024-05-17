@@ -95,6 +95,8 @@ void Player::Update()
 {
 	//移動処理
 	Movement();
+	//攻撃処理
+	Atack();
 	//アニメーション制御
 	AnimeControl();
 }
@@ -106,6 +108,9 @@ void Player::Draw() const
 	DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
 	DrawFormatString(10, 10, GetColor(0, 255, 0), "hp");
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
+	DrawFormatString(50, 10, GetColor(0, 0, 255), "%d",exp);
+	DrawFormatString(50, 25, GetColor(0, 0, 255), "%d", max_exp);
+	DrawFormatString(50, 35, GetColor(255, 0, 0), "%d", level);
 
 	//デバック用
 	__super::Draw();
@@ -119,13 +124,18 @@ void Player::Finalize()
 	{
 		DeleteGraph(animation[i]);
 	}
+	////使用した画像を開放する
+	//for (int i = 0; i < 7; i++)
+	//{
+	//	DeleteGraph(ui_image[i]);
+	//}
 }
 
 //当たり判定通知処理
 void Player::OnHitCollision(GameObject* hit_object,int i)
 {
 	//当たった時の処理
-
+	hp--;
 }
 
 //位置情報取得処理
@@ -204,9 +214,10 @@ void Player::Movement()
 
 void Player::Atack()
 {
+	int get = 2;
 	if (InputControl::GetKeyDown(KEY_INPUT_A))
 	{
-		
+		LevelUp(get);
 	}
 }
 
@@ -222,7 +233,7 @@ void Player::LevelUp(int get_exp)
 		//余った経験値を現在の経験値にする
 		exp = max_exp - exp;
 		//次のレベルアップに必要な経験値を増やす
-		max_exp * 2;
+		max_exp=max_exp * 2;
 	}
 }
 

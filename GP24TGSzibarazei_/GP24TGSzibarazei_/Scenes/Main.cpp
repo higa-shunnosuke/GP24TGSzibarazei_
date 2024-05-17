@@ -2,6 +2,7 @@
 #include "../Objects/Player/Player.h"
 #include "../Objects/Enemy/Enemy.h"
 #include "../Objects/Stage/Stage.h"
+#include "../Utility/InputControl.h"
 #include"DxLib.h"
 
 #define STAGE_DATA	("Resource/datas/stage.csv")
