@@ -45,9 +45,9 @@ void Player::Initialize()
 
 	///////////////////////画像追加予定
 	////HP画像
-	//ui_image[0] = LoadGraph("Resource/images/Player/ui/Hp_1.png");
-	//ui_image[1] = LoadGraph("Resource/images/Player/ui/Hp_2.png");
-	//ui_image[2] = LoadGraph("Resource/images/Player/ui/Hp_3.png");
+	ui_image[0] = LoadGraph("Resource/images/Player/ui/Hp1.png");
+	ui_image[1] = LoadGraph("Resource/images/Player/ui/Hp2.png");
+	
 	////MP画像
 	//ui_image[3] = LoadGraph("Resource/images/Player/ui/Mp_1.png");
 	//ui_image[4] = LoadGraph("Resource/images/Player/ui/Mp_2.png");
@@ -65,15 +65,15 @@ void Player::Initialize()
 		}
 	}
 
-	//////////////////////画像追加予定
+	////////////////////画像追加予定
 	//エラーチェック（UI画像）
-	//for (int i = 0; i < 7; i++)
-	//{
-	//	if (ui_image[i] == -1)
-	//	{
-	//		throw("UI画像がありません\n");
-	//	}
-	//}
+	for (int i = 0; i < 2; i++)
+	{
+		if (ui_image[i] == -1)
+		{
+			throw("UI画像がありません\n");
+		}
+	}
 
 	/*if (animation[0] == -1 || animation[1] == -1)
 	{
@@ -106,7 +106,8 @@ void Player::Draw() const
 {
 	//プレイヤー画像の描画
 	DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
-	DrawFormatString(10, 10, GetColor(0, 255, 0), "hp");
+	//HP画像の描画
+	DrawRotaGraphF(10, 10, 0.2, radian, ui_image[0], TRUE, flip_flag);
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
 	DrawFormatString(50, 10, GetColor(0, 0, 255), "%d",exp);
 	DrawFormatString(50, 25, GetColor(0, 0, 255), "%d", max_exp);
