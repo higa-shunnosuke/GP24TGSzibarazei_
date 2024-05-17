@@ -7,12 +7,19 @@ Player::Player() :animation_count(0), flip_flag(FALSE)
 {
 	hp = 5;
 	mp = 20;
+	level = 1;
+	exp = 0;
+	max_exp = 4;
 	ult_active = true;
 	move_image = 0;
 
 	for (int i = 0; i < 8; i++)
 	{
 		animation[i] = NULL;
+	}
+	for (int i = 0; i < 7; i++)
+	{
+		ui_image[i] = NULL;
 	}
 }
 
@@ -35,9 +42,21 @@ void Player::Initialize()
 	//右方向画像の読み込み
 	animation[6] = LoadGraph("Resource/images/Player/samurai/samurai_right_1.png");
 	animation[7] = LoadGraph("Resource/images/Player/samurai/samurai_right_2.png");
+
+	///////////////////////画像追加予定
+	////HP画像
+	//ui_image[0] = LoadGraph("Resource/images/Player/ui/Hp_1.png");
+	//ui_image[1] = LoadGraph("Resource/images/Player/ui/Hp_2.png");
+	//ui_image[2] = LoadGraph("Resource/images/Player/ui/Hp_3.png");
+	////MP画像
+	//ui_image[3] = LoadGraph("Resource/images/Player/ui/Mp_1.png");
+	//ui_image[4] = LoadGraph("Resource/images/Player/ui/Mp_2.png");
+	//ui_image[5] = LoadGraph("Resource/images/Player/ui/Mp_3.png");
+	////Level画像
+	//ui_image[6] = LoadGraph("Resource/images/Player/ui/Exp_1.png");
 	
 
-	//エラーチェック
+	//エラーチェック（キャラ画像）
 	for (int i = 0; i < 8; i++)
 	{
 		if (animation[i] == -1)
@@ -45,6 +64,17 @@ void Player::Initialize()
 			throw("ナイトの画像がありません\n");
 		}
 	}
+
+	//////////////////////画像追加予定
+	//エラーチェック（UI画像）
+	//for (int i = 0; i < 7; i++)
+	//{
+	//	if (ui_image[i] == -1)
+	//	{
+	//		throw("UI画像がありません\n");
+	//	}
+	//}
+
 	/*if (animation[0] == -1 || animation[1] == -1)
 	{
 		throw ("ナイトの画像がありません\n");
@@ -78,17 +108,7 @@ void Player::Draw() const
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
 
 	//デバック用
-#if _DEBUG
-//当たり判定の可視化
-	Vector2D box_collision_upper_left = location - (Vector2D(1.0f) *
-		(float)scale.x / 2.0f);
-	Vector2D box_collision_upper_right = location + (Vector2D(1.0f) *
-		(float)scale.y / 2.0f);
-
-	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
-		box_collision_upper_right.x, box_collision_upper_right.y,
-		GetColor(255, 0, 0), FALSE);
-#endif
+	__super::Draw();
 }
 
 //終了時処理
@@ -102,7 +122,7 @@ void Player::Finalize()
 }
 
 //当たり判定通知処理
-void Player::OnHitCollision(GameObject* hit_object)
+void Player::OnHitCollision(GameObject* hit_object,int i)
 {
 	//当たった時の処理
 
@@ -133,7 +153,7 @@ void Player::Movement()
 	Vector2D velocity = 0.0f;
 
 	//左右移動
-	if (InputControl::GetKey(KEY_INPUT_LEFT))
+	if (InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		//velocity.x += -5.0f;
 		/*flip_flag = TRUE;*/
@@ -142,7 +162,7 @@ void Player::Movement()
 		move_image = 2;
 		image = animation[4];
 	}
-	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
+	else if (InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		//velocity.x += 5.0f;
 		/*flip_flag = FALSE;*/
@@ -157,7 +177,7 @@ void Player::Movement()
 	}
 
 	//上下移動
-	if (InputControl::GetKey(KEY_INPUT_UP))
+	if (InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
 		//velocity.y += -5.0f;
 
@@ -165,7 +185,7 @@ void Player::Movement()
 		move_image = 1;
 		image = animation[2];
 	}
-	else if (InputControl::GetKey(KEY_INPUT_DOWN))
+	else if (InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
 		//velocity.y += 5.0f;
 
@@ -187,6 +207,22 @@ void Player::Atack()
 	if (InputControl::GetKeyDown(KEY_INPUT_A))
 	{
 		
+	}
+}
+
+void Player::LevelUp(int get_exp)
+{
+	//現在の経験値に取得した経験値を加算
+	exp += get_exp;
+	//レベルアップに必要な経験値がたまったとき
+	if (exp >= max_exp)
+	{
+		//レベルを1つ上げる
+		level++;
+		//余った経験値を現在の経験値にする
+		exp = max_exp - exp;
+		//次のレベルアップに必要な経験値を増やす
+		max_exp * 2;
 	}
 }
 

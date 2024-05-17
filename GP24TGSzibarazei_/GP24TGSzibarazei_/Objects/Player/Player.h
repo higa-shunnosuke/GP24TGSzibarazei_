@@ -7,11 +7,15 @@ class Player :public GameObject
 private:
 	int hp;               //体力
 	int mp;               //マジックパワー
+	int level;            //プレイヤーのレベル
+	int exp;              //経験値
+	int max_exp;          //レベルアップに必要な経験値の量
 	int ult_active;       //アルティメット使用可能状態
-	int animation[8];			//アニメーション画像
-	int animation_count;		//アニメーション時間
-	int move_image;             //進行方向に対応する画像の読み込み
-	int flip_flag;				//反転フラグ
+	int animation[8];	  //アニメーション画像
+	int animation_count;  //アニメーション時間
+	int move_image;		  //進行方向に対応する画像の読み込み
+	int ui_image[8];      //HP/MP等のUIの画像
+	int flip_flag;	      //反転フラグ
 
 public:
 	Player();
@@ -22,8 +26,8 @@ public:
 	virtual void Draw() const override;	//描画処理
 	virtual void Finalize() override;	//終了時処理
 
-	//当たり判定通知処理
-	virtual void OnHitCollision(GameObject* hit_object) override;
+	//当たり判定通知処理(ヒット時)
+	virtual void OnHitCollision(GameObject* hit_object,int i) override;
 	//位置情報取得処理
 	 virtual Vector2D GetLocation() const override;
 	//大きさ取得処理
@@ -38,6 +42,7 @@ private:
 	void AnimeControl();
 	//攻撃処理
 	void Atack();
-
+	//経験値・レベルアップの処理
+	void LevelUp(int get_exp);
 };
 

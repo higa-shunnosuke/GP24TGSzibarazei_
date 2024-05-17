@@ -5,10 +5,6 @@
 class Stage :public GameObject
 {
 private:
-	int animation[2];			//アニメーション画像
-	int animation_count;		//アニメーション時間
-	int filp_flag;				//反転フラグ
-	unsigned int color;			//色
 	int type;					//ステージのタイプ
 
 public:
@@ -21,7 +17,7 @@ public:
 	virtual void Finalize() override;	//終了時処理
 
 	//当たり判定通知処理
-	virtual void OnHitCollision(GameObject* hit_object) override;
+	virtual void OnHitCollision(GameObject* hit_object,int i) override;
 	//位置情報取得処理
 	virtual Vector2D GetLocation() const override;
 	//大きさ取得処理
@@ -35,8 +31,5 @@ public:
 private:
 	//移動処理
 	void Movement();
-	//アニメーション制御
-	//void AnimeControl();
-
 };
 

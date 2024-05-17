@@ -47,7 +47,9 @@ void GameObject::Draw() const
 
 //I—¹ˆ—
 void GameObject::Finalize()
-{}
+{
+
+}
 
 
 bool GameObject::HitCheck(const GameObject* gameobject) const
@@ -84,7 +86,7 @@ bool GameObject::HitCheck(const GameObject* gameobject) const
 }
 
 //“–‚½‚è”»’è’Ê’mˆ—
-void GameObject::OnHitCollision(GameObject* hit_object)
+void GameObject::OnHitCollision(GameObject* hit_object,int i)
 {
 	//“–‚½‚Á‚½‚És‚¤ˆ—
 }
