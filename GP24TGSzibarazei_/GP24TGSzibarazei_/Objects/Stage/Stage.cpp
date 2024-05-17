@@ -24,7 +24,9 @@ Stage::Stage()
 
 //デストラクタ
 Stage::~Stage()
-{}
+{
+
+}
 
 //初期化処理
 void Stage::Initialize()
@@ -33,7 +35,7 @@ void Stage::Initialize()
 	radian = 0.0;
 
 	//大きさの設定
-	scale = 50.0;
+	scale = 500.0;
 
 	//初期画像の設定
 	image = NULL;
@@ -74,7 +76,7 @@ void Stage::Finalize()
 void Stage::OnHitCollision(GameObject* hit_object,int i)
 {
 	//当たった時の処理
-	hit = 1;
+	hit = i;
 }
 
 //位置情報取得処理
@@ -145,35 +147,8 @@ void Stage::Movement()
 	else
 	{
 		velocity = 0;
-		////左右移動
-		//if (InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
-		//{
-		//	velocity.x += -5.0f;
-		//}
-		//else if (InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
-		//{
-		//	velocity.x += 5.0f;
-		//}
-		//else
-		//{
-		//	velocity.x += 0.0f;
-		//}
-
-		////上下移動
-		//if (InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
-		//{
-		//	velocity.y += -5.0f;
-		//}
-		//else if (InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
-		//{
-		//	velocity.y += 5.0f;
-		//}
-		//else
-		//{
-		//	velocity.y = 0.0f;
-		//}
 	}
-	
+
 	location += velocity;
 }
 

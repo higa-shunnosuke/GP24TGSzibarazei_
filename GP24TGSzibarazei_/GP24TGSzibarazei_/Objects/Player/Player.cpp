@@ -78,17 +78,7 @@ void Player::Draw() const
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
 
 	//デバック用
-#if _DEBUG
-//当たり判定の可視化
-	Vector2D box_collision_upper_left = location - (Vector2D(1.0f) *
-		(float)scale.x / 2.0f);
-	Vector2D box_collision_upper_right = location + (Vector2D(1.0f) *
-		(float)scale.y / 2.0f);
-
-	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
-		box_collision_upper_right.x, box_collision_upper_right.y,
-		GetColor(255, 0, 0), FALSE);
-#endif
+	__super::Draw();
 }
 
 //終了時処理
