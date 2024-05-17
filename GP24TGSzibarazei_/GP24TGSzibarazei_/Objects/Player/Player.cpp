@@ -5,7 +5,8 @@
 //コンストラクタ
 Player::Player() :animation_count(0), flip_flag(FALSE)
 {
-	hp = 5;
+	hp = 4;
+	max_hp = 5;
 	mp = 20;
 	level = 1;
 	exp = 0;
@@ -107,7 +108,18 @@ void Player::Draw() const
 	//プレイヤー画像の描画
 	DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
 	//HP画像の描画
-	DrawRotaGraphF(10, 10, 0.2, radian, ui_image[0], TRUE, flip_flag);
+	for (int i = 0; i < max_hp; i++)
+	{
+		if (i <= hp)
+		{
+			DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[0], TRUE, flip_flag);
+		}
+		else
+		{
+			DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[1], TRUE, flip_flag);
+		}
+	}
+	
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
 	DrawFormatString(50, 10, GetColor(0, 0, 255), "%d",exp);
 	DrawFormatString(50, 25, GetColor(0, 0, 255), "%d", max_exp);
@@ -125,18 +137,18 @@ void Player::Finalize()
 	{
 		DeleteGraph(animation[i]);
 	}
-	////使用した画像を開放する
-	//for (int i = 0; i < 7; i++)
-	//{
-	//	DeleteGraph(ui_image[i]);
-	//}
+	//使用した画像を開放する
+	for (int i = 0; i < 2; i++)
+	{
+		DeleteGraph(ui_image[i]);
+	}
 }
 
 //当たり判定通知処理
 void Player::OnHitCollision(GameObject* hit_object,int i)
 {
 	//当たった時の処理
-	hp--;
+	//hp--;
 }
 
 //位置情報取得処理
@@ -219,6 +231,22 @@ void Player::Atack()
 	if (InputControl::GetKeyDown(KEY_INPUT_A))
 	{
 		LevelUp(get);
+	}
+	if (InputControl::GetKeyDown(KEY_INPUT_S))
+	{
+		hp--;
+		if (hp < -1)
+		{
+			hp = -1;
+		}
+	}
+	if (InputControl::GetKeyDown(KEY_INPUT_D))
+	{
+		hp++;
+		if (hp > max_hp-1)
+		{
+			hp = max_hp-1;
+		}
 	}
 }
 

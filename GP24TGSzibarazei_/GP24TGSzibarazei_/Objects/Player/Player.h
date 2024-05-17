@@ -6,6 +6,7 @@ class Player :public GameObject
 {
 private:
 	int hp;               //体力
+	int max_hp;           //最大体力
 	int mp;               //マジックパワー
 	int level;            //プレイヤーのレベル
 	int exp;              //経験値
