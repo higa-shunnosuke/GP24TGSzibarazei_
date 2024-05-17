@@ -5,12 +5,15 @@
 class Enemy :public GameObject
 {
 private:
-	int animation[8];			//アニメーション画像
-	int animation_count;		//アニメーション時間(恐らくアイドリング用)
+	int animation[15];			//アニメーション画像
+	int animation_count;		//アニメーション時間(アイドリング用)
 	int HP;						//HitPoint(体力)
 	float AS;					//AtackSpeed(攻撃速度)
 	int ATK;					//Attack(攻撃力)
 	int Speed;					//AGL(速度)
+	int AL;						//AttackLenge(攻撃範囲)
+
+
 
 public:
 	Enemy();

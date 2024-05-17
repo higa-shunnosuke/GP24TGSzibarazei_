@@ -102,4 +102,51 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\images\Enemy\troll\troll_left_1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_left_2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_left_3.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_left_atk_1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_left_atk_2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_left_atk_3.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_left_walk_1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_left_walk_2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_right_1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_right_2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_right_3.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_right_fist_atk_1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_right_fist_atk_2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_right_walk_1.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Resource\images\Enemy\troll\troll_right_walk_2.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
