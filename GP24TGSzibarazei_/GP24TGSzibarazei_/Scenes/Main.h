@@ -16,6 +16,7 @@ class Main:public SceneBase
 {
 private:
 	std::vector<GameObject*> objects;
+	int Is_pause;		//ポーズ状態か？
 
 public:
 	Main();

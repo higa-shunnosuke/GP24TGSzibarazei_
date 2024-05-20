@@ -77,7 +77,7 @@ void Stage::Finalize()
 void Stage::OnHitCollision(GameObject* hit_object,int i)
 {
 	//“–‚½‚Á‚½‚Ìˆ—
-	hit = i;
+	//hit = i;
 }
 
 //ˆÊ’uî•ñæ“¾ˆ—
