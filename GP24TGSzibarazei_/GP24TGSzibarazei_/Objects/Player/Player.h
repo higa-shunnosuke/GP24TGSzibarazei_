@@ -12,7 +12,7 @@ private:
 	int exp;              //経験値
 	int max_exp;          //レベルアップに必要な経験値の量
 	int ult_active;       //アルティメット使用可能状態
-	int animation[8];	  //アニメーション画像
+	int animation[30];	  //アニメーション画像
 	int animation_count;  //アニメーション時間
 	int move_image;		  //進行方向に対応する画像の読み込み
 	int ui_image[8];      //HP/MP等のUIの画像

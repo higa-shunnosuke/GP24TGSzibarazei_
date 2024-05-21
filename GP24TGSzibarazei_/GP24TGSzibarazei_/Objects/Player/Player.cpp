@@ -33,17 +33,17 @@ Player::~Player()
 void Player::Initialize()
 {
 	//前方向画像の読み込み
-	animation[0] = LoadGraph("Resource/images/Player/samurai/samurai_front_1.png");
-	animation[1] = LoadGraph("Resource/images/Player/samurai/samurai_front_2.png");
-	//後ろ方向画像の読み込み
-	animation[2] = LoadGraph("Resource/images/Player/samurai/samurai_back_1.png");
-	animation[3] = LoadGraph("Resource/images/Player/samurai/samurai_back_2.png");
-	//左方向画像の読み込み
-	animation[4] = LoadGraph("Resource/images/Player/samurai/samurai_left_1.png");
-	animation[5] = LoadGraph("Resource/images/Player/samurai/samurai_left_2.png");
-	//右方向画像の読み込み
-	animation[6] = LoadGraph("Resource/images/Player/samurai/samurai_right_1.png");
-	animation[7] = LoadGraph("Resource/images/Player/samurai/samurai_right_2.png");
+	LoadDivGraph("Resource/images/Player/samurai/samurai_all.png", 30, 6, 6, 32, 64, animation);
+	//animation[1] = LoadGraph("Resource/images/Player/samurai/samurai_front_2.png");
+	////後ろ方向画像の読み込み
+	//animation[2] = LoadGraph("Resource/images/Player/samurai/samurai_back_1.png");
+	//animation[3] = LoadGraph("Resource/images/Player/samurai/samurai_back_2.png");
+	////左方向画像の読み込み
+	//animation[4] = LoadGraph("Resource/images/Player/samurai/samurai_left_1.png");
+	//animation[5] = LoadGraph("Resource/images/Player/samurai/samurai_left_2.png");
+	////右方向画像の読み込み
+	//animation[6] = LoadGraph("Resource/images/Player/samurai/samurai_right_1.png");
+	//animation[7] = LoadGraph("Resource/images/Player/samurai/samurai_right_2.png");
 
 	///////////////////////画像追加予定
 	////HP画像
@@ -58,13 +58,17 @@ void Player::Initialize()
 	//ui_image[6] = LoadGraph("Resource/images/Player/ui/Exp_1.png");
 	
 
-	//エラーチェック（キャラ画像）
-	for (int i = 0; i < 8; i++)
+	////エラーチェック（キャラ画像）
+	//for (int i = 0; i < 36; i++)
+	//{
+	//	if (animation[i] == -1)
+	//	{
+	//		throw("ナイトの画像がありません\n");
+	//	}
+	//}
+	if (animation[0] == -1)
 	{
-		if (animation[i] == -1)
-		{
-			throw("ナイトの画像がありません\n");
-		}
+		throw("ナイトの画像がありません\n");
 	}
 
 	////////////////////画像追加予定
