@@ -77,7 +77,7 @@ void Main::Initialize()
 	//プレイヤーを生成
 	//CreateObject<Stage>(Vector2D(640.0f, 360.0f));
 	CreateObject<Enemy>(Vector2D(640.0f, 360.0f));
-	CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	//CreateObject<Player>(Vector2D(640.0f, 360.0f));
 }
 
 //更新処理
@@ -99,7 +99,7 @@ eSceneType Main::Update()
 		}
 
 		//スタートボタンが押されたら、ポーズする
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
 		{
 			Is_pause = 1;
 		}
@@ -107,7 +107,7 @@ eSceneType Main::Update()
 	else
 	{
 		//スタートボタンが押されたら、ポーズを解除する
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
 		{
 			Is_pause = 0;
 		}
