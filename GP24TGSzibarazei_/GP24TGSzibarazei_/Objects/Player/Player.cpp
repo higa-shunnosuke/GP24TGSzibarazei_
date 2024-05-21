@@ -2,6 +2,9 @@
 #include "../../Utility/InputControl.h"
 #include"DxLib.h"
 
+
+static Vector2D velocity;		//移動距離
+
 //コンストラクタ
 Player::Player() :animation_count(0), flip_flag(FALSE)
 {
@@ -14,6 +17,9 @@ Player::Player() :animation_count(0), flip_flag(FALSE)
 	ult_active = true;
 	move_image = 0;
 	move_flag = 1;
+
+	//移動距離
+	velocity = Vector2D(0.0f);
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -94,6 +100,9 @@ void Player::Initialize()
 
 	//初期画像の設定
 	image = animation[0];
+
+	//移動距離
+	velocity = Vector2D(0.0f);
 }
 
 //更新処理
@@ -192,14 +201,12 @@ void Player::SetLocation(const Vector2D& location)
 //移動処理
 void Player::Movement()
 {
-	//移動の速さ
-	Vector2D velocity = 0.0f;
+	velocity = Vector2D(0.0f);
 
 	//左右移動
 	if (InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
-		//velocity.x += -5.0f;
-		/*flip_flag = TRUE;*/
+		velocity.x += -5.0f;
 
 		//プレイヤー画像を左向きにする
 		move_image = 2;
@@ -207,8 +214,7 @@ void Player::Movement()
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
-		//velocity.x += 5.0f;
-		/*flip_flag = FALSE;*/
+		velocity.x += 5.0f;
 
 		//プレイヤー画像を右向きにする
 		move_image = 3;
@@ -222,7 +228,7 @@ void Player::Movement()
 	//上下移動
 	if (InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
-		//velocity.y += -5.0f;
+		velocity.y += -5.0f;
 
 		//プレイヤー画像を後ろ向きにする
 		move_image = 1;
@@ -230,7 +236,7 @@ void Player::Movement()
 	}
 	else if (InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
-		//velocity.y += 5.0f;
+		velocity.y += 5.0f;
 
 		//プレイヤー画像を前向きにする
 		move_image = 0;
@@ -242,7 +248,7 @@ void Player::Movement()
 	}
 
 	//現在の位置座標に速さを加算する
-	location += velocity;
+	//location += velocity;
 }
 
 void Player::Atack()
@@ -360,4 +366,10 @@ void Player::AcquisitionPassive()
 	{
 		move_flag = 1;
 	}
+}
+
+//移動距離取得処理
+Vector2D Player::GetVelocity()
+{
+	return velocity;
 }

@@ -37,6 +37,9 @@ public:
 	//ˆÊ’uî•ñ•ÏXˆ—
 	virtual void SetLocation(const Vector2D& location) override;
 
+	//ˆÚ“®‹——£æ“¾ˆ—
+	static Vector2D GetVelocity();
+
 private:
 	//ˆÚ“®ˆ—
 	void Movement();

@@ -1,11 +1,13 @@
 #pragma once
-
+#include "../Player/Player.h"
 #include"../GameObject.h"
 
 class Stage :public GameObject
 {
 private:
-	int type;					//ステージのタイプ
+	int type;			//ステージのタイプ
+	Vector2D move;		//移動距離
+	Player* player;
 
 public:
 	Stage();
@@ -29,7 +31,5 @@ public:
 	static void SetStage();
 
 private:
-	//移動処理
-	void Movement();
 };
 
