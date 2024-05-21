@@ -13,6 +13,7 @@ Player::Player() :animation_count(0), flip_flag(FALSE)
 	max_exp = 4;
 	ult_active = true;
 	move_image = 0;
+	move_flag = 1;
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -94,30 +95,45 @@ void Player::Initialize()
 //更新処理
 void Player::Update()
 {
-	//移動処理
-	Movement();
-	//攻撃処理
-	Atack();
-	//アニメーション制御
-	AnimeControl();
+	if (move_flag == 1)
+	{
+		//移動処理
+		Movement();
+		//攻撃処理
+		Atack();
+		//アニメーション制御
+		AnimeControl();
+	}
+	else if (move_flag == 0)
+	{
+		//パッシブ獲得処理
+		AcquisitionPassive();
+	}
 }
 
 //描画処理
 void Player::Draw() const
 {
-	//プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
-	//HP画像の描画
-	for (int i = 0; i < max_hp; i++)
+	if (move_flag == 1)
 	{
-		if (i <= hp)
+		//プレイヤー画像の描画
+		DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
+		//HP画像の描画
+		for (int i = 0; i < max_hp; i++)
 		{
-			DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[0], TRUE, flip_flag);
+			if (i <= hp)
+			{
+				DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[0], TRUE, flip_flag);
+			}
+			else
+			{
+				DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[1], TRUE, flip_flag);
+			}
 		}
-		else
-		{
-			DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[1], TRUE, flip_flag);
-		}
+	}
+	else if (move_flag == 0)
+	{
+		DrawFormatString(location.x, location.y, GetColor(0, 255, 0), "LevelUp");
 	}
 	
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
@@ -263,6 +279,7 @@ void Player::LevelUp(int get_exp)
 		exp = max_exp - exp;
 		//次のレベルアップに必要な経験値を増やす
 		max_exp=max_exp * 2;
+		move_flag = 0;
 	}
 }
 
@@ -329,5 +346,14 @@ void Player::AnimeControl()
 			break;
 
 		}
+	}
+}
+
+
+void Player::AcquisitionPassive()
+{
+	if (InputControl::GetKeyDown(KEY_INPUT_V))
+	{
+		move_flag = 1;
 	}
 }

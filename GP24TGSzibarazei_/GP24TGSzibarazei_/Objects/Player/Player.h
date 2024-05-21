@@ -17,6 +17,7 @@ private:
 	int move_image;		  //進行方向に対応する画像の読み込み
 	int ui_image[8];      //HP/MP等のUIの画像
 	int flip_flag;	      //反転フラグ
+	int move_flag;        //移動可能状態か(0=移動不可,(1=移動可能)
 
 public:
 	Player();
@@ -45,5 +46,7 @@ private:
 	void Atack();
 	//経験値・レベルアップの処理
 	void LevelUp(int get_exp);
+	//パッシブスキル獲得処理
+	void AcquisitionPassive();
 };
 
