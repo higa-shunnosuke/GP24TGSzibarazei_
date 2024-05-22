@@ -197,8 +197,8 @@ void Main::HitCheckObject(GameObject* a, GameObject* b)
 	if ((fabsf(diff.x) < box_size.x) && (fabsf(diff.y) < box_size.y))
 	{
 		//当たったことをオブジェクトに通知する
-		a->OnHitCollision(b,1);
-		b->OnHitCollision(a,1);
+		a->OnHitCollision(b);
+		b->OnHitCollision(a);
 	}
 	
 }

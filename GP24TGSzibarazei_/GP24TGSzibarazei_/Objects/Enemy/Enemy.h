@@ -25,7 +25,7 @@ public:
 	virtual void Finalize() override;	//I—¹ˆ—
 
 	//“–‚½‚è”»’è’Ê’mˆ—
-	virtual void OnHitCollision(GameObject* hit_object,int i) override;
+	virtual void OnHitCollision(GameObject* hit_object) override;
 	//ˆÊ’uî•ñæ“¾ˆ—
 	virtual Vector2D GetLocation() const override;
 	//‘å‚«‚³æ“¾ˆ—
