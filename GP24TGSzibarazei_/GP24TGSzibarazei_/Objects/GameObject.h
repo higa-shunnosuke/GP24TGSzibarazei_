@@ -24,7 +24,7 @@ public:
 	//ヒットチェック
 	bool HitCheck(const class GameObject* GemeObject)const;
 	//当たり判定通知処理(ヒット時)
-	virtual void OnHitCollision(GameObject* hit_object,int i);
+	virtual void OnHitCollision(GameObject* hit_object);
 	//位置情報取得処理
 	virtual Vector2D GetLocation() const;
 	//大きさ取得処理

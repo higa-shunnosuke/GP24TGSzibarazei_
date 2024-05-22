@@ -30,7 +30,7 @@ public:
 	//プレイヤーのポインタを受け取る
 	virtual void SetPlayer(class Player* player);
 	//当たり判定通知処理
-	virtual void OnHitCollision(GameObject* hit_object,int i) override;
+	virtual void OnHitCollision(GameObject* hit_object) override;
 	//位置情報取得処理
 	virtual Vector2D GetLocation() const override;
 	//大きさ取得処理

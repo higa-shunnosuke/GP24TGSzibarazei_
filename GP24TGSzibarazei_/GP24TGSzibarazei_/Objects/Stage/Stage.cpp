@@ -78,7 +78,7 @@ void Stage::Finalize()
 }
 
 //“–‚½‚è”»’è’Ê’mˆ—
-void Stage::OnHitCollision(GameObject* hit_object,int i)
+void Stage::OnHitCollision(GameObject* hit_object)
 {
 	//“–‚½‚Á‚½‚Ìˆ—
 	//hit = i;
