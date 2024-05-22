@@ -15,6 +15,7 @@ private:
 	int AL;						//AttackLenge(攻撃範囲)
 	int ET;						//EnemyType(敵の種類を選択する)
 	bool isBoss;				//この敵がボスかどうかを確認する
+	Player* player;
 
 public:
 	Enemy();
@@ -26,8 +27,10 @@ public:
 	virtual void Draw() const override;	//描画処理
 	virtual void Finalize() override;	//終了時処理
 
+	//プレイヤーのポインタを受け取る
+	virtual void SetPlayer(class Player* player);
 	//当たり判定通知処理
-	virtual void OnHitCollision(GameObject* hit_object,int i) override;
+	virtual void OnHitCollision(GameObject* hit_object) override;
 	//位置情報取得処理
 	virtual Vector2D GetLocation() const override;
 	//大きさ取得処理

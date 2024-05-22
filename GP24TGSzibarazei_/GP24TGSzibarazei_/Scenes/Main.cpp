@@ -6,8 +6,6 @@
 #include"DxLib.h"
 
 #define STAGE_DATA	("Resource/datas/stage.csv")
-#define D_PIBOT_CENTER
-
 
 StageDat stagedat;
 FILE* fp = NULL;
@@ -17,7 +15,7 @@ int type;
 //コンストラクタ
 Main::Main() :objects()
 {
-	Is_pause = 0;		//ポーズ状態か（YES＝1、NO＝0）
+	Is_pause = false;		//ポーズ状態か（YES＝true、NO＝false）
 }
 
 //デストラクタ
@@ -76,14 +74,14 @@ void Main::Initialize()
 	
 	//プレイヤーを生成
 	//CreateObject<Stage>(Vector2D(640.0f, 360.0f));
-	CreateObject<Enemy>(Vector2D(640.0f, 360.0f));
-	CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	Player* p =	CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
 }
 
 //更新処理
 eSceneType Main::Update()
 {
-	if (Is_pause == 0)
+	if (Is_pause == false)
 	{
 		//プレイヤーがステージ外にいかない処理
 		for (int i = 0; i < objects.size(); i++)
@@ -101,7 +99,7 @@ eSceneType Main::Update()
 		//スタートボタンが押されたら、ポーズする
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
 		{
-			Is_pause = 1;
+			Is_pause = true;
 		}
 	}
 	else
@@ -109,7 +107,7 @@ eSceneType Main::Update()
 		//スタートボタンが押されたら、ポーズを解除する
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
 		{
-			Is_pause = 0;
+			Is_pause = false;
 		}
 	}
 
@@ -135,7 +133,7 @@ void Main::Draw() const
 	}
 
 
-	if (Is_pause==1)
+	if (Is_pause==true)
 	{
 		SetFontSize(100);
 		DrawFormatString(515,310, 0xffffff, "PAUSE");
@@ -182,8 +180,6 @@ int Main::GetStageType()
 	return type;
 }
 
-#ifdef D_PIBOT_CENTER
-
 //当たり判定チェック処理（矩形の中心で当たり判定をとる）
 void Main::HitCheckObject(GameObject* a, GameObject* b)
 {
@@ -197,12 +193,7 @@ void Main::HitCheckObject(GameObject* a, GameObject* b)
 	if ((fabsf(diff.x) < box_size.x) && (fabsf(diff.y) < box_size.y))
 	{
 		//当たったことをオブジェクトに通知する
-		a->OnHitCollision(b,1);
-		b->OnHitCollision(a,1);
+		a->OnHitCollision(b);
+		b->OnHitCollision(a);
 	}
-	
 }
-
-#else
-
-#endif //D_PIVOT_CENTER

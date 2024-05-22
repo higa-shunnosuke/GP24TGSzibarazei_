@@ -85,7 +85,7 @@ void Enemy_mob::Draw() const
 #endif
 }
 
-void Enemy_mob::OnHitCollision(GameObject* hit_object, int i)
+void Enemy_mob::OnHitCollision(GameObject* hit_object)
 {
 	//プレイヤー側からダメージの値を貰って、その値分HPを引く
 	HP--;

@@ -84,7 +84,7 @@ bool GameObject::HitCheck(const GameObject* gameobject) const
 }
 
 //“–‚½‚è”»’è’Ê’mˆ—
-void GameObject::OnHitCollision(GameObject* hit_object,int i)
+void GameObject::OnHitCollision(GameObject* hit_object)
 {
 	//“–‚½‚Á‚½‚És‚¤ˆ—
 }
