@@ -1,3 +1,4 @@
+#include "Enemy_mob.h"
 #include"Enemy.h"
 #include"DxLib.h"
 #include"../Player/Player.h"
@@ -6,44 +7,39 @@
 #define M_PI
 
 typedef struct {
-int Troll_left1 = 0;
-int Troll_left2 = 1;
-int Troll_left3 = 2;
-int Troll_leftwalk1 = 3;
-int Troll_leftwalk2 = 4;
-int Troll_leftatk1 = 5;
-int Troll_leftatk2 = 6;
-int Troll_leftatk3 = 7;
-int Troll_Empty1 = 8;
-int Troll_Empty2 = 9;
-int Troll_right1 = 10;
-int Troll_right2 = 11;
-int Troll_right3 = 12;
-int Troll_rightWalk1 = 13;
-int Troll_rightWalk2 = 14;
-int Troll_rightatk1 = 15;
-int Troll_rightatk2 = 16;
+	int Troll_left1 = 0;
+	int Troll_left2 = 1;
+	int Troll_left3 = 2;
+	int Troll_leftwalk1 = 3;
+	int Troll_leftwalk2 = 4;
+	int Troll_leftatk1 = 5;
+	int Troll_leftatk2 = 6;
+	int Troll_leftatk3 = 7;
+	int Troll_Empty1 = 8;
+	int Troll_Empty2 = 9;
+	int Troll_right1 = 10;
+	int Troll_right2 = 11;
+	int Troll_right3 = 12;
+	int Troll_rightWalk1 = 13;
+	int Troll_rightWalk2 = 14;
+	int Troll_rightatk1 = 15;
+	int Troll_rightatk2 = 16;
 };
 
 
 
-Enemy::Enemy() :animation_count(0),ATK (0),Speed(0),AS(0.0),HP(10),AL(3),ET(0),isBoss(false)
+Enemy_mob::Enemy_mob() :animation_count(0), ATK(0), Speed(0), AS(0.0), HP(10), AL(3), ET(0), isBoss(false)
 {
 	for (int i = 0; i < 20; i++) {
-		animation[i]  = NULL;
+		animation[i] = NULL;
 	}
 }
 
-Enemy::~Enemy()
+Enemy_mob::~Enemy_mob()
 {
 }
 
-void Enemy::Attack()
-{
-
-}
-
-void Enemy::Initialize()
+void Enemy_mob::Initialize()
 {
 	LoadDivGraph("Resource/images/Enemy/troll/troll_all.png", 20, 5, 4, 198, 132, animation);
 
@@ -62,25 +58,25 @@ void Enemy::Initialize()
 	image = animation[0];
 }
 
-void Enemy::Update()
+void Enemy_mob::Update()
 {
 
 	AnimeControl();
-	
+
 	Movement();
 
 }
 
-void Enemy::Draw() const
+void Enemy_mob::Draw() const
 {
 	DrawRotaGraphF(location.x, location.y, 1, radian, image, TRUE, FALSE);
 
 	//デバック用
 #if _DEBUG
 //当たり判定の可視化
-	Vector2D box_collision_upper_left =  (location - 20.0f) - (Vector2D(1.0f) *
+	Vector2D box_collision_upper_left = (location - 20.0f) - (Vector2D(1.0f) *
 		(float)scale.x / 2.0f);
-	Vector2D box_collision_upper_right = location  + (Vector2D(1.0f) *
+	Vector2D box_collision_upper_right = location + (Vector2D(1.0f) *
 		(float)scale.y / 2.0f);
 
 	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
@@ -89,7 +85,7 @@ void Enemy::Draw() const
 #endif
 }
 
-void Enemy::OnHitCollision(GameObject* hit_object,int i)
+void Enemy_mob::OnHitCollision(GameObject* hit_object, int i)
 {
 	//プレイヤー側からダメージの値を貰って、その値分HPを引く
 	HP--;
@@ -101,11 +97,11 @@ void Enemy::OnHitCollision(GameObject* hit_object,int i)
 }
 
 
-void Enemy::SetLocation(const Vector2D& location)
+void Enemy_mob::SetLocation(const Vector2D& location)
 {
 }
 
-void Enemy::Movement()
+void Enemy_mob::Movement()
 {
 	location -= Player::GetVelocity();
 
@@ -132,7 +128,7 @@ void Enemy::Movement()
 	{
 		if ((image != animation[14]) && (image != animation[15]))
 		{
-		image = animation[10];
+			image = animation[10];
 		}
 
 		//右に向かう
@@ -147,7 +143,7 @@ void Enemy::Movement()
 	}
 }
 
-void Enemy::AnimeControl()
+void Enemy_mob::AnimeControl()
 {
 	//フレームカウントを加算する
 	animation_count++;
@@ -203,7 +199,7 @@ void Enemy::AnimeControl()
 		{
 			image = animation[11];
 		}
-		if (j == 11 )
+		if (j == 11)
 		{
 			image = animation[12];
 		}
@@ -211,24 +207,24 @@ void Enemy::AnimeControl()
 		{
 			image = animation[10];
 		}
-	/*	if (j == 10)
-		{
-			image = animation[11];
-			ac = 0;
-		}
-		if (j == 11 && ac == 0)
-		{
-			image = animation[12];
-		}
-		if (j == 11 && ac == 1)
-		{
-			image = animation[10];
-		}
-		if (j == 12)
-		{
-			image = animation[11];
-			ac = 1;
-		}*/
+		/*	if (j == 10)
+			{
+				image = animation[11];
+				ac = 0;
+			}
+			if (j == 11 && ac == 0)
+			{
+				image = animation[12];
+			}
+			if (j == 11 && ac == 1)
+			{
+				image = animation[10];
+			}
+			if (j == 12)
+			{
+				image = animation[11];
+				ac = 1;
+			}*/
 
 		if (j == 13)
 		{
@@ -243,17 +239,17 @@ void Enemy::AnimeControl()
 	}
 }
 
-Vector2D Enemy::GetLocation() const
+Vector2D Enemy_mob::GetLocation() const
 {
 	return location;
 }
 
-Vector2D Enemy::Getscale() const
+Vector2D Enemy_mob::Getscale() const
 {
 	return scale;
 }
 
-void Enemy::Finalize()
+void Enemy_mob::Finalize()
 {
 	//effect付ける
 	//徐々に消える
