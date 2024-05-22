@@ -1,12 +1,11 @@
 #include "Stage.h"
 #include "../../Utility/InputControl.h"
-#include "../../Scenes/Main.h"
 #include "../Player/Player.h"
+#include "../../Scenes/Main.h"
 #include"DxLib.h"
 
 
 //移動の速さ
-Vector2D velocity;
 int hit = 0;
 
 //ステージ情報
@@ -20,6 +19,7 @@ int stage[3][3] = {
 Stage::Stage()
 {
 	type = 0;
+	move = Vector2D(0.0f);
 }
 
 //デストラクタ
@@ -41,14 +41,17 @@ void Stage::Initialize()
 	image = NULL;
 
 	type = Main::GetStageType();
+
+	move = Vector2D(0.0f);
+
 }
 
 //更新処理
 void Stage::Update()
 {
+	move = Player::GetVelocity();
 
-	//移動処理
-	Movement();
+	location -= move;
 
 }
 
@@ -62,7 +65,8 @@ void Stage::Draw() const
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
 		GetColor(255,255,255),TRUE);
 
-	DrawFormatString(10, 200, 0xffffff, "%d", hit);
+	DrawFormatString(10, 200, 0xffffff, "%f", move.x);
+	DrawFormatString(10, 220, 0xffffff, "%f", move.y);
 
 	__super::Draw();
 }
@@ -77,7 +81,7 @@ void Stage::Finalize()
 void Stage::OnHitCollision(GameObject* hit_object,int i)
 {
 	//当たった時の処理
-	hit = i;
+	//hit = i;
 }
 
 //位置情報取得処理
@@ -109,47 +113,3 @@ void Stage::SetStage()
 {
 
 }
-
-//移動処理
-void Stage::Movement()
-{
-	velocity = 0.0f;
-
-	if (hit == 0)
-	{
-		//左右移動
-		if (InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
-		{
-			velocity.x += 5.0f;
-		}
-		else if (InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
-		{
-			velocity.x += -5.0f;
-		}
-		else
-		{
-			velocity.x += 0.0f;
-		}
-
-		//上下移動
-		if (InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
-		{
-			velocity.y += 5.0f;
-		}
-		else if (InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
-		{
-			velocity.y += -5.0f;
-		}
-		else
-		{
-			velocity.y = 0.0f;
-		}
-	}
-	else
-	{
-		velocity = 0;
-	}
-
-	location += velocity;
-}
-

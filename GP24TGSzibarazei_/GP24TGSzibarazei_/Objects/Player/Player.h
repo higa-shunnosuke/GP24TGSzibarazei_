@@ -12,11 +12,12 @@ private:
 	int exp;              //経験値
 	int max_exp;          //レベルアップに必要な経験値の量
 	int ult_active;       //アルティメット使用可能状態
-	int animation[8];	  //アニメーション画像
+	int animation[30];	  //アニメーション画像
 	int animation_count;  //アニメーション時間
 	int move_image;		  //進行方向に対応する画像の読み込み
 	int ui_image[8];      //HP/MP等のUIの画像
 	int flip_flag;	      //反転フラグ
+	int move_flag;        //移動可能状態か(0=移動不可,(1=移動可能)
 
 public:
 	Player();
@@ -36,6 +37,9 @@ public:
 	//位置情報変更処理
 	virtual void SetLocation(const Vector2D& location) override;
 
+	//移動距離取得処理
+	static Vector2D GetVelocity();
+
 private:
 	//移動処理
 	void Movement();
@@ -45,5 +49,7 @@ private:
 	void Atack();
 	//経験値・レベルアップの処理
 	void LevelUp(int get_exp);
+	//パッシブスキル獲得処理
+	void AcquisitionPassive();
 };
 

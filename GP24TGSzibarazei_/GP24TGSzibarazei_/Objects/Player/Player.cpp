@@ -2,6 +2,9 @@
 #include "../../Utility/InputControl.h"
 #include"DxLib.h"
 
+
+static Vector2D velocity;		//移動距離
+
 //コンストラクタ
 Player::Player() :animation_count(0), flip_flag(FALSE)
 {
@@ -13,6 +16,10 @@ Player::Player() :animation_count(0), flip_flag(FALSE)
 	max_exp = 4;
 	ult_active = true;
 	move_image = 0;
+	move_flag = 1;
+
+	//移動距離
+	velocity = Vector2D(0.0f);
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -32,17 +39,7 @@ Player::~Player()
 void Player::Initialize()
 {
 	//前方向画像の読み込み
-	animation[0] = LoadGraph("Resource/images/Player/samurai/samurai_front_1.png");
-	animation[1] = LoadGraph("Resource/images/Player/samurai/samurai_front_2.png");
-	//後ろ方向画像の読み込み
-	animation[2] = LoadGraph("Resource/images/Player/samurai/samurai_back_1.png");
-	animation[3] = LoadGraph("Resource/images/Player/samurai/samurai_back_2.png");
-	//左方向画像の読み込み
-	animation[4] = LoadGraph("Resource/images/Player/samurai/samurai_left_1.png");
-	animation[5] = LoadGraph("Resource/images/Player/samurai/samurai_left_2.png");
-	//右方向画像の読み込み
-	animation[6] = LoadGraph("Resource/images/Player/samurai/samurai_right_1.png");
-	animation[7] = LoadGraph("Resource/images/Player/samurai/samurai_right_2.png");
+	LoadDivGraph("Resource/images/Player/samurai/samurai_all.png", 30, 6, 6, 133, 166, animation);
 
 	///////////////////////画像追加予定
 	////HP画像
@@ -57,13 +54,17 @@ void Player::Initialize()
 	//ui_image[6] = LoadGraph("Resource/images/Player/ui/Exp_1.png");
 	
 
-	//エラーチェック（キャラ画像）
-	for (int i = 0; i < 8; i++)
+	////エラーチェック（キャラ画像）
+	//for (int i = 0; i < 36; i++)
+	//{
+	//	if (animation[i] == -1)
+	//	{
+	//		throw("ナイトの画像がありません\n");
+	//	}
+	//}
+	if (animation[0] == -1)
 	{
-		if (animation[i] == -1)
-		{
-			throw("ナイトの画像がありません\n");
-		}
+		throw("ナイトの画像がありません\n");
 	}
 
 	////////////////////画像追加予定
@@ -89,35 +90,53 @@ void Player::Initialize()
 
 	//初期画像の設定
 	image = animation[0];
+
+	//移動距離
+	velocity = Vector2D(0.0f);
 }
 
 //更新処理
 void Player::Update()
 {
-	//移動処理
-	Movement();
-	//攻撃処理
-	Atack();
-	//アニメーション制御
-	AnimeControl();
+	if (move_flag = 1)
+	{
+		//移動処理
+		Movement();
+		//攻撃処理
+		Atack();
+		//アニメーション制御
+		AnimeControl();
+	}
+	else if (move_flag == 0)
+	{
+		//パッシブ獲得処理
+		AcquisitionPassive();
+	}
 }
 
 //描画処理
 void Player::Draw() const
 {
-	//プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
-	//HP画像の描画
-	for (int i = 0; i < max_hp; i++)
+	if (move_flag == 1)
 	{
-		if (i <= hp)
+		//プレイヤー画像の描画
+		DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+		//HP画像の描画
+		for (int i = 0; i < max_hp; i++)
 		{
-			DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[0], TRUE, flip_flag);
+			if (i <= hp)
+			{
+				DrawRotaGraphF(30.f + (i * 50.f), 25.f, 0.04, radian, ui_image[0], TRUE, flip_flag);
+			}
+			else
+			{
+				DrawRotaGraphF(30.f + (i * 50.f), 25.f, 0.04, radian, ui_image[1], TRUE, flip_flag);
+			}
 		}
-		else
-		{
-			DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[1], TRUE, flip_flag);
-		}
+	}
+	else if (move_flag == 0)
+	{
+		DrawFormatString(location.x, location.y, GetColor(0, 255, 0), "LevelUp");
 	}
 	
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
@@ -172,14 +191,12 @@ void Player::SetLocation(const Vector2D& location)
 //移動処理
 void Player::Movement()
 {
-	//移動の速さ
-	Vector2D velocity = 0.0f;
+	velocity = Vector2D(0.0f);
 
 	//左右移動
 	if (InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
-		//velocity.x += -5.0f;
-		/*flip_flag = TRUE;*/
+		velocity.x += -5.0f;
 
 		//プレイヤー画像を左向きにする
 		move_image = 2;
@@ -187,8 +204,7 @@ void Player::Movement()
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
-		//velocity.x += 5.0f;
-		/*flip_flag = FALSE;*/
+		velocity.x += 5.0f;
 
 		//プレイヤー画像を右向きにする
 		move_image = 3;
@@ -202,7 +218,7 @@ void Player::Movement()
 	//上下移動
 	if (InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
-		//velocity.y += -5.0f;
+		velocity.y += -5.0f;
 
 		//プレイヤー画像を後ろ向きにする
 		move_image = 1;
@@ -210,7 +226,7 @@ void Player::Movement()
 	}
 	else if (InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
-		//velocity.y += 5.0f;
+		velocity.y += 5.0f;
 
 		//プレイヤー画像を前向きにする
 		move_image = 0;
@@ -222,7 +238,7 @@ void Player::Movement()
 	}
 
 	//現在の位置座標に速さを加算する
-	location += velocity;
+	//location += velocity;
 }
 
 void Player::Atack()
@@ -263,6 +279,7 @@ void Player::LevelUp(int get_exp)
 		exp = max_exp - exp;
 		//次のレベルアップに必要な経験値を増やす
 		max_exp=max_exp * 2;
+		move_flag = 0;
 	}
 }
 
@@ -330,4 +347,19 @@ void Player::AnimeControl()
 
 		}
 	}
+}
+
+
+void Player::AcquisitionPassive()
+{
+	if (InputControl::GetKeyDown(KEY_INPUT_V))
+	{
+		move_flag = 1;
+	}
+}
+
+//移動距離取得処理
+Vector2D Player::GetVelocity()
+{
+	return velocity;
 }

@@ -17,7 +17,7 @@ int type;
 //コンストラクタ
 Main::Main() :objects()
 {
-
+	Is_pause = 0;		//ポーズ状態か（YES＝1、NO＝0）
 }
 
 //デストラクタ
@@ -83,19 +83,34 @@ void Main::Initialize()
 //更新処理
 eSceneType Main::Update()
 {
-	//プレイヤーがステージ外にいかない処理
-	for (int i = 0; i < objects.size(); i++)
+	if (Is_pause == 0)
 	{
-		//当たり判定チェック処理
-		HitCheckObject(objects[i], objects[objects.size()-1]);
+		//プレイヤーがステージ外にいかない処理
+		for (int i = 0; i < objects.size(); i++)
+		{
+			//当たり判定チェック処理
+			HitCheckObject(objects[i], objects[objects.size() - 1]);
+		}
+
+		//シーンに存在するオブジェクトの更新処理
+		for (GameObject* obj : objects)
+		{
+			obj->Update();
+		}
+
+		//スタートボタンが押されたら、ポーズする
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
+		{
+			Is_pause = 1;
+		}
 	}
-
-	
-
-	//シーンに存在するオブジェクトの更新処理
-	for (GameObject* obj : objects)
+	else
 	{
-		obj->Update();
+		//スタートボタンが押されたら、ポーズを解除する
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
+		{
+			Is_pause = 0;
+		}
 	}
 
 	return GetNowScene();
@@ -118,6 +133,15 @@ void Main::Draw() const
 			DrawFormatString(j * 20+10, i * 20+50, 0xffff00, "%d", Stage::GetStage(i,j));
 		}
 	}
+
+
+	if (Is_pause==1)
+	{
+		SetFontSize(100);
+		DrawFormatString(515,310, 0xffffff, "PAUSE");
+	}
+	SetFontSize(20);
+
 }
 
 //終了時処理
