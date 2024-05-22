@@ -11,6 +11,7 @@ private:
 	int level;            //プレイヤーのレベル
 	int exp;              //経験値
 	int max_exp;          //レベルアップに必要な経験値の量
+	int ult_count;
 	int ult_active;       //アルティメット使用可能状態
 	int animation[30];	  //アニメーション画像
 	int animation_count;  //アニメーション時間
@@ -47,6 +48,8 @@ private:
 	void AnimeControl();
 	//攻撃処理
 	void Atack();
+	//アルティメット処理
+	void Ultimate();
 	//経験値・レベルアップの処理
 	void LevelUp(int get_exp);
 	//パッシブスキル獲得処理

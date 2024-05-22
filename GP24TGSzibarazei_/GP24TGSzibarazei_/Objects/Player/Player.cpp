@@ -14,7 +14,8 @@ Player::Player() :animation_count(0), flip_flag(FALSE)
 	level = 1;
 	exp = 0;
 	max_exp = 4;
-	ult_active = true;
+	ult_count = 0;
+	ult_active = false;
 	move_image = 0;
 	move_flag = 1;
 
@@ -143,7 +144,15 @@ void Player::Draw() const
 	DrawFormatString(50, 10, GetColor(0, 0, 255), "%d",exp);
 	DrawFormatString(50, 25, GetColor(0, 0, 255), "%d", max_exp);
 	DrawFormatString(50, 35, GetColor(255, 0, 0), "%d", level);
-
+	DrawFormatString(480, 360, GetColor(255, 0, 0), "%d", ult_count);
+	if (ult_active == true)
+	{
+		DrawFormatString(480, 380, GetColor(255, 0, 0), "ok");
+	}
+	else if (ult_active == false)
+	{
+		DrawFormatString(480, 340, GetColor(255, 0, 0), "no");
+	}
 	//デバック用
 	__super::Draw();
 }
@@ -243,6 +252,19 @@ void Player::Movement()
 
 void Player::Atack()
 {
+	if(ult_count<=1800)
+	ult_count++;
+	if (ult_count >= 1800)
+	{
+		ult_active = true;
+	}
+	if (InputControl::GetKeyDown(KEY_INPUT_Q) && ult_active==true)
+	{
+		ult_active = false;
+		ult_count = 0;
+		Ultimate();
+	}
+
 	int get = 2;
 	if (InputControl::GetKeyDown(KEY_INPUT_A))
 	{
@@ -264,6 +286,12 @@ void Player::Atack()
 			hp = max_hp-1;
 		}
 	}
+	Ultimate();
+}
+
+void Player::Ultimate()
+{
+	
 }
 
 void Player::LevelUp(int get_exp)
@@ -344,7 +372,6 @@ void Player::AnimeControl()
 				image = animation[6];
 			}
 			break;
-
 		}
 	}
 }
