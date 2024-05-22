@@ -5,25 +5,27 @@
 
 #define M_PI
 
-typedef struct {
-int Troll_left1 = 0;
-int Troll_left2 = 1;
-int Troll_left3 = 2;
-int Troll_leftwalk1 = 3;
-int Troll_leftwalk2 = 4;
-int Troll_leftatk1 = 5;
-int Troll_leftatk2 = 6;
-int Troll_leftatk3 = 7;
-int Troll_Empty1 = 8;
-int Troll_Empty2 = 9;
-int Troll_right1 = 10;
-int Troll_right2 = 11;
-int Troll_right3 = 12;
-int Troll_rightWalk1 = 13;
-int Troll_rightWalk2 = 14;
-int Troll_rightatk1 = 15;
-int Troll_rightatk2 = 16;
-};
+//typedef struct {
+//int Troll_left1 = 0;
+//int Troll_left2 = 1;
+//int Troll_left3 = 2;
+//int Troll_leftwalk1 = 3;
+//int Troll_leftwalk2 = 4;
+//int Troll_leftatk1 = 5;
+//int Troll_leftatk2 = 6;
+//int Troll_leftatk3 = 7;
+//int Troll_Empty1 = 8;
+//int Troll_Empty2 = 9;
+//int Troll_right1 = 10;
+//int Troll_right2 = 11;
+//int Troll_right3 = 12;
+//int Troll_rightWalk1 = 13;
+//int Troll_rightWalk2 = 14;
+//int Troll_rightatk1 = 15;
+//int Troll_rightatk2 = 16;
+//}Muki;
+//
+//Muki muki;
 
 
 
@@ -64,29 +66,18 @@ void Enemy::Initialize()
 
 void Enemy::Update()
 {
-
 	AnimeControl();
 	
 	Movement();
-
 }
 
 void Enemy::Draw() const
 {
 	DrawRotaGraphF(location.x, location.y, 1, radian, image, TRUE, FALSE);
 
-	//デバック用
-#if _DEBUG
-//当たり判定の可視化
-	Vector2D box_collision_upper_left =  (location - 20.0f) - (Vector2D(1.0f) *
-		(float)scale.x / 2.0f);
-	Vector2D box_collision_upper_right = location  + (Vector2D(1.0f) *
-		(float)scale.y / 2.0f);
+	//当たり判定の描画
+	__super::Draw();
 
-	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
-		box_collision_upper_right.x, box_collision_upper_right.y,
-		GetColor(255, 0, 0), FALSE);
-#endif
 }
 
 void Enemy::OnHitCollision(GameObject* hit_object,int i)
@@ -107,43 +98,24 @@ void Enemy::SetLocation(const Vector2D& location)
 
 void Enemy::Movement()
 {
-	location -= Player::GetVelocity();
+	//プレイヤーとエネミーの自身の差
+	Vector2D diff = player->GetLocation() - this->GetLocation();
 
-	Vector2D PlayerLocation;
-	Vector2D PlayeToEnemy;
-	//プレイヤーの位置を獲得
-	PlayerLocation = Vector2D(600.0f, 360.0f);
-	//その方向に向かう
-	PlayeToEnemy = PlayerLocation - GetLocation();
+	//ベクトルから角度を知る
+	float radian = atan2(diff.y, diff.x);
 
-	//自身の攻撃範囲を目指してプレイヤーに対して歩く
-	if (PlayeToEnemy.y > 0)
-	{
-		//↓に向かう
-		location.y++;
-	}
-	else if (PlayeToEnemy.y < 0)
-	{
-		//↑に向かう
-		location.y--;
-	}
+	//そのベクトルに応じて移動する(0or180に近いと大きく90or270に近いほど小さくする※総量は１)
+	location += Vector2D(cosf(radian), sinf(radian));
 
-	if (PlayeToEnemy.x > 0)
+	if (diff.x>0)
 	{
-		if ((image != animation[14]) && (image != animation[15]))
-		{
-		image = animation[10];
-		}
-
-		//右に向かう
-		location.x++;
-	}
-	else if (PlayeToEnemy.x < 0)
-	{
+		//左向きの画像
 		image = animation[0];
-
-		//左に向かう
-		location.x--;
+	}
+	else if (diff.x < 0)
+	{
+		//右向きの画像
+		image = animation[10];
 	}
 }
 
@@ -263,4 +235,9 @@ void Enemy::Finalize()
 		DeleteGraph(animation[i]);
 	}
 	//撃破数か何かしらをリターン
+}
+
+void Enemy::SetPlayer(Player* player)
+{
+	this->player = player;
 }

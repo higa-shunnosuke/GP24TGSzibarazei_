@@ -76,8 +76,8 @@ void Main::Initialize()
 	
 	//プレイヤーを生成
 	//CreateObject<Stage>(Vector2D(640.0f, 360.0f));
-	CreateObject<Enemy>(Vector2D(640.0f, 360.0f));
-	CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	Player* p =	CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
 }
 
 //更新処理
