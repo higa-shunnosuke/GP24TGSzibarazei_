@@ -39,17 +39,7 @@ Player::~Player()
 void Player::Initialize()
 {
 	//前方向画像の読み込み
-	LoadDivGraph("Resource/images/Player/samurai/samurai_all.png", 30, 6, 6, 32, 64, animation);
-	//animation[1] = LoadGraph("Resource/images/Player/samurai/samurai_front_2.png");
-	////後ろ方向画像の読み込み
-	//animation[2] = LoadGraph("Resource/images/Player/samurai/samurai_back_1.png");
-	//animation[3] = LoadGraph("Resource/images/Player/samurai/samurai_back_2.png");
-	////左方向画像の読み込み
-	//animation[4] = LoadGraph("Resource/images/Player/samurai/samurai_left_1.png");
-	//animation[5] = LoadGraph("Resource/images/Player/samurai/samurai_left_2.png");
-	////右方向画像の読み込み
-	//animation[6] = LoadGraph("Resource/images/Player/samurai/samurai_right_1.png");
-	//animation[7] = LoadGraph("Resource/images/Player/samurai/samurai_right_2.png");
+	LoadDivGraph("Resource/images/Player/samurai/samurai_all.png", 30, 6, 6, 133, 166, animation);
 
 	///////////////////////画像追加予定
 	////HP画像
@@ -108,7 +98,7 @@ void Player::Initialize()
 //更新処理
 void Player::Update()
 {
-	if (move_flag == 1)
+	if (move_flag = 1)
 	{
 		//移動処理
 		Movement();
@@ -130,17 +120,17 @@ void Player::Draw() const
 	if (move_flag == 1)
 	{
 		//プレイヤー画像の描画
-		DrawRotaGraphF(location.x, location.y, 0.02, radian, image, TRUE, flip_flag);
+		DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
 		//HP画像の描画
 		for (int i = 0; i < max_hp; i++)
 		{
 			if (i <= hp)
 			{
-				DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[0], TRUE, flip_flag);
+				DrawRotaGraphF(30.f + (i * 50.f), 25.f, 0.04, radian, ui_image[0], TRUE, flip_flag);
 			}
 			else
 			{
-				DrawRotaGraphF(30 + (i * 50), 25, 0.04, radian, ui_image[1], TRUE, flip_flag);
+				DrawRotaGraphF(30.f + (i * 50.f), 25.f, 0.04, radian, ui_image[1], TRUE, flip_flag);
 			}
 		}
 	}
