@@ -2,7 +2,7 @@
 #include"DxLib.h"
 #include"../Player/Player.h"
 
-Enemy::Enemy() :animation_count(0),ATK (0),Speed(0),AS(0.0),HP(10),AL(15),ac(0)
+Enemy::Enemy() :animation_count(0),ATK (0),Speed(0),AS(0.0),HP(10),AL(15)
 {
 	int i;
 	for (i = 0; i < 20; i++) {
@@ -29,7 +29,7 @@ void Enemy::Initialize()
 
 
 	//エラーチェック
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		if (animation[i] == -1)
 		{
@@ -59,12 +59,10 @@ void Enemy::Draw() const
 	//デバック用
 #if _DEBUG
 //当たり判定の可視化
-	Vector2D box_collision_upper_left =  (location - 60.0f) - (Vector2D(1.0f) *
+	Vector2D box_collision_upper_left =  (location - 20.0f) - (Vector2D(1.0f) *
 		(float)scale.x / 2.0f);
-	box_collision_upper_left.y += 73.0f;
-	Vector2D box_collision_upper_right = (location - 50.0f) + (Vector2D(1.0f) *
+	Vector2D box_collision_upper_right = location  + (Vector2D(1.0f) *
 		(float)scale.y / 2.0f);
-	box_collision_upper_right.y += 73.0f;
 
 	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
 		box_collision_upper_right.x, box_collision_upper_right.y,
@@ -161,20 +159,14 @@ void Enemy::AnimeControl()
 		if (j == 0)
 		{
 			image = animation[1];
-			ac = 0;
 		}
-		if (j == 1 && ac == 0)
+		if (j == 1)
 		{
 			image = animation[2];
 		}
-		if (j == 1 && ac == 1)
-		{
-			image = animation[0];
-		}
 		if (j == 2)
 		{
-			image = animation[1];
-			ac = 1;
+			image = animation[0];
 		}
 
 		if (j == 3)
@@ -187,6 +179,18 @@ void Enemy::AnimeControl()
 		}
 
 		if (j == 10)
+		{
+			image = animation[11];
+		}
+		if (j == 11 )
+		{
+			image = animation[12];
+		}
+		if (j == 12)
+		{
+			image = animation[10];
+		}
+	/*	if (j == 10)
 		{
 			image = animation[11];
 			ac = 0;
@@ -203,7 +207,7 @@ void Enemy::AnimeControl()
 		{
 			image = animation[11];
 			ac = 1;
-		}
+		}*/
 
 		if (j == 13)
 		{

@@ -12,7 +12,6 @@ private:
 	int ATK;					//Attack(UŒ‚—Í)
 	int Speed;					//AGL(‘¬“x)
 	int AL;						//AttackLenge(UŒ‚”ÍˆÍ)
-	int ac;						//animationcheck(“à•”‚Åg‚¤•Ï”)
 
 
 public:
