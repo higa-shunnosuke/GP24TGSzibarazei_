@@ -1,5 +1,6 @@
 #include "Stage.h"
 #include "../../Utility/InputControl.h"
+#include "../Player/Player.h"
 #include "../../Scenes/Main.h"
 #include"DxLib.h"
 
