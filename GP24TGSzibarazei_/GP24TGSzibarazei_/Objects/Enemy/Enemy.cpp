@@ -3,33 +3,7 @@
 #include"../Player/Player.h"
 #include<math.h>
 
-#define M_PI
-
-//typedef struct {
-//int Troll_left1 = 0;
-//int Troll_left2 = 1;
-//int Troll_left3 = 2;
-//int Troll_leftwalk1 = 3;
-//int Troll_leftwalk2 = 4;
-//int Troll_leftatk1 = 5;
-//int Troll_leftatk2 = 6;
-//int Troll_leftatk3 = 7;
-//int Troll_Empty1 = 8;
-//int Troll_Empty2 = 9;
-//int Troll_right1 = 10;
-//int Troll_right2 = 11;
-//int Troll_right3 = 12;
-//int Troll_rightWalk1 = 13;
-//int Troll_rightWalk2 = 14;
-//int Troll_rightatk1 = 15;
-//int Troll_rightatk2 = 16;
-//}Muki;
-//
-//Muki muki;
-
-
-
-Enemy::Enemy() :animation_count(0),ATK (0),Speed(0),AS(0.0),HP(10),AL(3),ET(0),isBoss(false)
+Enemy::Enemy() :animation_count(0),ATK (0),Speed(1),AS(0.0),HP(10),AL(80),ET(0),isBoss(false)
 {
 	for (int i = 0; i < 20; i++) {
 		animation[i]  = NULL;
@@ -42,6 +16,7 @@ Enemy::~Enemy()
 
 void Enemy::Attack()
 {
+	DrawFormatString(515, 310, 0xffffff, "Atacck");
 
 }
 
@@ -98,24 +73,53 @@ void Enemy::SetLocation(const Vector2D& location)
 
 void Enemy::Movement()
 {
+
+	location -= player->GetVelocity();
 	//プレイヤーとエネミーの自身の差
 	Vector2D diff = player->GetLocation() - this->GetLocation();
 
 	//ベクトルから角度を知る
 	float radian = atan2(diff.y, diff.x);
 
-	//そのベクトルに応じて移動する(0or180に近いと大きく90or270に近いほど小さくする※総量は１)
-	location += Vector2D(cosf(radian), sinf(radian));
-
-	if (diff.x>0)
+	if (diff.x > AL)
 	{
-		//左向きの画像
-		image = animation[0];
+		if (image != animation[13] && image != animation[14])
+		{
+			//右向きの画像
+			image = animation[13];
+		}
+		//そのベクトルに応じて移動する(0or180に近いと大きく90or270に近いほど小さくする※総量は１)
+		location += Vector2D(cosf(radian), sinf(radian));
 	}
-	else if (diff.x < 0)
+	else if (diff.x < -AL)
 	{
-		//右向きの画像
+		if (image != animation[3] && image != animation[4])
+		{
+			//左向きの画像
+			image = animation[3];
+		}
+		//そのベクトルに応じて移動する(0or180に近いと大きく90or270に近いほど小さくする※総量は１)
+		location += Vector2D(cosf(radian), sinf(radian));
+	}
+	else if (diff.y > AL)
+	{
+		//そのベクトルに応じて移動する(0or180に近いと大きく90or270に近いほど小さくする※総量は１)
+		location += Vector2D(cosf(radian), sinf(radian));
+	}
+	else if (diff.y < -AL)
+	{
+		//そのベクトルに応じて移動する(0or180に近いと大きく90or270に近いほど小さくする※総量は１)
+		location += Vector2D(cosf(radian), sinf(radian));
+	}
+	else if (image == animation[13] || image == animation[14])
+	{
 		image = animation[10];
+		Attack();
+	}
+	else if (image == animation[3] || image == animation[4])
+	{
+		image = animation[0];
+		Attack();
 	}
 }
 
