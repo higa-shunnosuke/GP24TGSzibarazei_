@@ -28,10 +28,18 @@ Main::~Main()
 //初期化処理
 void Main::Initialize()
 {
+	//ステージの情報を格納（横幅、縦幅）
 	stagedat = { 0,0 };
 
 	/*********************オブジェクトを生成する********************/
 
+	//プレイヤーを生成
+	Player* p = CreateObject<Player>(Vector2D(640.0f, 360.0f));
+
+	//エネミーの生成
+	CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
+
+	//ステージの生成
 	//読込ファイルを開く
 	fopen_s(&fp, STAGE_DATA, "r");
 
@@ -42,25 +50,27 @@ void Main::Initialize()
 	}
 	else
 	{
-		while (true)
+		//ファイルの最後までループする
+		while (block != EOF)
 		{
+			//ファイル情報を１つずつ読み込む
 			block = fgetc(fp);
 			stagedat.STAGE_WIDTH++;
-			if (block == EOF)
-			{
-				break;
-			}
-			else if (block == ',')
+			
+			//カンマは無視する
+			if (block == ',')
 			{
 				stagedat.STAGE_WIDTH--;
 				continue;
 			}
+			//改行する
 			else if (block == '\n')
 			{
 				stagedat.STAGE_HEIGHT++;
 				stagedat.STAGE_WIDTH = 0;
 				continue;
 			}
+			//読み込んだ文字が１以上なら、ブロックを生成
 			else if (block - '0' <= 0)
 			{
 				type = block;
@@ -69,25 +79,25 @@ void Main::Initialize()
 					stagedat.STAGE_HEIGHT * 50.0f - 665.f));
 			}
 		}	
+		//ファイルを閉じる
 		fclose(fp);
 	}
-	
-	//プレイヤーを生成
-	//CreateObject<Stage>(Vector2D(640.0f, 360.0f));
-	Player* p =	CreateObject<Player>(Vector2D(640.0f, 360.0f));
-	CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
 }
 
 //更新処理
 eSceneType Main::Update()
 {
+	//ポーズ状態でないなら
 	if (Is_pause == false)
 	{
 		//プレイヤーがステージ外にいかない処理
-		for (int i = 0; i < objects.size(); i++)
+		for (int i = 0; i < 3; i++)
 		{
-			//当たり判定チェック処理
-			HitCheckObject(objects[i], objects[objects.size() - 1]);
+			for (int j = i+1; j < objects.size(); j++)
+			{
+				//当たり判定チェック処理
+				HitCheckObject(objects[i], objects[j]);
+			}
 		}
 
 		//シーンに存在するオブジェクトの更新処理
@@ -102,6 +112,7 @@ eSceneType Main::Update()
 			Is_pause = true;
 		}
 	}
+	//ポーズ状態なら
 	else
 	{
 		//スタートボタンが押されたら、ポーズを解除する
@@ -132,7 +143,7 @@ void Main::Draw() const
 		}
 	}
 
-
+	//ポーズ状態の可視化
 	if (Is_pause==true)
 	{
 		SetFontSize(100);
