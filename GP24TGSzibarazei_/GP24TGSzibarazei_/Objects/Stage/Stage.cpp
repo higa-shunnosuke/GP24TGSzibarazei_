@@ -67,6 +67,7 @@ void Stage::Draw() const
 
 	DrawFormatString(10, 200, 0xffffff, "%f", move.x);
 	DrawFormatString(10, 220, 0xffffff, "%f", move.y);
+	DrawFormatString(10, 240, 0xffffff, "%d", hit);
 
 	__super::Draw();
 }
@@ -80,8 +81,11 @@ void Stage::Finalize()
 //当たり判定通知処理
 void Stage::OnHitCollision(GameObject* hit_object)
 {
+	//当たったオブジェクトの座標を取得
+	hit_object->GetLocation();
+
 	//当たった時の処理
-	//hit = i;
+	hit = 1;
 }
 
 //位置情報取得処理
