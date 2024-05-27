@@ -10,6 +10,7 @@ Player::Player() :animation_count(0), flip_flag(FALSE)
 {
 	hp = 4;
 	max_hp = 5;
+	limit_hp = 0;
 	mp = 20;
 	level = 1;
 	exp = 0;
@@ -30,6 +31,14 @@ Player::Player() :animation_count(0), flip_flag(FALSE)
 	{
 		ui_image[i] = NULL;
 	}
+	for (int i = 0; i < 10; i++)
+	{
+		number_image[i] = NULL;
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		ui_number[i] = NULL;
+	}
 }
 
 //デストラクタ
@@ -40,13 +49,16 @@ Player::~Player()
 void Player::Initialize()
 {
 	//前方向画像の読み込み
-	LoadDivGraph("Resource/images/Player/samurai/samurai_all.png", 30, 6, 6, 133, 166, animation);
+	LoadDivGraph("Resource/images/Player/knight/knight_all.png", 23, 5, 5, 160, 200, animation);
 
 	///////////////////////画像追加予定
 	////HP画像
 	ui_image[0] = LoadGraph("Resource/images/Player/ui/Hp1.png");
 	ui_image[1] = LoadGraph("Resource/images/Player/ui/Hp2.png");
-	
+	ui_image[2] = LoadGraph("Resource/images/Player/ui/HpArmor2.png");
+	////アルティメット画像
+	ui_image[3] = LoadGraph("Resource/images/Player/ui/ult_put.png");
+	ui_image[4] = LoadGraph("Resource/images/Player/ui/ult_icon.png");
 	////MP画像
 	//ui_image[3] = LoadGraph("Resource/images/Player/ui/Mp_1.png");
 	//ui_image[4] = LoadGraph("Resource/images/Player/ui/Mp_2.png");
@@ -54,6 +66,17 @@ void Player::Initialize()
 	////Level画像
 	//ui_image[6] = LoadGraph("Resource/images/Player/ui/Exp_1.png");
 	
+	////数字画像
+	number_image[0] = LoadGraph("Resource/images/Player/ui/number_0.png");
+	number_image[1] = LoadGraph("Resource/images/Player/ui/number_1.png");
+	number_image[2] = LoadGraph("Resource/images/Player/ui/number_2.png");
+	number_image[3] = LoadGraph("Resource/images/Player/ui/number_3.png");
+	number_image[4] = LoadGraph("Resource/images/Player/ui/number_4.png");
+	number_image[5] = LoadGraph("Resource/images/Player/ui/number_5.png");
+	number_image[6] = LoadGraph("Resource/images/Player/ui/number_6.png");
+	number_image[7] = LoadGraph("Resource/images/Player/ui/number_7.png");
+	number_image[8] = LoadGraph("Resource/images/Player/ui/number_8.png");
+	number_image[9] = LoadGraph("Resource/images/Player/ui/number_9.png");
 
 	////エラーチェック（キャラ画像）
 	//for (int i = 0; i < 36; i++)
@@ -70,11 +93,19 @@ void Player::Initialize()
 
 	////////////////////画像追加予定
 	//エラーチェック（UI画像）
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (ui_image[i] == -1)
 		{
 			throw("UI画像がありません\n");
+		}
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (number_image[i] == -1)
+		{
+			throw("数字画像がありません\n");
 		}
 	}
 
@@ -123,15 +154,19 @@ void Player::Draw() const
 		//プレイヤー画像の描画
 		DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
 		//HP画像の描画
-		for (int i = 0; i < max_hp; i++)
+		for (int i = 0; i < max_hp+limit_hp; i++)
 		{
 			if (i <= hp)
 			{
 				DrawRotaGraphF(30.f + (i * 50.f), 25.f, 0.04, radian, ui_image[0], TRUE, flip_flag);
 			}
-			else
+			else if(i<max_hp)
 			{
 				DrawRotaGraphF(30.f + (i * 50.f), 25.f, 0.04, radian, ui_image[1], TRUE, flip_flag);
+			}
+			else
+			{
+				DrawRotaGraphF(30.0f + (i * 50.f), 25.f, 0.04, radian, ui_image[2], TRUE, flip_flag);
 			}
 		}
 	}
@@ -139,7 +174,11 @@ void Player::Draw() const
 	{
 		DrawFormatString(location.x, location.y, GetColor(0, 255, 0), "LevelUp");
 	}
-	
+	//アルティメット描画
+	DrawRotaGraphF(1050.f, 500.f,1.5, radian, ui_image[3], TRUE, flip_flag);
+	DrawRotaGraphF(1050.f, 500.f, 2, radian, ui_image[4], TRUE, flip_flag);
+
+
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
 	DrawFormatString(50, 10, GetColor(0, 0, 255), "%d",exp);
 	DrawFormatString(50, 25, GetColor(0, 0, 255), "%d", max_exp);
@@ -272,7 +311,15 @@ void Player::Atack()
 	}
 	if (InputControl::GetKeyDown(KEY_INPUT_S))
 	{
-		hp--;
+		if (limit_hp > 0)
+		{
+			limit_hp--;
+		}
+		else
+		{
+			hp--;
+		}
+		
 		if (hp < -1)
 		{
 			hp = -1;
@@ -286,12 +333,11 @@ void Player::Atack()
 			hp = max_hp-1;
 		}
 	}
-	Ultimate();
 }
 
 void Player::Ultimate()
 {
-	
+	limit_hp = 3;
 }
 
 void Player::LevelUp(int get_exp)
