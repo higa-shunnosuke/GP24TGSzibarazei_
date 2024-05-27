@@ -12,6 +12,8 @@ FILE* fp = NULL;
 int block = 0;
 int type;
 
+Player* p;
+
 //コンストラクタ
 Main::Main() :objects()
 {
@@ -32,12 +34,6 @@ void Main::Initialize()
 	stagedat = { 0,0 };
 
 	/*********************オブジェクトを生成する********************/
-
-	//プレイヤーを生成
-	Player* p = CreateObject<Player>(Vector2D(640.0f, 360.0f));
-
-	//エネミーの生成
-	CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
 
 	//ステージの生成
 	//読込ファイルを開く
@@ -71,17 +67,23 @@ void Main::Initialize()
 				continue;
 			}
 			//読み込んだ文字が１以上なら、ブロックを生成
-			else if (block - '0' <= 0)
+			else if (block - '0' > 0)
 			{
 				type = block;
 				CreateObject<Stage>(Vector2D(
-					stagedat.STAGE_WIDTH  * 50.0f - 435.f,
-					stagedat.STAGE_HEIGHT * 50.0f - 665.f));
+					stagedat.STAGE_WIDTH  * 100.0f - 435.f,
+					stagedat.STAGE_HEIGHT * 100.0f - 665.f));
 			}
 		}	
 		//ファイルを閉じる
 		fclose(fp);
 	}
+
+	//プレイヤーを生成
+	/*Player* */p = CreateObject<Player>(Vector2D(640.0f, 360.0f));
+
+	//エネミーの生成
+	//CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
 }
 
 //更新処理
@@ -90,21 +92,18 @@ eSceneType Main::Update()
 	//ポーズ状態でないなら
 	if (Is_pause == false)
 	{
-		//プレイヤーがステージ外にいかない処理
-		for (int i = 0; i < 3; i++)
-		{
-			for (int j = i+1; j < objects.size(); j++)
-			{
-				//当たり判定チェック処理
-				HitCheckObject(objects[i], objects[j]);
-			}
-		}
-
 		//シーンに存在するオブジェクトの更新処理
 		for (GameObject* obj : objects)
 		{
 			obj->Update();
 		}
+
+		//プレイヤーの当たり判定
+		for (int i = 0; i < objects.size()-1; i++)
+		{
+			//当たり判定チェック処理
+			HitCheckObject(p,objects[i]);
+		}		
 
 		//スタートボタンが押されたら、ポーズする
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))

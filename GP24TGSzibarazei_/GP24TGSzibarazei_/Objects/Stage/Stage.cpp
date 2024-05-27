@@ -5,9 +5,6 @@
 #include"DxLib.h"
 
 
-//移動の速さ
-int hit = 0;
-
 //ステージ情報
 int stage[3][3] = {
 	{0,0,0},
@@ -35,7 +32,7 @@ void Stage::Initialize()
 	radian = 0.0;
 
 	//大きさの設定
-	scale = 50.0;
+	scale = 100.0;
 
 	//初期画像の設定
 	image = NULL;
@@ -44,6 +41,7 @@ void Stage::Initialize()
 
 	move = Vector2D(0.0f);
 
+	color = 0xffffff;
 }
 
 //更新処理
@@ -53,6 +51,7 @@ void Stage::Update()
 
 	location -= move;
 
+	color = 0xffffff;
 }
 
 //描画処理
@@ -63,11 +62,10 @@ void Stage::Draw() const
 	Vector2D lower_right = location + (scale / 2.0f);
 
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
-		GetColor(255,255,255),TRUE);
+		color,TRUE);
 
-	DrawFormatString(10, 200, 0xffffff, "%f", move.x);
-	DrawFormatString(10, 220, 0xffffff, "%f", move.y);
-	DrawFormatString(10, 240, 0xffffff, "%d", hit);
+	DrawFormatString(10, 200, 0x00ff00, "%f", move.x);
+	DrawFormatString(10, 220, 0x00ff00, "%f", move.y);
 
 	__super::Draw();
 }
@@ -81,11 +79,9 @@ void Stage::Finalize()
 //当たり判定通知処理
 void Stage::OnHitCollision(GameObject* hit_object)
 {
-	//当たったオブジェクトの座標を取得
-	hit_object->GetLocation();
-
 	//当たった時の処理
-	hit = 1;
+	color = 0x00ff00;
+
 }
 
 //位置情報取得処理
