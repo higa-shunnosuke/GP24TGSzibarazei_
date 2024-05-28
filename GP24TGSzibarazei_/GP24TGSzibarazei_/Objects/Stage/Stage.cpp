@@ -65,9 +65,6 @@ void Stage::Draw() const
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
 		color,TRUE);
 
-	DrawFormatString(10, 200, 0x00ff00, "move.x:%f", move.x);
-	DrawFormatString(10, 220, 0x00ff00, "move.y:%f", move.y);
-
 	__super::Draw();
 }
 
