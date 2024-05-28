@@ -71,8 +71,8 @@ void Main::Initialize()
 			{
 				type = block;
 				CreateObject<Stage>(Vector2D(
-					stagedat.STAGE_WIDTH  * 100.0f - 435.f,
-					stagedat.STAGE_HEIGHT * 100.0f - 665.f));
+					stagedat.STAGE_WIDTH  * 100.0f - 0.f,
+					stagedat.STAGE_HEIGHT * 100.0f - 0.f));
 			}
 		}	
 		//ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚é
