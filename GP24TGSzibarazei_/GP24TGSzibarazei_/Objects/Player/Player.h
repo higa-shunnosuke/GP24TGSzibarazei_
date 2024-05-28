@@ -7,16 +7,19 @@ class Player :public GameObject
 private:
 	int hp;               //体力
 	int max_hp;           //最大体力
+	int limit_hp;         //限界突破体力
 	int mp;               //マジックパワー
 	int level;            //プレイヤーのレベル
 	int exp;              //経験値
 	int max_exp;          //レベルアップに必要な経験値の量
 	int ult_count;
-	bool ult_active;       //アルティメット使用可能状態
-	int animation[30];	  //アニメーション画像
+	int ult_active;       //アルティメット使用可能状態
+	int animation[23];	  //アニメーション画像
 	int animation_count;  //アニメーション時間
 	int move_image;		  //進行方向に対応する画像の読み込み
 	int ui_image[8];      //HP/MP等のUIの画像
+	int ui_number[2];     //描画したい数字画像
+	int number_image[10]; //数字画像
 	int flip_flag;	      //反転フラグ
 	int move_flag;        //移動可能状態か(0=移動不可,(1=移動可能)
 
