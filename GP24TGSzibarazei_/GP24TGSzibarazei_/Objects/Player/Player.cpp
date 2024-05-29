@@ -99,7 +99,7 @@ void Player::Initialize()
 //更新処理
 void Player::Update()
 {
-	if (move_flag = 1)
+	if (move_flag == TRUE)
 	{
 		//移動処理
 		Movement();
@@ -108,7 +108,7 @@ void Player::Update()
 		//アニメーション制御
 		AnimeControl();
 	}
-	else if (move_flag == 0)
+	else 
 	{
 		//パッシブ獲得処理
 		AcquisitionPassive();
@@ -137,7 +137,7 @@ void Player::Draw() const
 	}
 	else if (move_flag == 0)
 	{
-		DrawFormatString(location.x, location.y, GetColor(0, 255, 0), "LevelUp");
+		DrawFormatStringF(location.x, location.y, GetColor(0, 255, 0), "LevelUp");
 	}
 	
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
@@ -145,11 +145,11 @@ void Player::Draw() const
 	DrawFormatString(50, 25, GetColor(0, 0, 255), "%d", max_exp);
 	DrawFormatString(50, 35, GetColor(255, 0, 0), "%d", level);
 	DrawFormatString(480, 360, GetColor(255, 0, 0), "%d", ult_count);
-	if (ult_active == true)
+	if (ult_active == TRUE)
 	{
 		DrawFormatString(480, 380, GetColor(255, 0, 0), "ok");
 	}
-	else if (ult_active == false)
+	else 
 	{
 		DrawFormatString(480, 340, GetColor(255, 0, 0), "no");
 	}
@@ -258,7 +258,7 @@ void Player::Atack()
 	{
 		ult_active = true;
 	}
-	if (InputControl::GetKeyDown(KEY_INPUT_Q) && ult_active==true)
+	if (InputControl::GetKeyDown(KEY_INPUT_Q) && ult_active==TRUE)
 	{
 		ult_active = false;
 		ult_count = 0;

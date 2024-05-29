@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "../Scenes/SceneBase.h"
 #include"DxLib.h"
 
 //コンストラクタ
@@ -105,6 +106,11 @@ Vector2D GameObject::Getscale() const
 void GameObject::SetLocation(const Vector2D& location)
 {
 	this->location = location;
+}
+
+void GameObject::SetSceneBase(SceneBase* scenebase)
+{
+	SB = scenebase;
 }
 
 //当たり判定の大きさを取得する

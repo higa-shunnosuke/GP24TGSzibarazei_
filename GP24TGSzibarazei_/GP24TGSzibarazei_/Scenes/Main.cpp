@@ -1,6 +1,7 @@
 #include "Main.h"
 #include "../Objects/Player/Player.h"
 #include "../Objects/Enemy/Enemy.h"
+#include "../Objects/Enemy/Enemy_Attack.h"
 #include "../Objects/Stage/Stage.h"
 #include "../Utility/InputControl.h"
 #include"DxLib.h"
@@ -13,7 +14,7 @@ int block = 0;
 int type;
 
 //コンストラクタ
-Main::Main() :objects()
+Main::Main()
 {
 	Is_pause = false;		//ポーズ状態か（YES＝true、NO＝false）
 }

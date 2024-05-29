@@ -1,9 +1,11 @@
 #pragma once
 
-#include"../GameObject.h"
+#include "../CreateClass.h"
+
 #include"../Player/Player.h"
 
-class Enemy :public GameObject
+
+class Enemy : public CreateClass
 {
 private:
 	int animation[20];			//アニメーション画像
@@ -15,7 +17,8 @@ private:
 	int AL;						//AttackLenge(攻撃範囲)
 	int ET;						//EnemyType(敵の種類を選択する)
 	bool isBoss;				//この敵がボスかどうかを確認する
-	Player* player;
+	Player* player;				//プレイヤーの情報を確保する
+
 
 public:
 	Enemy();

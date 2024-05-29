@@ -2,8 +2,12 @@
 #include"DxLib.h"
 #include"../Player/Player.h"
 #include<math.h>
+#include"../../Scenes/SceneBase.h"
+#include"Enemy_Attack.h"
 
-Enemy::Enemy() :animation_count(0),ATK (0),Speed(1),AS(0.0),HP(10),AL(80),ET(0),isBoss(false)
+Enemy_Attack* EA;
+
+Enemy::Enemy() :animation_count(0),ATK (10),Speed(1),AS(15.0),HP(10),AL(80),ET(0),isBoss(false)
 {
 	for (int i = 0; i < 20; i++) {
 		animation[i]  = NULL;
@@ -16,7 +20,11 @@ Enemy::~Enemy()
 
 void Enemy::Attack()
 {
-	DrawFormatString(515, 310, 0xffffff, "Atacck");
+	if (EA->SetEnemy(ATK, AL, AS,this->location) == false)
+	{
+		throw("エネミーとエネミーアタック間の値渡しに問題があります。");
+	}
+
 
 }
 
@@ -37,6 +45,8 @@ void Enemy::Initialize()
 	radian = 0.0f;
 	scale = 80.0f;
 	image = animation[0];
+
+	EA = CreateObject<Enemy_Attack>(Vector2D());
 }
 
 void Enemy::Update()
@@ -44,6 +54,7 @@ void Enemy::Update()
 	AnimeControl();
 	
 	Movement();
+
 }
 
 void Enemy::Draw() const
@@ -79,7 +90,7 @@ void Enemy::Movement()
 	Vector2D diff = player->GetLocation() - this->GetLocation();
 
 	//ベクトルから角度を知る
-	float radian = atan2(diff.y, diff.x);
+	float radian = (float)atan2(diff.y, diff.x);
 
 	if (diff.x > AL)
 	{
