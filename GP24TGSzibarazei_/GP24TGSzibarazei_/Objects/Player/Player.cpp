@@ -1,11 +1,16 @@
 #include "Player.h"
 #include "../../Utility/InputControl.h"
-#include"DxLib.h"
+#include "../Stage/Stage.h"
+#include "DxLib.h"
 
 
 static Vector2D velocity;		//移動距離
-static Vector2D hit_location = Vector2D(0.0f);	//当たったオブジェクトの座標
-static Vector2D hit;
+
+//
+static bool hit_l;
+static bool hit_r;
+static bool hit_u;
+static bool hit_d;
 
 //コンストラクタ
 Player::Player() :animation_count(0), flip_flag(FALSE)
@@ -148,7 +153,10 @@ void Player::Update()
 	}
 
 	//hitを初期化（移動処理の後に初期化する）
-	hit = Vector2D(0.0f);
+	hit_l = false;
+	hit_r = false;
+	hit_u = false;
+	hit_d = false;
 }
 
 //描画処理
@@ -198,10 +206,10 @@ void Player::Draw() const
 		DrawFormatString(480, 340, GetColor(255, 0, 0), "no");
 	}
 
-	DrawFormatString(10, 240, 0x00ff00, "%f", hit_location.x);
-	DrawFormatString(10, 260, 0x00ff00, "%f", hit_location.y);
-	DrawFormatString(10, 280, 0x00ff00, "%f", hit.x);
-	DrawFormatString(10, 300, 0x00ff00, "%f", hit.y);
+	DrawFormatString( 10, 130, 0x0000ff, "Left :%d", hit_l);
+	DrawFormatString( 10, 150, 0x0000ff, "Right:%d", hit_r);
+	DrawFormatString( 10, 170, 0x0000ff, "Up   :%d", hit_u);
+	DrawFormatString( 10, 190, 0x0000ff, "Down :%d", hit_d);
 
 	//デバック用
 	__super::Draw();
@@ -228,36 +236,33 @@ void Player::OnHitCollision(GameObject* hit_object)
 	//当たった時の処理
 	//hp--;
 	
-	hit_location = hit_object->GetLocation();
+	Vector2D pl = this->GetLocation();
+	Vector2D ps = this->GetBoxSize() / 2.0f;
+	Vector2D ol = hit_object->GetLocation();
+	Vector2D os = hit_object->GetBoxSize() / 2.0f;
 
-	Vector2D diff = this->GetLocation() - hit_object->GetLocation();
-	Vector2D box_size = (this->GetBoxSize() + hit_object->GetBoxSize()) / 2.0f;
-
-	//while (true)
-	//{
-	//	//プレイヤーが右側ならhit.x=1
-	//	if (diff.x < 0.0f)
-	//	{
-	//		hit.x = 1.f;
-	//	}
-	//	//プレイヤーが左側ならhit.x=2
-	//	else if (diff.x < 0.0f)
-	//	{
-	//		hit.x = 2.f;
-	//	}
-
-	//	//プレイヤーが下側ならhit.y=1
-	//	if (diff.y < 0.0f)
-	//	{
-	//		hit.y = 1.f;
-	//	}
-	//	//プレイヤーが上側ならhit.y=2
-	//	else if (diff.y < 0.0f)
-	//	{
-	//		hit.y = 2.f;
-	//	}
-	//}
+	//横方向
+	if (pl.x-ps.x >= ol.x-os.x)
+	{
+		hit_l = true;
+	}
 	
+	if (pl.x+ps.x <= ol.x+os.x)
+	{
+		hit_r = true;
+	}
+	
+	//縦方向
+	if (pl.y-ps.y >= ol.y-os.y)
+	{
+		hit_u = true;
+	}
+	
+	if (pl.y+ps.y <= ol.y+os.y)
+	{
+		hit_d = true;
+	}
+
 }
 
 //位置情報取得処理
@@ -284,7 +289,12 @@ void Player::Movement()
 	velocity = Vector2D(0.0f);
 
 	//左右移動
-	if ((InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT)) && hit.x != 1.f )
+	if ((InputControl::GetKey(KEY_INPUT_RIGHT) && InputControl::GetKey(KEY_INPUT_LEFT))
+		|| (InputControl::GetKey(KEY_INPUT_RIGHT) == false && InputControl::GetKey(KEY_INPUT_LEFT) == false))
+	{
+		velocity.x += 0.0f;
+	}
+	else if ((InputControl::GetKey(KEY_INPUT_LEFT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT)) && hit_l != false )
 	{
 		velocity.x += -5.0f;
 
@@ -292,7 +302,7 @@ void Player::Movement()
 		move_image = LEFT;
 		image = animation[10];
 	}
-	else if ((InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT)) && hit.x != 2.f)
+	else if ((InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT)) && hit_r != false)
 	{
 		velocity.x += 5.0f;
 
@@ -300,13 +310,15 @@ void Player::Movement()
 		move_image = RIGHT;
 		image = animation[15];
 	}
-	else
-	{
-		velocity.x += 0.0f;
-	}
+
 
 	//上下移動
-	if ((InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP)) && hit.y != 1.f)
+	if ((InputControl::GetKey(KEY_INPUT_UP) && InputControl::GetKey(KEY_INPUT_DOWN))
+		|| (InputControl::GetKey(KEY_INPUT_UP) == false && InputControl::GetKey(KEY_INPUT_DOWN) == false))
+	{
+		velocity.y += 0.0f;
+	}
+	else if ((InputControl::GetKey(KEY_INPUT_UP) || InputControl::GetButton(XINPUT_BUTTON_DPAD_UP)) && hit_u != false)
 	{
 		velocity.y += -5.0f;
 
@@ -314,17 +326,13 @@ void Player::Movement()
 		move_image = BACK;
 		image = animation[2];
 	}
-	else if ((InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN)) && hit.y != 2.f)
+	else if ((InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN)) && hit_d != false)
 	{
 		velocity.y += 5.0f;
 
 		//プレイヤー画像を前向きにする
 		move_image = FRONT;
 		image = animation[5];
-	}
-	else
-	{
-		velocity.y += 0.0f;
 	}
 
 	//現在の位置座標に速さを加算する

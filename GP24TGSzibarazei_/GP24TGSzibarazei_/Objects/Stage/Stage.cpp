@@ -4,7 +4,6 @@
 #include "../../Scenes/Main.h"
 #include"DxLib.h"
 
-
 //ステージ情報
 int stage[3][3] = {
 	{0,0,0},
@@ -17,6 +16,7 @@ Stage::Stage()
 {
 	type = 0;
 	move = Vector2D(0.0f);
+	color = 0xffffff;
 }
 
 //デストラクタ
@@ -63,9 +63,6 @@ void Stage::Draw() const
 
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
 		color,TRUE);
-
-	DrawFormatString(10, 200, 0x00ff00, "%f", move.x);
-	DrawFormatString(10, 220, 0x00ff00, "%f", move.y);
 
 	__super::Draw();
 }

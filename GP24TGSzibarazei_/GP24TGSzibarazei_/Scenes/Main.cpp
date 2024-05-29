@@ -12,8 +12,6 @@ FILE* fp = NULL;
 int block = 0;
 int type;
 
-Player* p;
-
 //コンストラクタ
 Main::Main() :objects()
 {
@@ -71,8 +69,8 @@ void Main::Initialize()
 			{
 				type = block;
 				CreateObject<Stage>(Vector2D(
-					stagedat.STAGE_WIDTH  * 100.0f - 435.f,
-					stagedat.STAGE_HEIGHT * 100.0f - 665.f));
+					stagedat.STAGE_WIDTH  * 100.0f - 0.f,
+					stagedat.STAGE_HEIGHT * 100.0f - 0.f));
 			}
 		}	
 		//ファイルを閉じる
@@ -80,7 +78,7 @@ void Main::Initialize()
 	}
 
 	//プレイヤーを生成
-	/*Player* */p = CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	Player* p = CreateObject<Player>(Vector2D(640.0f, 360.0f));
 
 	//エネミーの生成
 	//CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
@@ -102,7 +100,7 @@ eSceneType Main::Update()
 		for (int i = 0; i < objects.size()-1; i++)
 		{
 			//当たり判定チェック処理
-			HitCheckObject(p,objects[i]);
+			HitCheckObject(objects[objects.size()-1], objects[i]);
 		}		
 
 		//スタートボタンが押されたら、ポーズする
