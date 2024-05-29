@@ -4,30 +4,6 @@
 #include"../Player/Player.h"
 #include<math.h>
 
-#define M_PI
-
-typedef struct {
-	int Troll_left1 = 0;
-	int Troll_left2 = 1;
-	int Troll_left3 = 2;
-	int Troll_leftwalk1 = 3;
-	int Troll_leftwalk2 = 4;
-	int Troll_leftatk1 = 5;
-	int Troll_leftatk2 = 6;
-	int Troll_leftatk3 = 7;
-	int Troll_Empty1 = 8;
-	int Troll_Empty2 = 9;
-	int Troll_right1 = 10;
-	int Troll_right2 = 11;
-	int Troll_right3 = 12;
-	int Troll_rightWalk1 = 13;
-	int Troll_rightWalk2 = 14;
-	int Troll_rightatk1 = 15;
-	int Troll_rightatk2 = 16;
-};
-
-
-
 Enemy_mob::Enemy_mob() :animation_count(0), ATK(0), Speed(0), AS(0.0), HP(10), AL(3), ET(0), isBoss(false)
 {
 	for (int i = 0; i < 20; i++) {

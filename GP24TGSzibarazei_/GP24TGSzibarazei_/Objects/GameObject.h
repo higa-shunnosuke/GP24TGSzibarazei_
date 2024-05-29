@@ -11,6 +11,7 @@ protected:
 	double radian;		//向き
 	int image;			//描画する画像
 	int sound;			//再生する音源
+	class SceneBase* SB;
 
 public:
 	GameObject();
@@ -31,6 +32,8 @@ public:
 	virtual Vector2D Getscale() const;
 	//位置情報変更処理
 	virtual void SetLocation(const Vector2D& location);
+	//シーンの情報を取得する
+	virtual void SetSceneBase(class SceneBase* scenebase);
 	//当たり判定の大きさを取得する
 	Vector2D GetBoxSize() const;
 };

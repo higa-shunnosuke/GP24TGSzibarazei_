@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Objects\Enemy\Enemy_Attack.cpp" />
     <ClCompile Include="Objects\Enemy\Enemy_mob.cpp" />
     <ClCompile Include="Scenes\CharacterSelect.cpp" />
     <ClCompile Include="Scenes\Clear.cpp" />
@@ -150,6 +151,8 @@
     <ClCompile Include="Utility\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\CreateClass.h" />
+    <ClInclude Include="Objects\Enemy\Enemy_Attack.h" />
     <ClInclude Include="Objects\Enemy\Enemy_mob.h" />
     <ClInclude Include="Scenes\SceneBase.h" />
     <ClInclude Include="Scenes\CharacterSelect.h" />
