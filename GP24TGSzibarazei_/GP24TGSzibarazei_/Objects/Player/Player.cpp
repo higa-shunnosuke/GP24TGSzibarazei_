@@ -123,7 +123,7 @@ void Player::Initialize()
 	scale = 50.0f;
 
 	//初期画像の設定
-	image = animation[0];
+	image = animation[5];
 
 	//移動距離
 	velocity = Vector2D(0.0f);
@@ -132,7 +132,7 @@ void Player::Initialize()
 //更新処理
 void Player::Update()
 {
-	if (move_flag = 1)
+	if (move_flag == 1)
 	{
 		//移動処理
 		Movement();
@@ -183,7 +183,7 @@ void Player::Draw() const
 	DrawRotaGraphF(1050.f, 500.f,1.5, radian, ui_image[3], TRUE, flip_flag);
 	DrawRotaGraphF(1050.f, 500.f, 2, radian, ui_image[4], TRUE, flip_flag);
 
-
+	//その他
 	DrawFormatString(10, 25, GetColor(0, 0, 255), "mp");
 	DrawFormatString(50, 10, GetColor(0, 0, 255), "%d",exp);
 	DrawFormatString(50, 25, GetColor(0, 0, 255), "%d", max_exp);
@@ -289,16 +289,16 @@ void Player::Movement()
 		velocity.x += -5.0f;
 
 		//プレイヤー画像を左向きにする
-		move_image = 2;
-		image = animation[4];
+		move_image = LEFT;
+		image = animation[10];
 	}
 	else if ((InputControl::GetKey(KEY_INPUT_RIGHT) || InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT)) && hit.x != 2.f)
 	{
 		velocity.x += 5.0f;
 
 		//プレイヤー画像を右向きにする
-		move_image = 3;
-		image = animation[6];
+		move_image = RIGHT;
+		image = animation[15];
 	}
 	else
 	{
@@ -311,7 +311,7 @@ void Player::Movement()
 		velocity.y += -5.0f;
 
 		//プレイヤー画像を後ろ向きにする
-		move_image = 1;
+		move_image = BACK;
 		image = animation[2];
 	}
 	else if ((InputControl::GetKey(KEY_INPUT_DOWN) || InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN)) && hit.y != 2.f)
@@ -319,8 +319,8 @@ void Player::Movement()
 		velocity.y += 5.0f;
 
 		//プレイヤー画像を前向きにする
-		move_image = 0;
-		image = animation[0];
+		move_image = FRONT;
+		image = animation[5];
 	}
 	else
 	{
@@ -413,11 +413,23 @@ void Player::AnimeControl()
 
 		switch (move_image)
 		{
-		case 0:
+		case FRONT:
+			//画像の切り替え
+			if (image == animation[5])
+			{
+				image = animation[7];
+			}
+			else
+			{
+				image = animation[5];
+			}
+			break;
+			
+		case BACK:
 			//画像の切り替え
 			if (image == animation[0])
 			{
-				image = animation[1];
+				image = animation[2];
 			}
 			else
 			{
@@ -425,39 +437,27 @@ void Player::AnimeControl()
 			}
 			break;
 			
-		case 1:
+		case LEFT:
 			//画像の切り替え
-			if (image == animation[2])
+			if (image == animation[10])
 			{
-				image = animation[3];
+				image = animation[12];
 			}
 			else
 			{
-				image = animation[2];
+				image = animation[10];
 			}
 			break;
 			
-		case 2:
+		case RIGHT:
 			//画像の切り替え
-			if (image == animation[4])
+			if (image == animation[15])
 			{
-				image = animation[5];
+				image = animation[17];
 			}
 			else
 			{
-				image = animation[4];
-			}
-			break;
-			
-		case 3:
-			//画像の切り替え
-			if (image == animation[6])
-			{
-				image = animation[7];
-			}
-			else
-			{
-				image = animation[6];
+				image = animation[15];
 			}
 			break;
 		}
