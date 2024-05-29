@@ -4,7 +4,6 @@
 #include "../../Scenes/Main.h"
 #include"DxLib.h"
 
-
 //ステージ情報
 int stage[3][3] = {
 	{0,0,0},

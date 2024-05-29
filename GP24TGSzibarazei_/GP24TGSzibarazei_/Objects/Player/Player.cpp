@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../../Utility/InputControl.h"
-#include"DxLib.h"
+#include "../Stage/Stage.h"
+#include "DxLib.h"
 
 
 static Vector2D velocity;		//移動距離
@@ -205,6 +206,11 @@ void Player::Draw() const
 		DrawFormatString(480, 340, GetColor(255, 0, 0), "no");
 	}
 
+	DrawFormatString( 10, 130, 0x0000ff, "Left :%d", hit_l);
+	DrawFormatString( 10, 150, 0x0000ff, "Right:%d", hit_r);
+	DrawFormatString( 10, 170, 0x0000ff, "Up   :%d", hit_u);
+	DrawFormatString( 10, 190, 0x0000ff, "Down :%d", hit_d);
+
 	//デバック用
 	__super::Draw();
 }
@@ -236,23 +242,23 @@ void Player::OnHitCollision(GameObject* hit_object)
 	Vector2D os = hit_object->GetBoxSize() / 2.0f;
 
 	//横方向
-	if (pl.x-ps.x > ol.x-os.x)
+	if (pl.x-ps.x >= ol.x-os.x)
 	{
 		hit_l = true;
 	}
 	
-	if (pl.x+ps.x < ol.x+os.x)
+	if (pl.x+ps.x <= ol.x+os.x)
 	{
 		hit_r = true;
 	}
 	
 	//縦方向
-	if (pl.y-ps.y > ol.y-os.y)
+	if (pl.y-ps.y >= ol.y-os.y)
 	{
 		hit_u = true;
 	}
 	
-	if (pl.y+ps.y < ol.y+os.y)
+	if (pl.y+ps.y <= ol.y+os.y)
 	{
 		hit_d = true;
 	}
