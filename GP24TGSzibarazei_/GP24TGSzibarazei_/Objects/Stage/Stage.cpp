@@ -10,6 +10,8 @@ int stage[3][3] = {
 	{0,0,0},
 	{0,0,0} };
 
+//部屋の数
+int room_count = 0;
 
 //コンストラクタ
 Stage::Stage()
@@ -52,6 +54,11 @@ void Stage::Update()
 	location -= move;
 
 	color = 0xffffff;
+
+	if (InputControl::GetKeyDown(KEY_INPUT_Z))
+	{
+		SetStage();
+	}
 }
 
 //描画処理
@@ -63,6 +70,8 @@ void Stage::Draw() const
 
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
 		color,TRUE);
+
+	DrawFormatString(10, 110, 0xffff00, "%d", room_count);
 
 	__super::Draw();
 }
@@ -108,5 +117,45 @@ int Stage::GetStage(int i,int j)
 //ステージ情報設定処理
 void Stage::SetStage()
 {
+	//カウント
+	int i=0;
+	int j=0;
 
+	//部屋の数を決める
+	room_count = GetRand(2) + 4;
+
+	//ステージ情報を初期化する
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (room_count > 0)
+			{
+				stage[i][j] = 0;
+			}
+		}
+	}
+	
+	while (true)
+	{
+		//ボーナス部屋の数
+		int s_room = 0;	
+		//
+		int rand = GetRand(100) % 4;
+
+		if (room_count > 0)
+		{
+			
+			if (rand == 3)
+			{
+				s_room++;
+			}
+			if (rand != 0 && s_room < 1)
+			{
+				stage[i][j] = rand;
+				room_count--;
+				j++;
+			}
+		}
+	}
 }

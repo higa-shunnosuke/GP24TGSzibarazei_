@@ -46,5 +46,4 @@ private:
 	void Movement();
 	//アニメーション制御
 	void AnimeControl();
-
 };
