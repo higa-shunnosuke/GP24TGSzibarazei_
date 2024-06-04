@@ -15,7 +15,7 @@ Enemy_mob::~Enemy_mob()
 {
 }
 
-void Enemy_mob::Initialize()
+void Enemy_mob::Initialize(int enemy_type)
 {
 	LoadDivGraph("Resource/images/Enemy/troll/troll_all.png", 20, 5, 4, 198, 132, animation);
 

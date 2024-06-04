@@ -43,7 +43,7 @@ public:
 
 	//オブジェクト生成処理
 	template <class T>
-	T* CreateObject(const Vector2D& location)
+	T* CreateObject(const Vector2D& location,int type)
 	{
 		//
 		T* new_instance = new T();
@@ -63,7 +63,7 @@ public:
 		new_object->SetSceneBase(this);
 
 		//初期化処理
-		new_object->Initialize();
+		new_object->Initialize(type);
 		//位置情報の設定
 		new_object->SetLocation(location);
 

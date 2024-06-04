@@ -44,7 +44,7 @@ void Enemy_Attack::SetLocation(const Vector2D& location)
 {
 }
 
-void Enemy_Attack::Initialize()
+void Enemy_Attack::Initialize(int enemy_type)
 {
 }
 

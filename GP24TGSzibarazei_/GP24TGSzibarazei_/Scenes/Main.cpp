@@ -34,7 +34,9 @@ void Main::Initialize()
 
 	/*********************オブジェクトを生成する********************/
 
-	//ステージの生成
+	//ステージのを設定
+	int start = Stage::SetStage();
+
 	//読込ファイルを開く
 	fopen_s(&fp, STAGE_DATA, "r");
 
@@ -66,23 +68,23 @@ void Main::Initialize()
 				continue;
 			}
 			//読み込んだ文字が１以上なら、ブロックを生成
-			else if (block - '0' > 0)
+			else if (block - '0' >= 0)
 			{
 				type = block;
 				CreateObject<Stage>(Vector2D(
 					stagedat.STAGE_WIDTH  * 100.0f - 0.f,
-					stagedat.STAGE_HEIGHT * 100.0f - 0.f));
+					stagedat.STAGE_HEIGHT * 100.0f - 0.f),0);
 			}
-		}	
+		}
 		//ファイルを閉じる
 		fclose(fp);
 	}
 
 	//プレイヤーを生成
-	Player* p = CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	Player* p = CreateObject<Player>(Vector2D(640.0f, 360.0f),0);
 
 	//エネミーの生成
-	//CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
+	//CreateObject<Enemy>(Vector2D(640.0f, 360.0f),0)->SetPlayer(p);
 }
 
 //更新処理
@@ -133,19 +135,16 @@ void Main::Draw() const
 	}
 
 	//ステージ情報描画
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		for (int j = 0; j < 3; j++)
-		{
-			DrawFormatString(j * 20+10, i * 20+50, 0xffff00, "%d", Stage::GetStage(i,j));
-		}
+		DrawFormatString(i * 20 + 10, 50, 0xffff00, "%d", Stage::GetStage(i));
 	}
 
 	//ポーズ状態の可視化
 	if (Is_pause==true)
 	{
 		SetFontSize(100);
-		DrawFormatString(515,310, 0xffffff, "PAUSE");
+		DrawFormatString(515,310, 0xa0a0a0, "PAUSE");
 	}
 	SetFontSize(20);
 

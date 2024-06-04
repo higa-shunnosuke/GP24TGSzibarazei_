@@ -4,11 +4,19 @@
 #include "../../Scenes/Main.h"
 #include"DxLib.h"
 
+typedef enum StageType {
+	Empty,
+	Respawn,
+	Normal,
+	Boss,
+	Special,
+}state;
+
 //ステージ情報
-int stage[3][3] = {
-	{0,0,0},
-	{0,0,0},
-	{0,0,0} };
+int stage[9] = {
+	0,0,0,
+	0,0,0,
+	0,0,0 };
 
 //部屋の数
 int room_count = 0;
@@ -28,7 +36,7 @@ Stage::~Stage()
 }
 
 //初期化処理
-void Stage::Initialize()
+void Stage::Initialize(int stage_type)
 {
 	//向きの設定
 	radian = 0.0;
@@ -37,13 +45,18 @@ void Stage::Initialize()
 	scale = 100.0;
 
 	//初期画像の設定
-	image = NULL;
+	//image = LoadGraph("Resource/images/stage/grass_block.png");
 
 	type = Main::GetStageType();
 
 	move = Vector2D(0.0f);
 
 	color = 0xffffff;
+
+	//if (image == -1)
+	//{
+	//	throw("blockの画像がありません\n");
+	//}
 }
 
 //更新処理
@@ -109,53 +122,47 @@ void Stage::SetLocation(const Vector2D& location)
 }
 
 //ステージ情報取得処理
-int Stage::GetStage(int i,int j)
+int Stage::GetStage(int i)
 {
-	return stage[i][j];
+	return stage[i];
 }
 
 //ステージ情報設定処理
-void Stage::SetStage()
+int Stage::SetStage()
 {
 	//カウント
-	int i=0;
-	int j=0;
+	int i = 0;
+	int j = 0;
+	int count = 0;
+
+	//
+	state e, r, n, b, s;
+	e = Empty;
+	r = Respawn;
+	n = Normal;
+	b = Boss;
+	s = Special;
+
+	//リスポーン部屋の位置を決定
+	int r_room = GetRand(8);
 
 	//部屋の数を決める
 	room_count = GetRand(2) + 4;
 
 	//ステージ情報を初期化する
-	for (int i = 0; i < 3; i++)
+	for (i = 0; i < 8; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		if (count != r_room)
 		{
-			if (room_count > 0)
-			{
-				stage[i][j] = 0;
-			}
+			stage[i] = e;
+			count++;
+		}
+		else
+		{
+			stage[i] = r;
+			count++;
 		}
 	}
-	
-	while (true)
-	{
-		//ボーナス部屋の数
-		int s_room = 0;	
-		//
-		int rand = GetRand(100) % 4;
 
-		if (room_count > 0)
-		{
-			
-			if (rand == 3)
-			{
-				s_room++;
-			}
-			if (rand != 0 && s_room < 1)
-			{
-				stage[i][j] = rand;
-				room_count--;
-				j++;
-			}
-		}
-	}
+	return r_room;
 }

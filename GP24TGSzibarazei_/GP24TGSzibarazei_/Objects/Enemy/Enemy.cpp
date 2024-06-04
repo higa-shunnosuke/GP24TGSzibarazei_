@@ -28,7 +28,7 @@ void Enemy::Attack()
 
 }
 
-void Enemy::Initialize()
+void Enemy::Initialize(int enemy_type)
 {
 	LoadDivGraph("Resource/images/Enemy/troll/troll_all.png", 20, 5, 4, 198, 132, animation);
 
@@ -46,7 +46,7 @@ void Enemy::Initialize()
 	scale = 80.0f;
 	image = animation[0];
 
-	EA = CreateObject<Enemy_Attack>(Vector2D());
+	EA = CreateObject<Enemy_Attack>(Vector2D(),0);
 }
 
 void Enemy::Update()

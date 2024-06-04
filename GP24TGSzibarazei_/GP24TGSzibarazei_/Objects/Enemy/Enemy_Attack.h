@@ -19,7 +19,7 @@ public:
 	Enemy_Attack();
 	~Enemy_Attack();
 
-	virtual void Initialize() override;	//‰Šú‰»ˆ—
+	virtual void Initialize(int enemy_type) override;	//‰Šú‰»ˆ—
 	virtual void Attack();				//UŒ‚ˆ—
 	virtual void Update() override;		//XVˆ—
 	virtual void Draw() const override;	//•`‰æˆ—

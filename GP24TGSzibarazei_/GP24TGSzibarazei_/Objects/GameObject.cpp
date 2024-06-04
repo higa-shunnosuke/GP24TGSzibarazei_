@@ -18,7 +18,7 @@ GameObject::~GameObject()
 }
 
 //‰Šú‰»ˆ—
-void GameObject::Initialize()
+void GameObject::Initialize(int type)
 {
 
 }

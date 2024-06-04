@@ -31,7 +31,7 @@ public:
 	Player();
 	~Player();
 
-	virtual void Initialize() override;	//‰Šú‰»ˆ—
+	virtual void Initialize(int player_type) override;	//‰Šú‰»ˆ—
 	virtual void Update() override;		//XVˆ—
 	virtual void Draw() const override;	//•`‰æˆ—
 	virtual void Finalize() override;	//I—¹ˆ—

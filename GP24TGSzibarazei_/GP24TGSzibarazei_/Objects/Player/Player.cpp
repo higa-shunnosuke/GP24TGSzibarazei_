@@ -53,7 +53,7 @@ Player::~Player()
 {}
 
 //初期化処理
-void Player::Initialize()
+void Player::Initialize(int player_type)
 {
 	//前方向画像の読み込み
 	LoadDivGraph("Resource/images/Player/knight/knight_all.png", 23, 5, 5, 160, 200, animation);
@@ -108,13 +108,13 @@ void Player::Initialize()
 		}
 	}
 
-	for (int i = 0; i < 10; i++)
+	/*for (int i = 0; i < 10; i++)
 	{
 		if (number_image[i] == -1)
 		{
 			throw("数字画像がありません\n");
 		}
-	}
+	}*/
 
 	/*if (animation[0] == -1 || animation[1] == -1)
 	{
@@ -205,11 +205,6 @@ void Player::Draw() const
 	{
 		DrawFormatString(480, 340, GetColor(255, 0, 0), "no");
 	}
-
-	DrawFormatString( 10, 130, 0x0000ff, "Left :%d", hit_l);
-	DrawFormatString( 10, 150, 0x0000ff, "Right:%d", hit_r);
-	DrawFormatString( 10, 170, 0x0000ff, "Up   :%d", hit_u);
-	DrawFormatString( 10, 190, 0x0000ff, "Down :%d", hit_d);
 
 	//デバック用
 	__super::Draw();
