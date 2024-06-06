@@ -47,6 +47,8 @@ public:
 
 	//ˆÚ“®‹——£æ“¾ˆ—
 	static Vector2D GetVelocity();
+	//ƒ^ƒCƒvæ“¾ˆ—
+	virtual int GetType() const override;
 
 private:
 	//ˆÚ“®ˆ—

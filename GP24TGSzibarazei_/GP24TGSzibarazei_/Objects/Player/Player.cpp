@@ -2,7 +2,7 @@
 #include "../../Utility/InputControl.h"
 #include "../Stage/Stage.h"
 #include "DxLib.h"
-
+int t;
 
 static Vector2D velocity;		//移動距離
 
@@ -11,6 +11,8 @@ static bool hit_l;
 static bool hit_r;
 static bool hit_u;
 static bool hit_d;
+
+static int type;
 
 //コンストラクタ
 Player::Player() :animation_count(0), flip_flag(FALSE)
@@ -206,6 +208,13 @@ void Player::Draw() const
 		DrawFormatString(480, 340, GetColor(255, 0, 0), "no");
 	}
 
+	DrawFormatString(10, 170, 0xffff00, "%d", hit_l);
+	DrawFormatString(10, 190, 0xffff00, "%d", hit_r);
+	DrawFormatString(10, 210, 0xffff00, "%d", hit_u);
+	DrawFormatString(10, 230, 0xffff00, "%d", hit_d);
+	DrawFormatString(10, 250, 0xffff00, "%d", t);
+
+
 	//デバック用
 	__super::Draw();
 }
@@ -230,7 +239,9 @@ void Player::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時の処理
 	//hp--;
-	
+
+	t = hit_object->GetType();
+
 	Vector2D pl = this->GetLocation();
 	Vector2D ps = this->GetBoxSize() / 2.0f;
 	Vector2D ol = hit_object->GetLocation();
@@ -259,7 +270,6 @@ void Player::OnHitCollision(GameObject* hit_object)
 	{
 		hit_d = true;
 	}
-
 }
 
 //位置情報取得処理
@@ -468,4 +478,10 @@ void Player::AcquisitionPassive()
 Vector2D Player::GetVelocity()
 {
 	return velocity;
+}
+
+//ステージのタイプ取得処理
+int Player::GetType() const
+{
+	return type;
 }

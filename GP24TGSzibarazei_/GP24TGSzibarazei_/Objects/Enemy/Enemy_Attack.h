@@ -35,5 +35,7 @@ public:
 	virtual Vector2D Getscale() const ;
 	//位置情報変更処理
 	virtual void SetLocation(const Vector2D& location) ;
+	//タイプ取得処理
+	virtual int GetType() const override;
 };
 

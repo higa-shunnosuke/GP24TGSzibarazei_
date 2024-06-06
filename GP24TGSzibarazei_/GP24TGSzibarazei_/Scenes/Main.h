@@ -33,8 +33,6 @@ public:
 	virtual eSceneType GetNowScene() const override;
 	//ステージの大きさを取得
 	static StageDat GetStageSiz();
-	//ステージのタイプを取得
-	static int GetStageType();
 
 
 private:

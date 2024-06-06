@@ -2,7 +2,7 @@
 #include"DxLib.h"
 
 
-
+static int type;
 
 Enemy_Attack::Enemy_Attack():AL(-1),ATK(-1),AS(-1.0f),scale(1.0f)
 {
@@ -77,4 +77,10 @@ void Enemy_Attack::Draw() const
 
 void Enemy_Attack::Finalize()
 {
+}
+
+//ステージのタイプ取得処理
+int Enemy_Attack::GetType() const
+{
+	return type;
 }

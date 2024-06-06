@@ -68,12 +68,12 @@ void Main::Initialize()
 				continue;
 			}
 			//読み込んだ文字が１以上なら、ブロックを生成
-			else if (block - '0' >= 0)
+			else if (block - '0' == 0)
 			{
-				type = block;
+				type = block - '0';
 				CreateObject<Stage>(Vector2D(
-					stagedat.STAGE_WIDTH  * 100.0f - 0.f,
-					stagedat.STAGE_HEIGHT * 100.0f - 0.f),0);
+					stagedat.STAGE_WIDTH  * 100.0f - -40.f,
+					stagedat.STAGE_HEIGHT * 100.0f - 240.f),type) ;
 			}
 		}
 		//ファイルを閉じる
@@ -100,11 +100,14 @@ eSceneType Main::Update()
 		}
 
 		//プレイヤーの当たり判定
-		for (int i = 0; i < objects.size()-1; i++)
+		for (int i = 0; i < objects.size(); i++)
 		{
-			//当たり判定チェック処理
-			HitCheckObject(objects[objects.size()-1], objects[i]);
-		}		
+			for (int j = i + 1; j < objects.size(); j++)
+			{
+				//当たり判定チェック処理
+				HitCheckObject(objects[i], objects[j]);
+			}
+		}
 
 		//スタートボタンが押されたら、ポーズする
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
@@ -133,11 +136,16 @@ void Main::Draw() const
 	{
 		obj->Draw();
 	}
-
+	
 	//ステージ情報描画
-	for (int i = 0; i < 8; i++)
+	int j = 0;
+	for (int i = 0; i < 9; i++)
 	{
-		DrawFormatString(i * 20 + 10, 50, 0xffff00, "%d", Stage::GetStage(i));
+		if (i % 3 == 0)
+		{
+			j++;
+		}
+		DrawFormatString(i % 3 * 20 + 10, j * 20 + 50, 0xffff00, "%d", Stage::GetStage(i));
 	}
 
 	//ポーズ状態の可視化
@@ -180,12 +188,6 @@ eSceneType Main::GetNowScene()const
 StageDat Main::GetStageSiz()
 {
 	return stagedat;
-}
-
-//ステージのタイプを取得
-int Main::GetStageType()
-{
-	return type;
 }
 
 //当たり判定チェック処理（矩形の中心で当たり判定をとる）

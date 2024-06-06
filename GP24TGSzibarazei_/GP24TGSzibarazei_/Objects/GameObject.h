@@ -12,6 +12,7 @@ protected:
 	int image;			//•`‰æ‚·‚é‰æ‘œ
 	int sound;			//Ä¶‚·‚é‰¹Œ¹
 	class SceneBase* SB;
+	int type;
 
 public:
 	GameObject();
@@ -36,5 +37,7 @@ public:
 	virtual void SetSceneBase(class SceneBase* scenebase);
 	//“–‚½‚è”»’è‚Ì‘å‚«‚³‚ğæ“¾‚·‚é
 	Vector2D GetBoxSize() const;
+	//ƒ^ƒCƒvæ“¾ˆ—
+	virtual int GetType() const;
 };
 

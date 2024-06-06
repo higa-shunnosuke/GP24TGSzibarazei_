@@ -20,6 +20,7 @@ int stage[9] = {
 
 //部屋の数
 int room_count = 0;
+int r_room;
 
 //コンストラクタ
 Stage::Stage()
@@ -47,11 +48,18 @@ void Stage::Initialize(int stage_type)
 	//初期画像の設定
 	//image = LoadGraph("Resource/images/stage/grass_block.png");
 
-	type = Main::GetStageType();
+	type = stage_type;
 
 	move = Vector2D(0.0f);
 
-	color = 0xffffff;
+	if (type == 0)
+	{
+		color = 0xffffff;
+	}
+	else if(type == 1)
+	{
+		color = 0x000000;
+	}
 
 	//if (image == -1)
 	//{
@@ -66,7 +74,14 @@ void Stage::Update()
 
 	location -= move;
 
-	color = 0xffffff;
+	if (type == 0)
+	{
+		color = 0xffffff;
+	}
+	else if (type == 1)
+	{
+		color = 0x000000;
+	}
 
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{
@@ -84,7 +99,10 @@ void Stage::Draw() const
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
 		color,TRUE);
 
-	DrawFormatString(10, 110, 0xffff00, "%d", room_count);
+	DrawFormatString(upper_left.x, upper_left.y, 0x00ff00, "%d", type);
+
+	DrawFormatString(10, 130, 0xffff00, "%d", room_count);
+	DrawFormatString(10, 150, 0xffff00, "%d", r_room);
 
 	__super::Draw();
 }
@@ -121,6 +139,12 @@ void Stage::SetLocation(const Vector2D& location)
 	this->location = location;
 }
 
+//ステージのタイプ取得処理
+int Stage::GetType() const
+{
+	return type;
+}
+
 //ステージ情報取得処理
 int Stage::GetStage(int i)
 {
@@ -144,13 +168,13 @@ int Stage::SetStage()
 	s = Special;
 
 	//リスポーン部屋の位置を決定
-	int r_room = GetRand(8);
+	r_room = GetRand(8);
 
 	//部屋の数を決める
 	room_count = GetRand(2) + 4;
 
 	//ステージ情報を初期化する
-	for (i = 0; i < 8; i++)
+	for (i = 0; i < 9; i++)
 	{
 		if (count != r_room)
 		{

@@ -6,6 +6,7 @@
 #include"Enemy_Attack.h"
 
 Enemy_Attack* EA;
+static int type;
 
 Enemy::Enemy() :animation_count(0),ATK (10),Speed(1),AS(15.0),HP(10),AL(80),ET(0),isBoss(false)
 {
@@ -255,4 +256,10 @@ void Enemy::Finalize()
 void Enemy::SetPlayer(Player* player)
 {
 	this->player = player;
+}
+
+//ステージのタイプ取得処理
+int Enemy::GetType() const
+{
+	return type;
 }

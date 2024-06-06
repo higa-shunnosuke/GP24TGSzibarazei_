@@ -40,6 +40,8 @@ public:
 	virtual Vector2D Getscale() const override;
 	//位置情報変更処理
 	virtual void SetLocation(const Vector2D& location) override;
+	//タイプ取得処理
+	virtual int GetType() const override;
 
 private:
 	//移動処理

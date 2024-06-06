@@ -118,3 +118,9 @@ Vector2D GameObject::GetBoxSize() const
 {
 	return scale;
 }
+
+//オブジェクトのタイプを取得する
+int GameObject::GetType() const
+{
+	return type;
+}
