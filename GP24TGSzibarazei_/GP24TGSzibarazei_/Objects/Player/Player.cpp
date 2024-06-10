@@ -208,11 +208,11 @@ void Player::Draw() const
 		DrawFormatString(480, 340, GetColor(255, 0, 0), "no");
 	}
 
-	DrawFormatString(10, 170, 0xffff00, "%d", hit_l);
-	DrawFormatString(10, 190, 0xffff00, "%d", hit_r);
-	DrawFormatString(10, 210, 0xffff00, "%d", hit_u);
-	DrawFormatString(10, 230, 0xffff00, "%d", hit_d);
-	DrawFormatString(10, 250, 0xffff00, "%d", t);
+	//DrawFormatString(10, 170, 0xffff00, "%d", hit_l);
+	//DrawFormatString(10, 190, 0xffff00, "%d", hit_r);
+	//DrawFormatString(10, 210, 0xffff00, "%d", hit_u);
+	//DrawFormatString(10, 230, 0xffff00, "%d", hit_d);
+	//DrawFormatString(10, 250, 0xffff00, "%d", t);
 
 
 	//デバック用
@@ -241,11 +241,17 @@ void Player::OnHitCollision(GameObject* hit_object)
 	//hp--;
 
 	t = hit_object->GetType();
+	Vector2D pl;
+	Vector2D ps;
+	Vector2D ol;
+	Vector2D os;
 
-	Vector2D pl = this->GetLocation();
-	Vector2D ps = this->GetBoxSize() / 2.0f;
-	Vector2D ol = hit_object->GetLocation();
-	Vector2D os = hit_object->GetBoxSize() / 2.0f;
+
+	pl = this->GetLocation();
+	ps = this->GetBoxSize() / 2.0f;
+	ol = hit_object->GetLocation();
+	os = hit_object->GetBoxSize() / 2.0f;
+	
 
 	//横方向
 	//プレイヤーの左側がステージの左側より右のとき

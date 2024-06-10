@@ -6,7 +6,8 @@
 GameObject::GameObject() :
 	radian(0.0),
 	image(0),
-	sound(0)
+	sound(0),
+	type(0)
 {
 
 }
@@ -18,9 +19,9 @@ GameObject::~GameObject()
 }
 
 //初期化処理
-void GameObject::Initialize(int type)
+void GameObject::Initialize(int object_type)
 {
-
+	type = object_type;
 }
 
 //更新所理
@@ -122,5 +123,5 @@ Vector2D GameObject::GetBoxSize() const
 //オブジェクトのタイプを取得する
 int GameObject::GetType() const
 {
-	return type;
+	return this->type;
 }

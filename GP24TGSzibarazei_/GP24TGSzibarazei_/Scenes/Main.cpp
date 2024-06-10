@@ -138,15 +138,15 @@ void Main::Draw() const
 	}
 	
 	//ステージ情報描画
-	int j = 0;
-	for (int i = 0; i < 9; i++)
-	{
-		if (i % 3 == 0)
-		{
-			j++;
-		}
-		DrawFormatString(i % 3 * 20 + 10, j * 20 + 50, 0xffff00, "%d", Stage::GetStage(i));
-	}
+	//int j = 0;
+	//for (int i = 0; i < 9; i++)
+	//{
+	//	if (i % 3 == 0)
+	//	{
+	//		j++;
+	//	}
+	//	DrawFormatString(i % 3 * 20 + 10, j * 20 + 50, 0xffff00, "%d", Stage::GetStage(i));
+	//}
 
 	//ポーズ状態の可視化
 	if (Is_pause==true)

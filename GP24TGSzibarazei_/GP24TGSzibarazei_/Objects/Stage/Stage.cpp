@@ -25,7 +25,6 @@ int r_room;
 //コンストラクタ
 Stage::Stage()
 {
-	type = 0;
 	move = Vector2D(0.0f);
 	color = 0xffffff;
 }
@@ -99,10 +98,10 @@ void Stage::Draw() const
 	DrawBoxAA(upper_left.x, upper_left.y, lower_right.x, lower_right.y,
 		color,TRUE);
 
-	DrawFormatString(upper_left.x, upper_left.y, 0x00ff00, "%d", type);
+	//DrawFormatString(upper_left.x, upper_left.y, 0x00ff00, "%d", type);
 
-	DrawFormatString(10, 130, 0xffff00, "%d", room_count);
-	DrawFormatString(10, 150, 0xffff00, "%d", r_room);
+	//DrawFormatString(10, 130, 0xffff00, "%d", room_count);
+	//DrawFormatString(10, 150, 0xffff00, "%d", r_room);
 
 	__super::Draw();
 }

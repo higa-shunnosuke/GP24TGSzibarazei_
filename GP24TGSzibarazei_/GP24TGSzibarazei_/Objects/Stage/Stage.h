@@ -4,7 +4,6 @@
 class Stage :public GameObject
 {
 private:
-	int type;			//ステージのタイプ
 	Vector2D move;		//移動距離
 
 	unsigned int color;	//ブロックの色
