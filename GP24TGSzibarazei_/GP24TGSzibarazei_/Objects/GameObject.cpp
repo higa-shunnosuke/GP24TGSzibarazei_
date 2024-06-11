@@ -9,7 +9,7 @@ GameObject::GameObject() :
 	sound(0),
 	type(0)
 {
-
+	SB = nullptr;
 }
 
 //デストラクタ
