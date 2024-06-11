@@ -12,12 +12,13 @@ protected:
 	int image;			//描画する画像
 	int sound;			//再生する音源
 	class SceneBase* SB;
+	int type;
 
 public:
 	GameObject();
 	virtual ~GameObject();
 
-	virtual void Initialize();	//初期化処理
+	virtual void Initialize(int type);	//初期化処理
 	virtual void Update();		//更新処理
 	virtual void Draw() const;	//描画処理
 	virtual void Finalize();	//終了時処理
@@ -36,5 +37,7 @@ public:
 	virtual void SetSceneBase(class SceneBase* scenebase);
 	//当たり判定の大きさを取得する
 	Vector2D GetBoxSize() const;
+	//タイプ取得処理
+	virtual int GetType() const;
 };
 

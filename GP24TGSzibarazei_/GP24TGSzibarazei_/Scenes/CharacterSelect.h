@@ -9,7 +9,7 @@ private:
 private:
 	int background_image;
 	int cursor_image;
-	int menu_cursor;
+	int cursor_number;
 
 public:
 	CharacterSelect();

@@ -6,9 +6,7 @@ class Title :public SceneBase
 {
 private:
 	int background_image;
-	int menu_image;
-	int cursor_image;
-	int menu_cursor;
+	int cursor_number;
 
 public:
 	Title();

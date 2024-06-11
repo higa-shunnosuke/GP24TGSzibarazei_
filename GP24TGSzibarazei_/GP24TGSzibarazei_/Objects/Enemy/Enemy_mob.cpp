@@ -4,6 +4,8 @@
 #include"../Player/Player.h"
 #include<math.h>
 
+static int type;
+
 Enemy_mob::Enemy_mob() :animation_count(0), ATK(0), Speed(0), AS(0.0), HP(10), AL(3), ET(0), isBoss(false)
 {
 	for (int i = 0; i < 20; i++) {
@@ -15,7 +17,7 @@ Enemy_mob::~Enemy_mob()
 {
 }
 
-void Enemy_mob::Initialize()
+void Enemy_mob::Initialize(int enemy_type)
 {
 	LoadDivGraph("Resource/images/Enemy/troll/troll_all.png", 20, 5, 4, 198, 132, animation);
 
@@ -235,4 +237,10 @@ void Enemy_mob::Finalize()
 		DeleteGraph(animation[i]);
 	}
 	//撃破数か何かしらをリターン
+}
+
+//ステージのタイプ取得処理
+int Enemy_mob::GetType() const
+{
+	return type;
 }

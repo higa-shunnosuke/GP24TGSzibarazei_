@@ -16,14 +16,7 @@ Help::~Help()
 //初期化処理
 void Help::Initialize()
 {
-	////画像の読み込み
-	//background_image = LoadGraph("../Resource/images/");
-
-	////エラーチェック
-	//if (background_image == -1)
-	//{
-	//	throw("../Resource/images.Title.bmpがありません\n");
-	//}
+	
 }
 
 
@@ -31,7 +24,7 @@ void Help::Initialize()
 eSceneType Help::Update()
 {
 	//Bボタンが押されたら、タイトルに戻る
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) || InputControl::GetKeyDown(KEY_INPUT_B))
 	{
 		return eSceneType::E_TITLE;
 	}
@@ -47,10 +40,10 @@ void Help::Draw()const
 	DrawGraph(0, 0, background_image, FALSE);
 
 	//ゲーム説明
-	SetFontSize(16);
-	DrawString(20, 120, "ヘルプ画面", 0xffffff, 0);
+	SetFontSize(50);
+	DrawString(20, 20, "ヘルプ画面", 0xffffff, 0);
 
-	DrawString(150, 450, "Bボタンを押してタイトルへ戻る", 0xffffff, 0);
+	DrawString(265, 550, "Bボタンを押してタイトルへ戻る", 0xffffff, 0);
 }
 
 

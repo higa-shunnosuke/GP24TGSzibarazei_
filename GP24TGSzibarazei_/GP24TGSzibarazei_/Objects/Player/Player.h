@@ -31,7 +31,7 @@ public:
 	Player();
 	~Player();
 
-	virtual void Initialize() override;	//初期化処理
+	virtual void Initialize(int player_type) override;	//初期化処理
 	virtual void Update() override;		//更新処理
 	virtual void Draw() const override;	//描画処理
 	virtual void Finalize() override;	//終了時処理
@@ -47,6 +47,8 @@ public:
 
 	//移動距離取得処理
 	static Vector2D GetVelocity();
+	//タイプ取得処理
+	virtual int GetType() const override;
 
 private:
 	//移動処理

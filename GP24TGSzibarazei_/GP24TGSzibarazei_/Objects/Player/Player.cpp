@@ -2,7 +2,7 @@
 #include "../../Utility/InputControl.h"
 #include "../Stage/Stage.h"
 #include "DxLib.h"
-
+int t;
 
 static Vector2D velocity;		//移動距離
 
@@ -11,6 +11,8 @@ static bool hit_l;
 static bool hit_r;
 static bool hit_u;
 static bool hit_d;
+
+static int type;
 
 //コンストラクタ
 Player::Player() :animation_count(0), flip_flag(FALSE)
@@ -53,7 +55,7 @@ Player::~Player()
 {}
 
 //初期化処理
-void Player::Initialize()
+void Player::Initialize(int player_type)
 {
 	//前方向画像の読み込み
 	LoadDivGraph("Resource/images/Player/knight/knight_all.png", 23, 5, 5, 160, 200, animation);
@@ -108,13 +110,13 @@ void Player::Initialize()
 		}
 	}
 
-	for (int i = 0; i < 10; i++)
+	/*for (int i = 0; i < 10; i++)
 	{
 		if (number_image[i] == -1)
 		{
 			throw("数字画像がありません\n");
 		}
-	}
+	}*/
 
 	/*if (animation[0] == -1 || animation[1] == -1)
 	{
@@ -206,10 +208,12 @@ void Player::Draw() const
 		DrawFormatString(480, 340, GetColor(255, 0, 0), "no");
 	}
 
-	DrawFormatString( 10, 130, 0x0000ff, "Left :%d", hit_l);
-	DrawFormatString( 10, 150, 0x0000ff, "Right:%d", hit_r);
-	DrawFormatString( 10, 170, 0x0000ff, "Up   :%d", hit_u);
-	DrawFormatString( 10, 190, 0x0000ff, "Down :%d", hit_d);
+	//DrawFormatString(10, 170, 0xffff00, "%d", hit_l);
+	//DrawFormatString(10, 190, 0xffff00, "%d", hit_r);
+	//DrawFormatString(10, 210, 0xffff00, "%d", hit_u);
+	//DrawFormatString(10, 230, 0xffff00, "%d", hit_d);
+	//DrawFormatString(10, 250, 0xffff00, "%d", t);
+
 
 	//デバック用
 	__super::Draw();
@@ -235,11 +239,19 @@ void Player::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時の処理
 	//hp--;
+
+	t = hit_object->GetType();
+	Vector2D pl;
+	Vector2D ps;
+	Vector2D ol;
+	Vector2D os;
+
+
+	pl = this->GetLocation();
+	ps = this->GetBoxSize() / 2.0f;
+	ol = hit_object->GetLocation();
+	os = hit_object->GetBoxSize() / 2.0f;
 	
-	Vector2D pl = this->GetLocation();
-	Vector2D ps = this->GetBoxSize() / 2.0f;
-	Vector2D ol = hit_object->GetLocation();
-	Vector2D os = hit_object->GetBoxSize() / 2.0f;
 
 	//横方向
 	//プレイヤーの左側がステージの左側より右のとき
@@ -264,7 +276,6 @@ void Player::OnHitCollision(GameObject* hit_object)
 	{
 		hit_d = true;
 	}
-
 }
 
 //位置情報取得処理
@@ -473,4 +484,10 @@ void Player::AcquisitionPassive()
 Vector2D Player::GetVelocity()
 {
 	return velocity;
+}
+
+//ステージのタイプ取得処理
+int Player::GetType() const
+{
+	return type;
 }

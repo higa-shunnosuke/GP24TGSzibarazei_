@@ -6,6 +6,7 @@
 #include"Enemy_Attack.h"
 
 Enemy_Attack* EA;
+static int type;
 
 Enemy::Enemy() :animation_count(0),ATK (10),Speed(1),AS(15.0),HP(10),AL(80),ET(0),isBoss(false)
 {
@@ -28,7 +29,7 @@ void Enemy::Attack()
 
 }
 
-void Enemy::Initialize()
+void Enemy::Initialize(int enemy_type)
 {
 	LoadDivGraph("Resource/images/Enemy/troll/troll_all.png", 20, 5, 4, 198, 132, animation);
 
@@ -46,7 +47,7 @@ void Enemy::Initialize()
 	scale = 80.0f;
 	image = animation[0];
 
-	EA = CreateObject<Enemy_Attack>(Vector2D());
+	EA = CreateObject<Enemy_Attack>(Vector2D(),0);
 }
 
 void Enemy::Update()
@@ -260,4 +261,10 @@ void Enemy::Finalize()
 void Enemy::SetPlayer(Player* player)
 {
 	this->player = player;
+}
+
+//ステージのタイプ取得処理
+int Enemy::GetType() const
+{
+	return type;
 }

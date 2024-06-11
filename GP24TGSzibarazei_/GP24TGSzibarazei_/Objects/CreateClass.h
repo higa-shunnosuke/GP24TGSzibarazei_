@@ -7,8 +7,8 @@ class CreateClass : public GameObject
 {
 protected:
 	template <class T>
-	T* CreateObject(const Vector2D& location)
+	T* CreateObject(const Vector2D& location,int type)
 	{
-		return SB->CreateObject<T>(location);
+		return SB->CreateObject<T>(location,type);
 	}
 };

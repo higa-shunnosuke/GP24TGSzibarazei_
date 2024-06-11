@@ -25,7 +25,7 @@ public:
 	Enemy();
 	~Enemy();
 
-	virtual void Initialize() override;	//初期化処理
+	virtual void Initialize(int enemy_type) override;	//初期化処理
 	virtual void Attack();				//攻撃処理
 	virtual void Update() override;		//更新処理
 	virtual void Draw() const override;	//描画処理
@@ -41,6 +41,8 @@ public:
 	virtual Vector2D Getscale() const override;
 	//位置情報変更処理
 	virtual void SetLocation(const Vector2D& location) override;
+	//タイプ取得処理
+	virtual int GetType() const override;
 
 private:
 	//移動処理

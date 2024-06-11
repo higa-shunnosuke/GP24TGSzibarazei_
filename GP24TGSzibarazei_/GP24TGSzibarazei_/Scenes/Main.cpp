@@ -34,7 +34,9 @@ void Main::Initialize()
 
 	/*********************オブジェクトを生成する********************/
 
-	//ステージの生成
+	//ステージのを設定
+	int start = Stage::SetStage();
+
 	//読込ファイルを開く
 	fopen_s(&fp, STAGE_DATA, "r");
 
@@ -66,23 +68,23 @@ void Main::Initialize()
 				continue;
 			}
 			//読み込んだ文字が１以上なら、ブロックを生成
-			else if (block - '0' > 0)
+			else if (block - '0' == 0)
 			{
-				type = block;
+				type = block - '0';
 				CreateObject<Stage>(Vector2D(
-					stagedat.STAGE_WIDTH  * 100.0f - 0.f,
-					stagedat.STAGE_HEIGHT * 100.0f - 0.f));
+					stagedat.STAGE_WIDTH  * 100.0f - -40.f,
+					stagedat.STAGE_HEIGHT * 100.0f - 240.f),type) ;
 			}
-		}	
+		}
 		//ファイルを閉じる
 		fclose(fp);
 	}
 
 	//プレイヤーを生成
-	Player* p = CreateObject<Player>(Vector2D(640.0f, 360.0f));
+	Player* p = CreateObject<Player>(Vector2D(640.0f, 360.0f),0);
 
 	//エネミーの生成
-	//CreateObject<Enemy>(Vector2D(640.0f, 360.0f))->SetPlayer(p);
+	//CreateObject<Enemy>(Vector2D(640.0f, 360.0f),0)->SetPlayer(p);
 }
 
 //更新処理
@@ -98,11 +100,14 @@ eSceneType Main::Update()
 		}
 
 		//プレイヤーの当たり判定
-		for (int i = 0; i < objects.size()-1; i++)
+		for (int i = 0; i < objects.size(); i++)
 		{
-			//当たり判定チェック処理
-			HitCheckObject(objects[objects.size()-1], objects[i]);
-		}		
+			for (int j = i + 1; j < objects.size(); j++)
+			{
+				//当たり判定チェック処理
+				HitCheckObject(objects[i], objects[j]);
+			}
+		}
 
 		//スタートボタンが押されたら、ポーズする
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
@@ -131,21 +136,23 @@ void Main::Draw() const
 	{
 		obj->Draw();
 	}
-
+	
 	//ステージ情報描画
-	for (int i = 0; i < 3; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			DrawFormatString(j * 20+10, i * 20+50, 0xffff00, "%d", Stage::GetStage(i,j));
-		}
-	}
+	//int j = 0;
+	//for (int i = 0; i < 9; i++)
+	//{
+	//	if (i % 3 == 0)
+	//	{
+	//		j++;
+	//	}
+	//	DrawFormatString(i % 3 * 20 + 10, j * 20 + 50, 0xffff00, "%d", Stage::GetStage(i));
+	//}
 
 	//ポーズ状態の可視化
 	if (Is_pause==true)
 	{
 		SetFontSize(100);
-		DrawFormatString(515,310, 0xffffff, "PAUSE");
+		DrawFormatString(515,310, 0xa0a0a0, "PAUSE");
 	}
 	SetFontSize(20);
 
@@ -181,12 +188,6 @@ eSceneType Main::GetNowScene()const
 StageDat Main::GetStageSiz()
 {
 	return stagedat;
-}
-
-//ステージのタイプを取得
-int Main::GetStageType()
-{
-	return type;
 }
 
 //当たり判定チェック処理（矩形の中心で当たり判定をとる）
