@@ -18,6 +18,7 @@ private:
 	int ET;						//EnemyType(敵の種類を選択する)
 	bool isBoss;				//この敵がボスかどうかを確認する
 	Player* player;				//プレイヤーの情報を確保する
+	int exp;					//経験値を保存する
 
 
 public:

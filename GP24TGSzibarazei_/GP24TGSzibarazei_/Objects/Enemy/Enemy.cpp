@@ -24,7 +24,7 @@ void Enemy::Attack()
 	{
 		throw("エネミーとエネミーアタック間の値渡しに問題があります。");
 	}
-
+	CreateObject<Enemy_Attack>(this->location);
 
 }
 
@@ -68,12 +68,16 @@ void Enemy::Draw() const
 
 void Enemy::OnHitCollision(GameObject* hit_object)
 {
+	if (hit_object == player)
+	{
 	//プレイヤー側からダメージの値を貰って、その値分HPを引く
 	HP--;
+	}
+
 	//HPが0より小さくなったら死亡する※経験値を落とす
 	if (HP <= 0)
 	{
-		//Finalize();
+		DeleteObject(this);
 	}
 }
 
@@ -140,6 +144,7 @@ void Enemy::AnimeControl()
 	animation_count++;
 
 	//６０フレーム目に到達したら
+	//現在のアニメーション画像が今どの段階かを取得する(jがAnimの現在を所持する)(iは終了時処理を行うため特に不要)
 	if (animation_count >= 60)
 	{
 		int i = 0, j = 0;

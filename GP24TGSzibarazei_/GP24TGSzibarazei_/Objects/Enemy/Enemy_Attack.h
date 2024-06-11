@@ -6,7 +6,7 @@ class Enemy_Attack : public GameObject
 {
 
 private:
-	int animation[4];			//アニメーション画像
+	int animation[25];			//アニメーション画像
 	int anim;
 	int animation_count;		//アニメーション時間(アイドリング用)
 	float AS;					//AtackSpeed(攻撃速度)
@@ -24,6 +24,7 @@ public:
 	virtual void Update() override;		//更新処理
 	virtual void Draw() const override;	//描画処理
 	virtual void Finalize() override;	//終了時処
+	virtual void Movement();
 
 	//エネミーの情報を受け取る
 	virtual bool SetEnemy(int ATK,int AL,float AS, Vector2D loc);
