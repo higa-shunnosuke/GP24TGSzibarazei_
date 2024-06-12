@@ -25,7 +25,7 @@ void Enemy::Attack()
 	{
 		throw("エネミーとエネミーアタック間の値渡しに問題があります。");
 	}
-	CreateObject<Enemy_Attack>(this->location);
+	CreateObject<Enemy_Attack>(this->location,0);
 
 }
 
@@ -256,6 +256,8 @@ void Enemy::Finalize()
 		DeleteGraph(animation[i]);
 	}
 	//撃破数か何かしらをリターン
+
+	
 }
 
 void Enemy::SetPlayer(Player* player)

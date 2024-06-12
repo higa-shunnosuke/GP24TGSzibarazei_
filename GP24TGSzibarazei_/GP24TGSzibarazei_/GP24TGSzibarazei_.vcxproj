@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Objects\CreateClass.h" />
+    <ClInclude Include="Objects\DeleteClass.h" />
     <ClInclude Include="Objects\Enemy\Enemy_Attack.h" />
     <ClInclude Include="Objects\Enemy\Enemy_mob.h" />
     <ClInclude Include="Scenes\SceneBase.h" />

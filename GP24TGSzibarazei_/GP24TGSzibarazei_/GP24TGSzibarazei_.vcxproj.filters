@@ -116,6 +116,9 @@
     <ClInclude Include="Objects\CreateClass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\DeleteClass.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\images\Enemy\troll\troll_left_1.png">

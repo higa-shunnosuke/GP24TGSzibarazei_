@@ -25,6 +25,8 @@ public:
 	virtual void Draw() const override;	//描画処理
 	virtual void Finalize() override;	//終了時処
 	virtual void Movement();
+	virtual void AnimControl();
+
 
 	//エネミーの情報を受け取る
 	virtual bool SetEnemy(int ATK,int AL,float AS, Vector2D loc);
@@ -36,7 +38,7 @@ public:
 	virtual Vector2D Getscale() const ;
 	//位置情報変更処理
 	virtual void SetLocation(const Vector2D& location) ;
-	//タイプ取得処理
-	virtual int GetType() const override;
+	////タイプ取得処理
+	//virtual int GetType() const override;
 };
 

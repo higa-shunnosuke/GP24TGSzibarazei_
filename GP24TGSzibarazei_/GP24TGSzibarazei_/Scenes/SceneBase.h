@@ -73,4 +73,37 @@ public:
 		//インスタンスのポインタを返却
 		return new_instance;
 	}
+
+	//オブジェクトを削除する
+	template <class D>
+	D* DeleteClass(GameObject* deleteobject)
+	{
+		int i;
+		GameObject* delete_object = dynamic_cast<GameObject*>(deleteobject);
+
+		if (delete_object == nullptr)
+		{
+			delete delete_object;
+			throw std::string("ゲームオブジェクトを特定できませんでした");
+		}
+
+		//①(オブジェクトの中身を見て一致する) or ②(オブジェクトの最後)までループ
+		for (i = 0; i < objects.size(); i++)
+		{
+			if (delete_object == objects.at(i))
+			{
+				break;
+			}
+		}
+
+		//上記のどちらの条件で終了したかの確認:(① and ②)
+		if (delete_object != objects.at(i) && i == objects.size())
+		{
+			throw("オブジェクトの削除が不出来です。");
+		}
+
+		//Finalizeを通し、先頭からi番目(削除するオブジェクト)を消す
+		delete_object->Finalize();
+		objects.erase(objects.begin() + i);
+	}
 };

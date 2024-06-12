@@ -6,7 +6,32 @@ static int type;
 
 Enemy_Attack::Enemy_Attack():AL(-1),ATK(-1),AS(-1.0f),scale(1.0f)
 {
-	// anim = LoadGraph("Resource/images/打撃エフェクト.mp4");
+	animation[0] = LoadGraph("Resource/images/Enemy/troll/Attack/1.png");
+	animation[1] = LoadGraph("Resource/images/Enemy/troll/Attack/2.png");
+	animation[2] = LoadGraph("Resource/images/Enemy/troll/Attack/3.png");
+	animation[3] = LoadGraph("Resource/images/Enemy/troll/Attack/4.png");
+	animation[4] = LoadGraph("Resource/images/Enemy/troll/Attack/5.png");
+	animation[5] = LoadGraph("Resource/images/Enemy/troll/Attack/6.png");
+	animation[6] = LoadGraph("Resource/images/Enemy/troll/Attack/7.png");
+	animation[7] = LoadGraph("Resource/images/Enemy/troll/Attack/8.png");
+	animation[8] = LoadGraph("Resource/images/Enemy/troll/Attack/9.png");
+	animation[9] = LoadGraph("Resource/images/Enemy/troll/Attack/10.png");
+	animation[10] = LoadGraph("Resource/images/Enemy/troll/Attack/11.png");
+	animation[11] = LoadGraph("Resource/images/Enemy/troll/Attack/12.png");
+	animation[12] = LoadGraph("Resource/images/Enemy/troll/Attack/13.png");
+	animation[13] = LoadGraph("Resource/images/Enemy/troll/Attack/14.png");
+	animation[14] = LoadGraph("Resource/images/Enemy/troll/Attack/15.png");
+	animation[15] = LoadGraph("Resource/images/Enemy/troll/Attack/16.png");
+	animation[16] = LoadGraph("Resource/images/Enemy/troll/Attack/17.png");
+	animation[17] = LoadGraph("Resource/images/Enemy/troll/Attack/18.png");
+	animation[18] = LoadGraph("Resource/images/Enemy/troll/Attack/19.png");
+	animation[19] = LoadGraph("Resource/images/Enemy/troll/Attack/20.png");
+	animation[20] = LoadGraph("Resource/images/Enemy/troll/Attack/21.png");
+	animation[21] = LoadGraph("Resource/images/Enemy/troll/Attack/22.png");
+	animation[22] = LoadGraph("Resource/images/Enemy/troll/Attack/23.png");
+	animation[23] = LoadGraph("Resource/images/Enemy/troll/Attack/24.png");
+	animation[24] = LoadGraph("Resource/images/Enemy/troll/Attack/25.png");
+
 }
 
 Enemy_Attack::~Enemy_Attack()
@@ -56,6 +81,8 @@ void Enemy_Attack::Update()
 {
 	Draw();
 
+	AnimControl();
+
 }
 
 void Enemy_Attack::Draw() const
@@ -79,8 +106,25 @@ void Enemy_Attack::Finalize()
 {
 }
 
-//ステージのタイプ取得処理
-int Enemy_Attack::GetType() const
+void Enemy_Attack::Movement()
 {
-	return type;
+
+}
+
+void Enemy_Attack::AnimControl()
+{
+	animation_count++;
+	if (animation_count >= 20)
+	{
+		int i = 0, j = 0;
+		while (i == 1 || j < 25)
+		{
+			if (image == animation[j])
+			{
+				i = 1;
+				break;
+			}
+			j++;
+		}
+	}
 }
