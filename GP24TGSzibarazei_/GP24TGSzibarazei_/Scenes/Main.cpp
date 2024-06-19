@@ -84,7 +84,7 @@ void Main::Initialize()
 	Player* p = CreateObject<Player>(Vector2D(640.0f, 360.0f),0);
 
 	//エネミーの生成
-	//CreateObject<Enemy>(Vector2D(640.0f, 360.0f),0)->SetPlayer(p);
+	CreateObject<Enemy>(Vector2D(640.0f, 360.0f),0)->SetPlayer(p);
 }
 
 //更新処理

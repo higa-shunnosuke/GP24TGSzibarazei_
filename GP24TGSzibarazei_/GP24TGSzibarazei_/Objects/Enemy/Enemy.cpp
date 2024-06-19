@@ -21,11 +21,14 @@ Enemy::~Enemy()
 
 void Enemy::Attack()
 {
-	if (EA->SetEnemy(ATK, AL, AS,this->location) == false)
+
+	EA = CreateObject<Enemy_Attack>(this->location, 0);
+
+
+	if (EA->SetEnemy(ATK, AL, AS,this->location,player) == false)
 	{
 		throw("エネミーとエネミーアタック間の値渡しに問題があります。");
 	}
-	CreateObject<Enemy_Attack>(this->location,0);
 
 }
 
@@ -46,8 +49,6 @@ void Enemy::Initialize(int enemy_type)
 	radian = 0.0f;
 	scale = 80.0f;
 	image = animation[0];
-
-	EA = CreateObject<Enemy_Attack>(Vector2D(),0);
 }
 
 void Enemy::Update()
@@ -89,7 +90,6 @@ void Enemy::SetLocation(const Vector2D& location)
 
 void Enemy::Movement()
 {
-
 	location -= player->GetVelocity();
 	//プレイヤーとエネミーの自身の差
 	Vector2D diff = player->GetLocation() - this->GetLocation();

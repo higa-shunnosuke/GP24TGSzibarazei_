@@ -32,13 +32,14 @@ Enemy_Attack::Enemy_Attack():AL(-1),ATK(-1),AS(-1.0f),scale(1.0f)
 	animation[23] = LoadGraph("Resource/images/Enemy/troll/Attack/24.png");
 	animation[24] = LoadGraph("Resource/images/Enemy/troll/Attack/25.png");
 
+	anim = animation[0];
 }
 
 Enemy_Attack::~Enemy_Attack()
 {
 }
 
-bool Enemy_Attack::SetEnemy(int ATK, int AL, float AS ,Vector2D loc)
+bool Enemy_Attack::SetEnemy(int ATK, int AL, float AS ,Vector2D loc,Player* p)
 {
 	if (ATK == -1 || AL == -1 || AS == -1.0f){
 		return false;
@@ -47,6 +48,7 @@ bool Enemy_Attack::SetEnemy(int ATK, int AL, float AS ,Vector2D loc)
 	this->AL = AL;
 	this->AS = AS;
 	this->location = loc;
+	this->player = p;
 
 	return true;
 }
@@ -79,16 +81,15 @@ void Enemy_Attack::Attack()
 
 void Enemy_Attack::Update()
 {
-	Draw();
-
 	AnimControl();
 
 }
 
 void Enemy_Attack::Draw() const
 {
+
 	// 動画を指定した位置とサイズで描画
-	DrawExtendGraphF(location.x, location.y, location.x + 50, location.y + 50, anim, TRUE);
+	DrawRotaGraphF(location.x,location.y,0.15,radian, anim, FALSE,1,0);
 
 	//デバック用
 #if _DEBUG
@@ -108,7 +109,6 @@ void Enemy_Attack::Finalize()
 
 void Enemy_Attack::Movement()
 {
-
 }
 
 void Enemy_Attack::AnimControl()
@@ -119,12 +119,20 @@ void Enemy_Attack::AnimControl()
 		int i = 0, j = 0;
 		while (i == 1 || j < 25)
 		{
-			if (image == animation[j])
+			if (anim == animation[j])
 			{
 				i = 1;
 				break;
 			}
 			j++;
 		}
+		if (j == 24)
+		{
+			Deleteclass(this);
+		}else{
+				j++;
+		}
+		
+		anim = animation[j];
 	}
 }

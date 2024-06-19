@@ -75,8 +75,7 @@ public:
 	}
 
 	//オブジェクトを削除する
-	template <class D>
-	D* DeleteClass(GameObject* deleteobject)
+	void DeleteObject(GameObject* deleteobject)
 	{
 		int i;
 		GameObject* delete_object = dynamic_cast<GameObject*>(deleteobject);
