@@ -22,12 +22,16 @@ Enemy::~Enemy()
 void Enemy::Attack()
 {
 
-	EA = CreateObject<Enemy_Attack>(this->location, 0);
-
-
-	if (EA->SetEnemy(ATK, AL, AS,this->location,player) == false)
+	if (EA == nullptr)
 	{
-		throw("エネミーとエネミーアタック間の値渡しに問題があります。");
+		EA = CreateObject<Enemy_Attack>(this->location, 0);
+
+
+		if (EA->SetEnemy(ATK, AL, AS, this->location, player,this) == false)
+		{
+			throw("エネミーとエネミーアタック間の値渡しに問題があります。");
+		}
+
 	}
 
 }
@@ -130,11 +134,14 @@ void Enemy::Movement()
 	else if (image == animation[13] || image == animation[14])
 	{
 		image = animation[10];
-		Attack();
 	}
 	else if (image == animation[3] || image == animation[4])
 	{
 		image = animation[0];
+	}
+
+	if ((diff.x <= AL && diff.x >= -AL) && (diff.y <= AL && diff.y >= -AL))
+	{
 		Attack();
 	}
 }
@@ -257,6 +264,7 @@ void Enemy::Finalize()
 	}
 	//撃破数か何かしらをリターン
 
+	EA = nullptr;
 	
 }
 
@@ -269,4 +277,12 @@ void Enemy::SetPlayer(Player* player)
 int Enemy::GetType() const
 {
 	return type;
+}
+
+void Enemy::AttackMore(bool isDelte)
+{
+	if (isDelte == true)
+	{
+		EA = nullptr;
+	}
 }

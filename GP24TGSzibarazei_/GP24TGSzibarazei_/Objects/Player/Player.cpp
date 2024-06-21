@@ -480,6 +480,24 @@ void Player::AcquisitionPassive()
 	}
 }
 
+void Player::HitAttack(int Damage)
+{
+	if (limit_hp > 0)
+	{
+		limit_hp-= Damage;
+	}
+	else
+	{
+		hp-= Damage;
+	}
+
+	if (hp < -1)
+	{
+		hp = -1;
+	}
+
+}
+
 //ˆÚ“®‹——£Žæ“¾ˆ—
 Vector2D Player::GetVelocity()
 {

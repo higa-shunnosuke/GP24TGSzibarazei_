@@ -44,6 +44,8 @@ public:
 	//ƒ^ƒCƒvæ“¾ˆ—
 	virtual int GetType() const override;
 
+	virtual void AttackMore(bool isDelte);
+
 private:
 	//ˆÚ“®ˆ—
 	void Movement();

@@ -50,6 +50,9 @@ public:
 	//ƒ^ƒCƒvæ“¾ˆ—
 	virtual int GetType() const override;
 
+	//UŒ‚‚ğ‹ò‚ç‚Á‚½‚Æ‚«
+	void HitAttack(int Damage);
+
 private:
 	//ˆÚ“®ˆ—
 	void Movement();
