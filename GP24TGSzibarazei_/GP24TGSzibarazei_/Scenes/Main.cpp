@@ -109,6 +109,11 @@ eSceneType Main::Update()
 			}
 		}
 
+		if (PlayerDown == true)
+		{
+			return eSceneType::E_RESULT;
+		}
+
 		//スタートボタンが押されたら、ポーズする
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START) || InputControl::GetKeyDown(KEY_INPUT_SPACE))
 		{

@@ -34,7 +34,7 @@ void Result::Initialize()
 eSceneType Result::Update()
 {
 	//Aボタンでタイトルに遷移する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_A)|| InputControl::GetKeyDown(KEY_INPUT_A))
 	{
 		return eSceneType::E_TITLE;
 	}

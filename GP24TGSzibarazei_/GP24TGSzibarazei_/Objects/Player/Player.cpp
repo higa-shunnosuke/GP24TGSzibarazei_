@@ -232,6 +232,8 @@ void Player::Finalize()
 	{
 		DeleteGraph(ui_image[i]);
 	}
+
+	SB->PlayerChange();
 }
 
 //“–‚½‚è”»’è’Ê’mˆ—
@@ -494,6 +496,11 @@ void Player::HitAttack(int Damage)
 	if (hp < -1)
 	{
 		hp = -1;
+	}
+
+	if (hp < 0)
+	{
+		Deleteclass(this);
 	}
 
 }

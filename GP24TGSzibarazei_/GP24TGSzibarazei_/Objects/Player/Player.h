@@ -5,8 +5,9 @@
 #define RIGHT (3)
 
 #include"../GameObject.h"
+#include"../DeleteClass.h"
 
-class Player :public GameObject
+class Player :public DeleteClass
 {
 private:
 	int hp;               //‘Ì—Í

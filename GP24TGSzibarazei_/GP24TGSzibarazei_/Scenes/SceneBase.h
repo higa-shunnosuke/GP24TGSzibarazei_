@@ -21,6 +21,7 @@ class SceneBase
 {
 protected:
 	std::vector<GameObject*> objects;
+	bool PlayerDown = false;
 
 public:
 	SceneBase() {}
@@ -37,6 +38,10 @@ public:
 	virtual void Draw() const {}
 	//I—¹ˆ—
 	virtual void Finalize() {}
+
+	virtual void PlayerChange() {
+		PlayerDown = true;
+	}
 
 	//Œ»İ‚ÌƒV[ƒ“î•ñ‚ğæ“¾
 	virtual eSceneType GetNowScene() const = 0;

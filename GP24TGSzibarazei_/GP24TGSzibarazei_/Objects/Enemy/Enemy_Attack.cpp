@@ -90,7 +90,7 @@ void Enemy_Attack::Draw() const
 
 void Enemy_Attack::Finalize()
 {
-	if (enemy != nullptr)
+	if (enemy != nullptr && anim == animation[19])
 	{
 		enemy->AttackMore(true);
 		enemy = nullptr;
